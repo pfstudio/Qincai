@@ -11,6 +11,9 @@ using Qincai.Api.Models;
 
 namespace Qincai.Api.Controllers
 {
+    /// <summary>
+    /// 用户相关API
+    /// </summary>
     [Route("api/[controller]")]
     [Produces("application/json")]
     [ApiController]
@@ -25,12 +28,18 @@ namespace Qincai.Api.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// 用户列表
+        /// </summary>
         [HttpGet]
         public IEnumerable<UserDTO> List()
         {
             return _context.Users.ProjectTo<UserDTO>(_mapper.ConfigurationProvider);
         }
 
+        /// <summary>
+        /// 随机返回一个用户(仅供测试使用)
+        /// </summary>
         [HttpGet("Random")]
         public UserDTO Random()
         {

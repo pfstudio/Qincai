@@ -15,6 +15,7 @@ using AutoMapper;
 using Qincai.Api.Models;
 using Qincai.Api.Dtos;
 using Swashbuckle.AspNetCore.Swagger;
+using System.IO;
 
 namespace Qincai.Api
 {
@@ -51,6 +52,9 @@ namespace Qincai.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Qincai API", Version = "v1" });
+
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "Qincai.Api.xml");
+                c.IncludeXmlComments(filePath);
             });
         }
 

@@ -12,6 +12,9 @@ using Qincai.Api.Models;
 
 namespace Qincai.Api.Controllers
 {
+    /// <summary>
+    /// 问题相关API
+    /// </summary>
     [Route("api/[controller]")]
     [Produces("application/json")]
     [ApiController]
@@ -26,9 +29,16 @@ namespace Qincai.Api.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// 创建一个新的问题
+        /// </summary>
+        /// <param name="model">新问题</param>
+        /// <param name="userId">用户Id</param>
         [HttpPost("[Action]")]
         public ActionResult Create([FromBody]CreateQuestion model, [FromHeader]Guid userId)
         {
+            // 验证用户身份
+            // 终极简化版
             if (userId == null)
             {
                 return Unauthorized();
@@ -36,8 +46,11 @@ namespace Qincai.Api.Controllers
 
             User questioner = _context.Users.Find(userId);
 
+            // 创建新问题
             var question = new Question
             {
+                // 为了方便测试，Guid由代码直接生成
+                // 转入生成环境后，Guid由数据库自主生成
                 Id = Guid.NewGuid(),
                 Title = model.Title,
                 Content = new Content
@@ -48,28 +61,44 @@ namespace Qincai.Api.Controllers
                 LastTime = DateTime.Now,
                 Questioner = questioner
             };
-
+            // 保存修改
             _context.Add(question);
             _context.SaveChanges();
-
+            // 返回201，以及location uri
+            // 不应直接返回任何数据库模型！！！
+            // 此处使用AutoMap实现映射
             return CreatedAtRoute("GetQuestion", new { question.Id }, _mapper.Map<QuestionDTO>(question));
         }
 
+        /// <summary>
+        /// 问题列表
+        /// </summary>
+        /// <remarks>后期需要按某一字段排序</remarks>
+        /// <param name="page">页数</param>
+        /// <param name="pagesize">每页数量</param>
         [HttpGet]
         public ActionResult<PagedResult<QuestionDTO>> List([FromQuery]int page=1, [FromQuery]int pagesize=10)
         {
             var questions = _context.Questions
                 .Include(q => q.Questioner)
                 .AsNoTracking().AsQueryable()
+                // 此处使用ProjectTo拓展实现对IQueryable对象的映射
                 .ProjectTo<QuestionDTO>(_mapper.ConfigurationProvider);
             var tmp = questions.ToList();
             if(page < 1 || pagesize > 50)
             {
                 return BadRequest("分页错误");
             }
+            // 利用PagedResult，实现分页
+            // TODO：缺少更高级的分页控制
             return PagedResult<QuestionDTO>.Filter(questions, page, pagesize);
         }
 
+        /// <summary>
+        /// 根据Id获取问题
+        /// </summary>
+        /// <param name="id">问题Id</param>
+        //  此处Name是因为CreateAtRoute需要
         [HttpGet("{id}", Name = "GetQuestion")]
         public ActionResult<QuestionDTO> GetById([FromRoute]Guid id)
         {
@@ -85,6 +114,12 @@ namespace Qincai.Api.Controllers
             return _mapper.Map<QuestionDTO>(question);
         }
 
+        /// <summary>
+        /// 问题的回答列表
+        /// </summary>
+        /// <param name="id">问题Id</param>
+        /// <param name="page">页数</param>
+        /// <param name="pagesize">每页数量</param>
         [HttpGet("{id}/Answers")]
         public ActionResult<PagedResult<AnswerDTO>> ListAnswersByQuestionId([FromRoute]Guid id, [FromQuery]int page=1, [FromQuery]int pagesize=10)
         {
@@ -106,6 +141,12 @@ namespace Qincai.Api.Controllers
             return PagedResult<AnswerDTO>.Filter(answers, page, pagesize);
         }
 
+        /// <summary>
+        /// 回答问题
+        /// </summary>
+        /// <param name="id">问题Id</param>
+        /// <param name="model">新回答</param>
+        /// <param name="userId">用户Id</param>
         [HttpPost("{id}/Reply")]
         public ActionResult Reply([FromRoute]Guid id, [FromBody]ReplyQuestion model, [FromHeader]Guid userId)
         {
