@@ -16,6 +16,11 @@ using Qincai.Api.Models;
 using Qincai.Api.Dtos;
 using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
+using Senparc.CO2NET.RegisterServices;
+using Senparc.Weixin.RegisterServices;
+using Senparc.CO2NET;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin;
 
 namespace Qincai.Api
 {
@@ -37,9 +42,9 @@ namespace Qincai.Api
 
             services.AddAutoMapper(options =>
             {
-                options.CreateMap<Question, QuestionDTO>();
-                options.CreateMap<Answer, AnswerDTO>();
-                options.CreateMap<User, UserDTO>();
+                options.CreateMap<Question, QuestionDto>();
+                options.CreateMap<Answer, AnswerDto>();
+                options.CreateMap<User, UserDto>();
             });
 
             services.AddMvc()
@@ -56,10 +61,17 @@ namespace Qincai.Api
                 var filePath = Path.Combine(System.AppContext.BaseDirectory, "Qincai.Api.xml");
                 c.IncludeXmlComments(filePath);
             });
+
+            services.AddMemoryCache();
+
+            services.AddSenparcGlobalServices(Configuration)
+                .AddSenparcWeixinServices(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
             SeedData.InitDatabase(app.ApplicationServices.CreateScope().ServiceProvider);
 
@@ -81,6 +93,12 @@ namespace Qincai.Api
             });
 
             app.UseMvc();
+
+            // 启动 CO2NET 全局注册，必须！
+            IRegisterService register = RegisterService.Start(env, senparcSetting.Value)
+                .UseSenparcGlobal();
+            //微信全局注册，必须！
+            register.UseSenparcWeixin(senparcWeixinSetting.Value, senparcSetting.Value);
         }
     }
 }

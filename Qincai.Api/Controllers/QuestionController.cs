@@ -67,7 +67,7 @@ namespace Qincai.Api.Controllers
             // 返回201，以及location uri
             // 不应直接返回任何数据库模型！！！
             // 此处使用AutoMap实现映射
-            return CreatedAtRoute("GetQuestion", new { question.Id }, _mapper.Map<QuestionDTO>(question));
+            return CreatedAtRoute("GetQuestion", new { question.Id }, _mapper.Map<QuestionDto>(question));
         }
 
         /// <summary>
@@ -77,13 +77,13 @@ namespace Qincai.Api.Controllers
         /// <param name="page">页数</param>
         /// <param name="pagesize">每页数量</param>
         [HttpGet]
-        public ActionResult<PagedResult<QuestionDTO>> List([FromQuery]int page=1, [FromQuery]int pagesize=10)
+        public async Task<ActionResult<PagedResult<QuestionDto>>> List([FromQuery]int page=1, [FromQuery]int pagesize=10)
         {
             var questions = _context.Questions
                 .Include(q => q.Questioner)
                 .AsNoTracking().AsQueryable()
                 // 此处使用ProjectTo拓展实现对IQueryable对象的映射
-                .ProjectTo<QuestionDTO>(_mapper.ConfigurationProvider);
+                .ProjectTo<QuestionDto>(_mapper.ConfigurationProvider);
             var tmp = questions.ToList();
             if(page < 1 || pagesize > 50)
             {
@@ -91,7 +91,7 @@ namespace Qincai.Api.Controllers
             }
             // 利用PagedResult，实现分页
             // TODO：缺少更高级的分页控制
-            return PagedResult<QuestionDTO>.Filter(questions, page, pagesize);
+            return await PagedResult<QuestionDto>.CreateAsync(questions, page, pagesize);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Qincai.Api.Controllers
         /// <param name="id">问题Id</param>
         //  此处Name是因为CreateAtRoute需要
         [HttpGet("{id}", Name = "GetQuestion")]
-        public ActionResult<QuestionDTO> GetById([FromRoute]Guid id)
+        public ActionResult<QuestionDto> GetById([FromRoute]Guid id)
         {
             var question = _context.Questions
                 .Include(q => q.Questioner)
@@ -111,7 +111,7 @@ namespace Qincai.Api.Controllers
                 return NotFound();
             }
 
-            return _mapper.Map<QuestionDTO>(question);
+            return _mapper.Map<QuestionDto>(question);
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Qincai.Api.Controllers
         /// <param name="page">页数</param>
         /// <param name="pagesize">每页数量</param>
         [HttpGet("{id}/Answers")]
-        public ActionResult<PagedResult<AnswerDTO>> ListAnswersByQuestionId([FromRoute]Guid id, [FromQuery]int page=1, [FromQuery]int pagesize=10)
+        public async Task<ActionResult<PagedResult<AnswerDto>>> ListAnswersByQuestionId([FromRoute]Guid id, [FromQuery]int page=1, [FromQuery]int pagesize=10)
         {
             if (_context.Questions.Count(q => q.Id == id) == 0)
             {
@@ -132,13 +132,13 @@ namespace Qincai.Api.Controllers
                 .Include(a => a.Question)
                 .Where(a => a.Question.Id == id)
                 .AsNoTracking()
-                .ProjectTo<AnswerDTO>(_mapper.ConfigurationProvider);
+                .ProjectTo<AnswerDto>(_mapper.ConfigurationProvider);
             if (page < 1 || pagesize > 50)
             {
                 return BadRequest("分页错误");
             }
 
-            return PagedResult<AnswerDTO>.Filter(answers, page, pagesize);
+            return await PagedResult<AnswerDto>.CreateAsync(answers, page, pagesize);
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace Qincai.Api.Controllers
             _context.Update(question);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetQuestion", new { question.Id }, _mapper.Map<AnswerDTO>(answer));
+            return CreatedAtRoute("GetQuestion", new { question.Id }, _mapper.Map<AnswerDto>(answer));
         }
     }
 }

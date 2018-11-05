@@ -3,7 +3,7 @@ using System;
 
 namespace Qincai.Api.Dtos
 {
-    public class QuestionDTO
+    public class QuestionDto
     {
         /// <summary>
         /// 问题Id
@@ -20,7 +20,7 @@ namespace Qincai.Api.Dtos
         /// <summary>
         /// 提问者
         /// </summary>
-        public UserDTO Questioner { get; set; }
+        public UserDto Questioner { get; set; }
         /// <summary>
         /// 提问时间
         /// </summary>

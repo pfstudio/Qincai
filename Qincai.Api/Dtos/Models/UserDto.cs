@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Qincai.Api.Dtos
 {
-    public class UserDTO
+    public class UserDto
     {
         /// <summary>
         /// 用户Id
@@ -15,5 +12,9 @@ namespace Qincai.Api.Dtos
         /// 用户昵称
         /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// 用户头像
+        /// </summary>
+        public string AvatarUrl { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Qincai.Api.Dtos
 {
-    public class AnswerDTO
+    public class AnswerDto
     {
         /// <summary>
         /// 问题Id
@@ -15,7 +15,7 @@ namespace Qincai.Api.Dtos
         /// <summary>
         /// 回答者
         /// </summary>
-        public UserDTO Answerer { get; set; }
+        public UserDto Answerer { get; set; }
         /// <summary>
         /// 回答内容
         /// </summary>
