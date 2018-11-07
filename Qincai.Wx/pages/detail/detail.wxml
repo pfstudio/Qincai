@@ -1,0 +1,19 @@
+<!--pages/detail/detail.wxml-->
+<view class="label">问题</view>
+<van-panel custom-class="question" title="标题:{{questionTitle}}" desc="提问者:{{questioner}}" autosize use-footer-slot footer-class="footer">
+  <van-panel class="van-multi-ellipsis--l2" title="问题描述" desc="{{questionContent}}"/>
+  <view slot = "footer">
+    <view>提问时间：{{questionTime}}</view>
+  </view>
+</van-panel>
+<view class="label">回答列表</view>
+<block wx:for="{{answers}}">
+  <van-panel use-footer-slot footer-class="footer" custom-class="answerBox">
+    <view class="answerContent">{{item.content.text}}</view>
+    <view slot = "footer">
+      <view class="answer-slot">回答人:{{item.answerer.name}}</view>
+      <view>回答时间:{{item.answerTime}}</view>
+    </view>
+  </van-panel>
+</block>
+

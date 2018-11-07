@@ -1,0 +1,16 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logoutBtn{
+  padding-top: 10px;
+}
+
+.question{
+  margin: 1%; 
+}
+.content{
+  font-size: 'normal';
+}

@@ -1,0 +1,12 @@
+<!--index.wxml-->
+
+<van-cell-group>
+  <block wx:for="{{questions}}" class="questionList">
+    <van-panel class="question" id="{{item.id}}" title="标题:{{item.title}}" desc="提问者:{{item.questioner.name}}" autosize bindtap="detail">
+      <van-panel class="van-multi-ellipsis--l2" title="问题描述" desc="{{item.content.text}}"/>
+    </van-panel>
+  </block>
+</van-cell-group>
+<view class="container">
+  <van-button class = "logoutBtn" type="danger" loading = "{{loading}}" bind:click="logout">注销</van-button>
+</view>

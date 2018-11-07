@@ -260,3 +260,7 @@ paket-files/
 __pycache__/
 *.pyc
 /Qincai.Api/Qincai.Api.xml
+
+/Qincai.Wx/project.config.json
+# Vant 组件
+/Qincai.Wx/dist

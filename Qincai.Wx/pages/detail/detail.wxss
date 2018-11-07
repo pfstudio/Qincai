@@ -1,0 +1,25 @@
+/* pages/detail/detail.wxss */
+.label{
+  margin: 20rpx;
+  margin-left:30rpx !important;
+} 
+.footer{
+  font-size: 30rpx !important;
+  text-align: 'right' !important;
+}
+.answerContent{
+  padding-top: 20rpx !important;
+  padding-left:30rpx !important;
+  font-size: 35rpx;
+  color: #555555;
+  height: 200rpx !important;
+  word-break: keep-all;
+  word-wrap: break-word;
+}
+.answer-slot{
+  padding-bottom:20rpx!important; 
+
+}
+.answerBox{
+  margin-bottom: 50rpx!important;
+}

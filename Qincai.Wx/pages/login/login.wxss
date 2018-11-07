@@ -1,0 +1,8 @@
+.inputBox{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loginBtn{
+  padding-top: 40%;
+}

@@ -1,0 +1,22 @@
+<van-nav-bar
+  title="提问"
+/>
+<van-cell-group>
+  <view class="label">标题</view>
+  <van-field class="title"
+    value="{{title}}"
+    placeholder="请输入问题标题"
+    bind:change="titleChange"
+    autosize
+  />
+  <view class="label">内容</view>
+  <van-field
+    input-class="input-field"
+    value="{{content}}"
+    placeholder="请输入问题描述"
+    type="textarea"
+    bind:change="contentChange"
+    autosize
+  />
+</van-cell-group>
+<van-button type="primary" class="container" bind:click="submit" loading="{{loading}}">发布</van-button>

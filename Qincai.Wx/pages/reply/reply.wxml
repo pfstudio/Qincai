@@ -1,0 +1,21 @@
+<!--pages/reply/reply.wxml-->
+    <view class="label">问题</view>
+    <van-panel custom-class="question" title="标题:{{title}}" desc="提问者:{{questioner}}" autosize use-footer-slot footer-class="footer">
+      <van-panel class="van-multi-ellipsis--l2" title="问题描述" desc="{{content}}"/>
+      <view slot = "footer">
+        <view>提问时间：{{questionTime}}</view>
+      </view>
+    </van-panel>
+    <view class="label">回答</view>
+    <van-cell-group>
+      <van-field     
+      input-class="input-field"
+      value="{{answer}}"
+      placeholder="请输入你回答的内容"
+      type="textarea"
+      bind:change="answerChange"
+      autosize
+    />
+    </van-cell-group>
+    <van-button custom-class="submitBtn" type="primary" bind:click="submit" loading="{{loading}}">提交</van-button>
+    

@@ -1,0 +1,7 @@
+<van-cell-group>
+  <block wx:for="{{questions}}" class="questionList">
+    <van-panel class="question" id="{{item.id}}" title="标题:{{item.title}}" desc="提问者:{{item.questioner.name}}" bindtap="reply">
+      <van-panel class="van-multi-ellipsis--l2" title="问题描述" desc="{{item.content.text}}"/>
+    </van-panel>
+  </block>
+</van-cell-group>
