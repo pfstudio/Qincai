@@ -7,15 +7,20 @@
       </view>
     </van-panel>
     <view class="label">回答</view>
-    <van-cell-group>
-      <van-field     
-      input-class="input-field"
-      value="{{answer}}"
-      placeholder="请输入你回答的内容"
-      type="textarea"
-      bind:change="answerChange"
-      autosize
-    />
-    </van-cell-group>
+    <view class="inputBox">
+      <view wx:if="{{quote}}" style="padding-top:20rpx;">
+        <view class="quote">{{quote}}</view>
+      </view>
+      <van-cell-group>
+        <van-field     
+        input-class="input-field"
+        value="{{answer}}"
+        placeholder="请输入你回答的内容"
+        type="textarea"
+        bind:change="answerChange"
+        autosize
+      />
+      </van-cell-group>
+    </view>
     <van-button custom-class="submitBtn" type="primary" bind:click="submit" loading="{{loading}}">提交</van-button>
     

@@ -1,0 +1,8 @@
+<!--pages/me.wxml-->
+<view class="user">
+  <image class="avatar" src="{{user.avatarUrl}}"/>
+  <view class="userName">{{user.name}}</view>
+</view>
+<van-cell-group>
+  <van-cell title="我的问题" is-link/>
+</van-cell-group>

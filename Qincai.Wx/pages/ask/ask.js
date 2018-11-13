@@ -1,11 +1,12 @@
-
+import api from '../../utils/api/index.js'
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    id:"",
+    userId:"",
     title:"",
     content:"",
     loading:false
@@ -17,10 +18,11 @@ Page({
   onLoad: function (options) {
     let that = this;
     wx.getStorage({
-      key: 'id',
+      key: 'userId',
       success: function(res) {
+        console.log(res)
         that.setData({
-          id:res.data
+          userId:res.data
         })
       },
     })
@@ -40,30 +42,17 @@ Page({
       loading:true
     })
     let that = this
-    wx.request({
-      url: 'http://212.129.134.100:5000/api/Question/Create',
-      method:'POST',
-      header: {
-        'content-Type': 'application/json',
-        'userId':that.data.id,
-      },
-      data:{
-        title:that.data.title,
-        content:that.data.content
-      },
-      success:function(res){
-        wx.showModal({
-          title: '发布成功',
-          showCancel: false,
-          success: function (res) {
-            if (res.confirm) {
-              wx.switchTab({
-                url: '../index/index',
-              })
-            }
-          }
-        })
-      }
+    api.question.create(that.data.title,that.data.content,that.data.userId)
+    .then(function(res){
+      wx.switchTab({
+        url: '../index/index',
+        success:function(res){
+          that.setData({
+            loading: false
+          })
+        }
+      })
     })
+
   }
 })

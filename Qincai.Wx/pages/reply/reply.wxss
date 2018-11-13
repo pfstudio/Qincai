@@ -18,3 +18,16 @@
   display: flex !important;
   justify-content: center !important;
 }
+.inputBox{
+  background-color: #ffffff;
+}
+.quote{
+  width:auto;
+  margin: 0 25rpx;
+  padding-left: 15rpx;
+  background-color: #eeeeee;
+  /* border-style: solid;
+  border-width: 3rpx;
+  border-color: #555555; */
+  border-left: 10rpx solid #333;
+}

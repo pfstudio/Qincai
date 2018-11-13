@@ -1,3 +1,4 @@
+const app = getApp()
 Page({
 
   /**
@@ -12,22 +13,55 @@ Page({
   onLoad: function (options) {
     
   },
-  login:function(){
-    wx.request({
-      url: 'http://212.129.134.100:5000/api/User/Random',
-      success:function(res){
-        wx.setStorage({
-          key: 'id',
-          data: res.data.id,
-        })
-        wx.setStorage({
-          key: 'name',
-          data: res.data.name,
+  wxLogin: function (user) {
+    wx.login({
+      success: res => {
+        wx.request({
+          url: app.globalData.url + '/api/User/WxLogin',
+          method: 'POST',
+          data: {
+            code: res.code
+          },
+          success: function(res){
+            console.log(res)
+            if (res.data.status) {
+              wx.setStorage({
+                key: 'sessionId',
+                data: res.data.sessionId,
+              })
+              if (res.data.user !== null) {
+                console.log('has user')
+                wx.setStorageSync('user', res.data.user)
+                wx.switchTab({
+                  url: '../index/index',
+                })
+              } else {
+                let sessionId = wx.getStorageSync('sessionId')
+                console.log("userInfo")
+                console.log(user);
+                wx.request({
+                  url: app.globalData.url+'/api/User/WxRegister',
+                  method: 'POST',
+                  data: {
+                    sessionId: sessionId,
+                    encryptedData: user.detail.encryptedData,
+                    iv: user.detail.iv
+                  },
+                  success: function(res) {
+                    wx.setStorageSync('user', user)
+                    wx.switchTab({
+                      url: '../index/index',
+                    })
+                  }
+                })
+                  
+              }
+            }
+          }
         })
       }
     })
-    wx.navigateBack({
-      url:'../index/index'
-    })
+
+    
   },
 })

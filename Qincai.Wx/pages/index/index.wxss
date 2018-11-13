@@ -14,3 +14,13 @@
 .content{
   font-size: 'normal';
 }
+.questionBtn{
+  position: fixed !important;
+  bottom:30rpx !important;
+  right:20rpx !important;
+  box-shadow: 5rpx 5rpx 3rpx 3rpx rgb(168, 167, 167) !important;
+}
+.tab{
+  width: 100% !important;
+  margin-left: 0!important;
+}

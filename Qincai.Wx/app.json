@@ -1,12 +1,12 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs",
     "pages/login/login",
     "pages/ask/ask",
     "pages/answer/answer",
     "pages/reply/reply",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/me/me"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -23,14 +23,8 @@
         "selectedIconPath": "images/indexSelect.png"
       },
       {
-        "pagePath": "pages/ask/ask",
-        "text": "提问",
-        "iconPath": "images/question.png",
-        "selectedIconPath": "images/questionSelect.png"
-      },
-      {
-        "pagePath": "pages/answer/answer",
-        "text": "回答",
+        "pagePath": "pages/me/me",
+        "text": "我的",
         "iconPath": "images/answer.png",
         "selectedIconPath": "images/answerSelect.png"
       }

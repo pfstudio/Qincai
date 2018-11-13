@@ -1,5 +1,6 @@
 // pages/detail/detail.js
 const moment = require('../../utils/moment.js')
+import api from '../../utils/api/index.js'
 Page({
 
   /**
@@ -22,26 +23,36 @@ Page({
     this.setData({
       questionId: options.questionId,
     })
-    wx.request({
-      url: 'http://212.129.134.100:5000/api/Question/' + that.data.questionId,
-      success: function (res) {
-        console.log(res)
-        that.setData({
-          questionTitle: res.data.title,
-          questionContent: res.data.content.text,
-          questioner: res.data.questioner.name,
-          questionTime: moment(res.data.questionTime).format('YYYY-MM-DD HH: mm: ss')
-        })
-      }
+    api.question.getById(that.data.questionId)
+    .then(function(res){
+      that.setData({
+        questionTitle: res.data.title,
+        questionContent: res.data.content.text,
+        questioner: res.data.questioner.name,
+        questionTime: moment(res.data.questionTime).format('YYYY-MM-DD HH: mm: ss')
+      })
     })
-    wx.request({
-      url: 'http://212.129.134.100:5000/api/Question/'+that.data.questionId+'/Answers',
-      success:function(res){
-        console.log(res)
-        that.setData({
-          answers:res.data.result
-        })
-      }
+    api.question.answerList(that.data.questionId,1,10)
+    .then(function(res){
+      var answerList = res.data.result.map(function(item){
+        item.answerTime = moment(item.answerTime).format('YYYY-MM-DD HH: mm: ss')
+        return item
+      })
+      that.setData({
+        answers: answerList
+      })
     })
   },
+  reply:function(res){
+    let that = this
+    wx.navigateTo({
+      url: '../reply/reply?questionId='+that.data.questionId,
+    })
+  },
+  plus:function(res){
+    let that = this
+    wx.navigateTo({
+      url: '../reply/reply?questionId='+that.data.questionId+'&quote='+res.target.id,
+    })
+  }
 })

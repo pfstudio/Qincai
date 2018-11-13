@@ -1,12 +1,5 @@
 <view class='container'>
-  <van-cell-group class="inputBox">
-    <van-field
-      value="{{id}}"
-      clearable
-      label="ID"
-      placeholder="请输入ID号"
-      bind:change="inputChange"
-    />
-  </van-cell-group>
-  <van-button class='loginBtn' loading = "{{loading}}" type="primary" size = "normal" bind:click="login">登陆</van-button>
+  <open-data class="avatar" type="userAvatarUrl"></open-data>
+  <open-data type="userNickName"></open-data>
+  <van-button open-type="getUserInfo" bind:getuserinfo="wxLogin" class='loginBtn' loading = "{{loading}}" type="primary" size = "normal">登陆</van-button>
 </view>

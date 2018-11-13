@@ -23,3 +23,17 @@
 .answerBox{
   margin-bottom: 50rpx!important;
 }
+.replyBtn{
+  position: fixed !important;
+  bottom:30rpx !important;
+  right:20rpx !important;
+  box-shadow: 5rpx 5rpx 3rpx 3rpx rgb(168, 167, 167) !important;
+}
+.plus{
+  position: relative;
+  float: right !important;
+  bottom:75rpx;
+}
+.list{
+  padding-bottom: 100rpx;
+}

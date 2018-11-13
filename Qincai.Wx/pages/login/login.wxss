@@ -6,3 +6,11 @@
 .loginBtn{
   padding-top: 40%;
 }
+.avatar{
+  overflow: hidden;
+  display: block;
+  width: 160rpx;
+  height: 160rpx;   
+  border-radius: 50%;
+  margin-bottom: 20rpx;
+}

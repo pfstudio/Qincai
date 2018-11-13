@@ -7,13 +7,19 @@
   </view>
 </van-panel>
 <view class="label">回答列表</view>
-<block wx:for="{{answers}}">
-  <van-panel use-footer-slot footer-class="footer" custom-class="answerBox">
-    <view class="answerContent">{{item.content.text}}</view>
-    <view slot = "footer">
-      <view class="answer-slot">回答人:{{item.answerer.name}}</view>
-      <view>回答时间:{{item.answerTime}}</view>
-    </view>
-  </van-panel>
-</block>
+<view class="list">
+  <block wx:for="{{answers}}">
+    <van-panel use-footer-slot footer-class="footer" custom-class="answerBox">
+      <view class="answerContent">{{item.content.text}}</view>
+      <view slot = "footer">
+        <view class="answerer">
+          <view class="answer-slot">回答人:{{item.answerer.name}}</view>
+          <view>回答时间: {{item.answerTime}}</view>
+        </view>
+        <van-button custom-class="plus" id="{{item.content.text}}" size='small' bind:click="plus">追答</van-button>
+      </view>
+    </van-panel>
+  </block>
+</view>
+<van-button round custom-class="replyBtn" type="primary" bind:click="reply">回答</van-button>
 

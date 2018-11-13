@@ -1,5 +1,9 @@
 <!--index.wxml-->
-
+<van-tabs active="{{ active }}" custom-class="tab" type="card" bind:change="onChange">
+  <van-tab title="顺序 1"></van-tab>
+  <van-tab title="顺序 2"></van-tab>
+  <van-tab title="顺序 3"></van-tab>
+</van-tabs>
 <van-cell-group>
   <block wx:for="{{questions}}" class="questionList">
     <van-panel class="question" id="{{item.id}}" title="标题:{{item.title}}" desc="提问者:{{item.questioner.name}}" autosize bindtap="detail">
@@ -7,6 +11,4 @@
     </van-panel>
   </block>
 </van-cell-group>
-<view class="container">
-  <van-button class = "logoutBtn" type="danger" loading = "{{loading}}" bind:click="logout">注销</van-button>
-</view>
+<van-button round custom-class="questionBtn" type="primary" bind:click="ask">提问</van-button>
