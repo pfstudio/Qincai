@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Qincai.Api.Dtos
 {
@@ -13,6 +10,7 @@ namespace Qincai.Api.Dtos
         /// <summary>
         /// 回答内容
         /// </summary>
+        [Required(AllowEmptyStrings = false, ErrorMessage = "回答内容不为空")]
         public string Content { get; set; }
     }
 }

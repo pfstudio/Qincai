@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Qincai.Api.Models
 {
@@ -9,6 +6,7 @@ namespace Qincai.Api.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string Role { get; internal set; }
         public string AvatarUrl { get; set; }
         public string WxOpenId { get; set; }
     }

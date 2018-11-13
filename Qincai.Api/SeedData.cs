@@ -14,19 +14,22 @@ namespace Qincai.Api
             User u1 = new User
             {
                 Id = Guid.Parse("75F0C624-FF7A-4E43-9A47-85C1040594F5"),
-                Name = "某不愿意透露姓名的咕咕咕"
+                Name = "某不愿意透露姓名的咕咕咕",
+                Role = "用户"
             };
 
             User u2 = new User
             {
                 Id = Guid.Parse("35802303-5E67-4C09-8B51-5A4002E16C01"),
-                Name = "CSS鬼才"
+                Name = "CSS鬼才",
+                Role = "用户"
             };
 
             User u3 = new User
             {
                 Id = Guid.Parse("91A224B1-090A-4735-9ECF-882BE8D7536D"),
-                Name = "老师很忙"
+                Name = "老师很忙",
+                Role = "用户"
             };
 
             Question q1 = new Question

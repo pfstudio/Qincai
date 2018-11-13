@@ -264,3 +264,4 @@ __pycache__/
 /Qincai.Wx/project.config.json
 # Vant 组件
 /Qincai.Wx/dist
+/docker

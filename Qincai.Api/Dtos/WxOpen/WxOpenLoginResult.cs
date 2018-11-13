@@ -3,7 +3,7 @@
     /// <summary>
     /// 登录结果
     /// </summary>
-    public class LoginResult
+    public class WxOpenLoginResult
     {
         /// <summary>
         /// 登录状态
@@ -22,17 +22,17 @@
         /// </summary>
         public string SessionId { get; private set; }
 
-        private LoginResult() { }
+        private WxOpenLoginResult() { }
 
         /// <summary>
         /// 登录成功
         /// </summary>
         /// <param name="sessionId"><see cref="SessionId"/></param>
         /// <param name="user"><see cref="User"/></param>
-        /// <returns><see cref="LoginResult"/></returns>
-        public static LoginResult Success(string sessionId, UserDto user)
+        /// <returns><see cref="WxOpenLoginResult"/></returns>
+        public static WxOpenLoginResult Success(string sessionId, UserDto user)
         {
-            return new LoginResult
+            return new WxOpenLoginResult
             {
                 Status = true,
                 SessionId = sessionId,
@@ -45,10 +45,10 @@
         /// 用户未注册
         /// </summary>
         /// <param name="sessionid"><see cref="SessionId"/></param>
-        /// <returns><see cref="LoginResult"/></returns>
-        public static LoginResult UnRegister(string sessionid)
+        /// <returns><see cref="WxOpenLoginResult"/></returns>
+        public static WxOpenLoginResult UnRegister(string sessionid)
         {
-            return new LoginResult
+            return new WxOpenLoginResult
             {
                 Status = true,
                 SessionId = sessionid,
@@ -61,10 +61,10 @@
         /// 登录失败
         /// </summary>
         /// <param name="errMsg"><see cref="ErrMsg"/></param>
-        /// <returns><see cref="LoginResult"/></returns>
-        public static LoginResult Fail(string errMsg)
+        /// <returns><see cref="WxOpenLoginResult"/></returns>
+        public static WxOpenLoginResult Fail(string errMsg)
         {
-            return new LoginResult
+            return new WxOpenLoginResult
             {
                 Status = true,
                 SessionId = null,

@@ -37,16 +37,15 @@ namespace Qincai.Api.Dtos
         /// 创建分页结果
         /// </summary>
         /// <param name="query">查询对象</param>
-        /// <param name="page">页数</param>
-        /// <param name="pagesize">每页数量</param>
+        /// <param name="pagedParam">分页参数</param>
         /// <returns><see cref="PagedResult{T}"/></returns>
         public static async Task<PagedResult<T>> CreateAsync(
-            IQueryable<T> query, int page, int pagesize)
+            IQueryable<T> query, IPagedParam pagedParam)
         {
             // TODO: 此处使用了EF的异步拓展，尚未对非EF查询的对象进行试验。
             var result = await query
-                .Skip((page - 1) * pagesize)
-                .Take(pagesize)
+                .Skip((pagedParam.Page - 1) * pagedParam.PageSize)
+                .Take(pagedParam.PageSize)
                 .ToListAsync();
 
             int totalNum = await query.CountAsync();
@@ -54,9 +53,9 @@ namespace Qincai.Api.Dtos
             return new PagedResult<T>
             {
                 Result = result,
-                TotalPage = totalNum == 0 ? 0 : totalNum / pagesize + 1,
-                CrtPage = page,
-                PageSize = pagesize
+                TotalPage = totalNum == 0 ? 0 : totalNum / pagedParam.PageSize + 1,
+                CrtPage = pagedParam.Page,
+                PageSize = pagedParam.PageSize
             };
         }
     }
