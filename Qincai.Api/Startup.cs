@@ -48,7 +48,10 @@ namespace Qincai.Api
                 options.CreateMap<Question, QuestionDto>();
                 options.CreateMap<Answer, AnswerDto>()
                     // 配置问题引用的映射
-                    .ForMember(a => a.RefAnswer, opt => opt.MapFrom(a => a.RefAnswer));
+                    .ForMember(dto => dto.RefAnswer, opt => opt.MapFrom(src => src.RefAnswer));
+                options.CreateMap<Answer, AnswerWithQuestionDto>()
+                    .ForMember(dto => dto.RefAnswer, opt => opt.MapFrom(src => src.RefAnswer))
+                    .ForMember(dto => dto.Question,  opt => opt.MapFrom(src => src.Question));
                 options.CreateMap<User, UserDto>();
             });
 

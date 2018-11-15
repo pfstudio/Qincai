@@ -3,6 +3,7 @@ using Qincai.Api.Dtos;
 using Qincai.Api.Models;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Qincai.Api.Services
@@ -11,9 +12,9 @@ namespace Qincai.Api.Services
     {
         Task<Question> GetByIdAsync(Guid questionId);
         Task<Question> CreateAsync(User questioner, CreateQuestion dto);
-        IQueryable<Question> GetQuery();
+        IQueryable<Question> GetQuery(Expression<Func<Question, bool>> filter=null);
         Task<Answer> ReplyAsync(Guid questionId, User answerer, ReplyQuestion dto);
-        IQueryable<Answer> GetAnswersQuery(Guid questionId);
+        IQueryable<Answer> GetAnswersQuery(Guid questionId, Expression<Func<Answer, bool>> filter=null);
         Task<bool> ExistAsync(Guid questionId);
     }
 
@@ -56,14 +57,16 @@ namespace Qincai.Api.Services
             return _context.Questions.AnyAsync(q => q.Id == questionId);
         }
 
-        public IQueryable<Answer> GetAnswersQuery(Guid questionId)
+        public IQueryable<Answer> GetAnswersQuery(Guid questionId, Expression<Func<Answer, bool>> filter=null)
         {
-            return _context.Answers
+            var query =  _context.Answers
                 .Include(a => a.Answerer)
                 .Include(a => a.Question)
                 .Include(a => a.RefAnswer)
                 .Where(a => a.Question.Id == questionId)
                 .AsNoTracking();
+
+            return filter == null ? query : query.Where(filter);
         }
 
         public Task<Question> GetByIdAsync(Guid questionId)
@@ -74,12 +77,14 @@ namespace Qincai.Api.Services
                 .SingleOrDefaultAsync();
         }
 
-        public IQueryable<Question> GetQuery()
+        public IQueryable<Question> GetQuery(Expression<Func<Question, bool>> filter=null)
         {
-            return _context.Questions
+            var query = _context.Questions
                 .Include(q => q.Questioner)
                 .AsNoTracking()
                 .AsQueryable();
+
+            return filter == null ? query : query.Where(filter);
         }
 
         public async Task<Answer> ReplyAsync(Guid questionId, User answerer, ReplyQuestion dto)

@@ -42,4 +42,12 @@ namespace Qincai.Api.Dtos
         /// </summary>
         public Content Content { get; set; }
     }
+
+    public class AnswerWithQuestionDto: AnswerDto
+    {
+        /// <summary>
+        /// 所回答的问题
+        /// </summary>
+        public QuestionDto Question { get; set; }
+    }
 }

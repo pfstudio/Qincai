@@ -59,15 +59,32 @@ namespace Qincai.Api.Controllers
         /// 问题列表
         /// </summary>
         /// <remarks>后期需要按某一字段排序</remarks>
-        /// <param name="page">页数</param>
-        /// <param name="pagesize">每页数量</param>
+        /// <param name="pagedParam">分页参数</param>
         [HttpGet]
         [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
         [AllowAnonymous]
         public async Task<ActionResult<PagedResult<QuestionDto>>> List([FromQuery]QuestionPagedParam pagedParam)
         {
             var questions = _questsionService.GetQuery()
+                // 此处使用ProjectTo拓展实现对IQueryable对象的映射
+                .ProjectTo<QuestionDto>(_mapper.ConfigurationProvider);
+
+            // 利用PagedResult，实现分页
+            // TODO：缺少更高级的分页控制
+            return await PagedResult<QuestionDto>.CreateAsync(questions, pagedParam);
+        }
+
+        /// <summary>
+        /// 我的问题
+        /// </summary>
+        /// <param name="pagedParam">分页参数</param>
+        [HttpGet("me")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        public async Task<ActionResult<PagedResult<QuestionDto>>> ListMyQuestion([FromQuery]QuestionPagedParam pagedParam)
+        {
+            Guid userId = User.GetUserId();
+            var questions = _questsionService.GetQuery(q => q.Questioner.Id == userId)
                 // 此处使用ProjectTo拓展实现对IQueryable对象的映射
                 .ProjectTo<QuestionDto>(_mapper.ConfigurationProvider);
 
@@ -103,7 +120,6 @@ namespace Qincai.Api.Controllers
         /// <param name="pagedParam">分页参数</param>
         [HttpGet("{id}/Answers")]
         [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [AllowAnonymous]
         public async Task<ActionResult<PagedResult<AnswerDto>>> ListAnswersByQuestionId(
