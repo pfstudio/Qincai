@@ -137,8 +137,7 @@ namespace Qincai.Api.Controllers
 
             User answerer = await _userService.GetByIdAsync(User.GetUserId());
 
-            Answer answer = await _questsionService
-                .ReplyAsync(id, answerer, model);
+            Answer answer = await _questsionService.ReplyAsync(id, answerer, model);
 
             return CreatedAtRoute("GetQuestion", new { id }, _mapper.Map<AnswerDto>(answer));
         }

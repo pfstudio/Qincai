@@ -61,6 +61,7 @@ namespace Qincai.Api.Services
             return _context.Answers
                 .Include(a => a.Answerer)
                 .Include(a => a.Question)
+                .Include(a => a.RefAnswer)
                 .Where(a => a.Question.Id == questionId)
                 .AsNoTracking();
         }
@@ -86,18 +87,27 @@ namespace Qincai.Api.Services
             Question question = await _context.Questions
                 .Include(q => q.Answers)
                 .ThenInclude(a => a.Answerer)
+                .Include(q => q.Answers)
+                .ThenInclude(a => a.RefAnswer)
                 .Where(q => q.Id == questionId)
                 .SingleAsync();
+
+            // TODO: 暂时对引用问题不存在的问题，作静默处理
+            Answer refAnswer = await _context.Answers
+                .Where(a => a.Id == dto.RefAnswerId)
+                .SingleOrDefaultAsync();
 
             Answer answer = new Answer
             {
                 Id = Guid.NewGuid(),
                 Answerer = answerer,
+                AnswerTime = DateTime.Now,
                 Content = new Content
                 {
                     Text = dto.Content
                 },
-                Question = question
+                Question = question,
+                RefAnswer = refAnswer
             };
             question.Answers.Add(answer);
 

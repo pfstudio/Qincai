@@ -38,6 +38,7 @@ namespace Qincai.Api
                 .WithMany(q => q.Answers)
                 .IsRequired();
             answer.HasOne(a => a.Answerer);
+            answer.HasOne(a => a.RefAnswer);
             answer.OwnsOne(a => a.Content);
 
             user.Property(u => u.Id)

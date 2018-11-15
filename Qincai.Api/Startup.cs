@@ -34,9 +34,9 @@ namespace Qincai.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options
-                //=> options.UseSqlServer(Configuration.GetConnectionString("Dev")));
-                //=> options.UseMySql(Configuration.GetConnectionString("MySQL")));
-                => options.UseInMemoryDatabase("Qincai"));
+            //=> options.UseSqlServer(Configuration.GetConnectionString("Local")));
+            //=> options.UseMySql(Configuration.GetConnectionString("MySQL")));
+            => options.UseInMemoryDatabase("Qincai"));
 
             // 注入依赖的服务
             services.AddScoped<IUserService, UserService>();
@@ -46,7 +46,9 @@ namespace Qincai.Api
             services.AddAutoMapper(options =>
             {
                 options.CreateMap<Question, QuestionDto>();
-                options.CreateMap<Answer, AnswerDto>();
+                options.CreateMap<Answer, AnswerDto>()
+                    // 配置问题引用的映射
+                    .ForMember(a => a.RefAnswer, opt => opt.MapFrom(a => a.RefAnswer));
                 options.CreateMap<User, UserDto>();
             });
 
@@ -90,7 +92,7 @@ namespace Qincai.Api
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,
             IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
-            SeedData.InitDatabase(app.ApplicationServices.CreateScope().ServiceProvider);
+            //SeedData.InitDatabase(app.ApplicationServices.CreateScope().ServiceProvider);
 
             if (env.IsDevelopment())
             {
