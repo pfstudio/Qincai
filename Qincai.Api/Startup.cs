@@ -59,6 +59,10 @@ namespace Qincai.Api
             services.ConfigureWxOpen(Configuration);
             // 配置JWT参数
             var jwtConfig = services.ConfigureJwt(Configuration);
+            // 配置七牛云参数
+            var qiniuConfigSection = Configuration.GetSection("QiniuConfig");
+            services.Configure<Utils.QiniuConfig>(qiniuConfigSection);
+
             // 添加JWT认证
             services.AddAuthentication(options =>
             {

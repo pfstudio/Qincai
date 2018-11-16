@@ -12,6 +12,7 @@ namespace Qincai.Api
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             :base(options)
@@ -23,9 +24,11 @@ namespace Qincai.Api
             var question = modelBuilder.Entity<Question>();
             var answer = modelBuilder.Entity<Answer>();
             var user = modelBuilder.Entity<User>();
+            var image = modelBuilder.Entity<Image>();
 
             question.Property(q => q.Id)
-                .ValueGeneratedNever();
+                .ValueGeneratedNever()
+                .IsRequired();
             question.Property(q => q.Title)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -33,7 +36,8 @@ namespace Qincai.Api
             question.OwnsOne(q => q.Content);
 
             answer.Property(a => a.Id)
-                .ValueGeneratedNever();
+                .ValueGeneratedNever()
+                .IsRequired();
             answer.HasOne(a => a.Question)
                 .WithMany(q => q.Answers)
                 .IsRequired();
@@ -42,7 +46,18 @@ namespace Qincai.Api
             answer.OwnsOne(a => a.Content);
 
             user.Property(u => u.Id)
-                .ValueGeneratedNever();
+                .ValueGeneratedNever()
+                .IsRequired();
+            user.Property(u => u.Name)
+                .IsRequired()
+                .HasMaxLength(20);
+
+            image.Property(i => i.Id)
+                .ValueGeneratedNever()
+                .IsRequired();
+            image.Property(i => i.SoureUrl)
+                .IsRequired();
+            image.HasOne(i => i.Uploader);
         }
     }
 }
