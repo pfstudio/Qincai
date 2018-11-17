@@ -6,5 +6,6 @@
     "van-cell": "../../dist/cell/index",
     "van-field": "../../dist/field/index",
     "van-cell-group": "../../dist/cell-group/index"
-  }
+  },
+  "navigationBarTitleText": "提问"
 }

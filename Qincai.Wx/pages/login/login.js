@@ -17,7 +17,7 @@ Page({
     wx.login({
       success: res => {
         wx.request({
-          url: app.globalData.url + '/api/User/WxLogin',
+          url: app.globalData.url + '/api/WxOpen/Login',
           method: 'POST',
           data: {
             code: res.code
@@ -25,11 +25,9 @@ Page({
           success: function(res){
             console.log(res)
             if (res.data.status) {
-              wx.setStorage({
-                key: 'sessionId',
-                data: res.data.sessionId,
-              })
+              wx.setStorageSync('sessionId', res.data.sessionId)
               if (res.data.user !== null) {
+                console.log(res)
                 console.log('has user')
                 wx.setStorageSync('user', res.data.user)
                 wx.switchTab({
@@ -37,10 +35,10 @@ Page({
                 })
               } else {
                 let sessionId = wx.getStorageSync('sessionId')
-                console.log("userInfo")
+                console.log(sessionId);
                 console.log(user);
                 wx.request({
-                  url: app.globalData.url+'/api/User/WxRegister',
+                  url: app.globalData.url+'/api/WxOpen/Register',
                   method: 'POST',
                   data: {
                     sessionId: sessionId,
@@ -53,15 +51,12 @@ Page({
                       url: '../index/index',
                     })
                   }
-                })
-                  
+                })                  
               }
             }
           }
         })
       }
     })
-
-    
   },
 })

@@ -6,7 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userId:"",
     title:"",
     content:"",
     loading:false
@@ -16,16 +15,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this;
-    wx.getStorage({
-      key: 'userId',
-      success: function(res) {
-        console.log(res)
-        that.setData({
-          userId:res.data
-        })
-      },
-    })
   },
   titleChange:function(value){
     this.setData({
@@ -42,7 +31,7 @@ Page({
       loading:true
     })
     let that = this
-    api.question.create(that.data.title,that.data.content,that.data.userId)
+    api.question.create(that.data.title,that.data.content)
     .then(function(res){
       wx.switchTab({
         url: '../index/index',

@@ -9,7 +9,7 @@ Page({
    */
   data: {
     questionId:"",
-    userId:"",
+    refAnswerId:null,
     title:"",
     content:"",
     quote: null,
@@ -24,10 +24,12 @@ Page({
    */
   onLoad: function (options) {
     let that = this
+    let user = wx.getStorageSync('user')
+    console.log(options)
     this.setData({
       questionId:options.questionId,
       quote:options.quote,
-      userId: wx.getStorageSync('userId')
+      refAnswerId: options.refAnswerId
     })
     api.question.getById(that.data.questionId)
     .then(function(res){
@@ -44,8 +46,7 @@ Page({
       loading:true
     })
     let that = this
-    console.log(that.data.questionId, that.data.answer, that.data.userId)
-    api.question.reply(that.data.questionId,that.data.answer,that.data.userId)
+    api.question.reply(that.data.questionId, that.data.answer, that.data.refAnswerId)
     .then(function(res){
       wx.showToast({
         title: '提交成功',

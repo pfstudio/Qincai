@@ -1,20 +1,23 @@
-import {url} from './common.js'
+import { url, getAuthorize} from './common.js'
 export { create, list, getById, answerList, reply}
 
-function create(title,content,userId){
+function create(title,content){
   return new Promise(function(resolve, reject) {
-    wx.request({
-      url: url + '/api/Question/Create',
-      method: 'POST',
-      data: {
-        title: title,
-        content: content
-      },
-      header: {
-        userId: userId
-      },
-      success: res => resolve(res),
-      fail: res => reject(res)
+    getAuthorize().then(function(token){
+      console.log(token)
+      wx.request({
+        url: url + '/api/Question/Create',
+        method: 'POST',
+        data: {
+          title: title,
+          content: content
+        },
+        header: {
+          Authorization:'Bearer '+token.data.token
+        },
+        success: res => resolve(res),
+        fail: res => reject(res)
+      })
     })
   })
 }
@@ -49,19 +52,22 @@ function answerList(questionId,page,size){
   })
 }
 
-function reply(questionId,content,userId){
+function reply(questionId, content, refAnswerId){
   return new Promise(function (resolve, reject) {
-    wx.request({
-      url: url + '/api/Question/' + questionId + '/Reply',
-      method:'POST',
-      data:{
-        content:content
-      },
-      header:{
-        userId:userId,
-      },
-      success: res => resolve(res),
-      fail: res => reject(res)
+    getAuthorize().then(function (token) {
+      wx.request({
+        url: url + '/api/Question/' + questionId + '/Reply',
+        method:'POST',
+        data:{
+          content:content,
+          refAnswerId: refAnswerId
+        },
+        header:{
+          Authorization: 'Bearer ' + token.data.token
+        },
+        success: res => resolve(res),
+        fail: res => reject(res)
+      })
     })
   })
 }

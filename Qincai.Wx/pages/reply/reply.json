@@ -7,5 +7,6 @@
     "van-field": "../../dist/field/index",
     "van-cell-group": "../../dist/cell-group/index",
     "van-dialog": "../../dist/dialog/index"
-  }
+  },
+  "navigationBarTitleText": "回答"
 }

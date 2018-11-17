@@ -12,7 +12,7 @@
   padding-left:30rpx !important;
   font-size: 35rpx;
   color: #555555;
-  height: 200rpx !important;
+  min-height: 200rpx !important;
   word-break: keep-all;
   word-wrap: break-word;
 }
@@ -36,4 +36,21 @@
 }
 .list{
   padding-bottom: 100rpx;
+}
+.quote{
+  width:auto;
+  margin: 0 25rpx;
+  padding-left: 15rpx;
+  background-color: #eeeeee;
+  /* border-style: solid;
+  border-width: 3rpx;
+  border-color: #555555; */
+  border-left: 10rpx solid #333;
+}
+.refFrom{
+  font-size: small;
+  font-weight:bold;
+}
+.refContent{
+  font-size: small;
 }

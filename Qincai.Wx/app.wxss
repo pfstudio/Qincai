@@ -1,5 +1,5 @@
 /**app.wxss**/
-@import "dist/common/index.wxss";
+
 .container {
   height: 100%;
   display: flex;

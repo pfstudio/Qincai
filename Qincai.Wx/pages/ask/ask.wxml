@@ -1,6 +1,3 @@
-<van-nav-bar
-  title="提问"
-/>
 <van-cell-group>
   <view class="label">标题</view>
   <van-field class="title"

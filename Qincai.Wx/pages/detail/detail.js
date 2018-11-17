@@ -34,6 +34,7 @@ Page({
     })
     api.question.answerList(that.data.questionId,1,10)
     .then(function(res){
+      console.log(res)
       var answerList = res.data.result.map(function(item){
         item.answerTime = moment(item.answerTime).format('YYYY-MM-DD HH: mm: ss')
         return item
@@ -51,8 +52,9 @@ Page({
   },
   plus:function(res){
     let that = this
+    console.log(res)
     wx.navigateTo({
-      url: '../reply/reply?questionId='+that.data.questionId+'&quote='+res.target.id,
+      url: '../reply/reply?questionId=' + that.data.questionId + '&quote=' + res.target.dataset.quote +'&refAnswerId='+res.target.id,
     })
   }
 })
