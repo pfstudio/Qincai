@@ -43,6 +43,8 @@ namespace Qincai.Api.Controllers
         [HttpPost("getToken")]
         public async Task<ActionResult<ImgTokenDto>> GetToken([FromBody] string fileExt)
         {
+            //TODO 检测文件后缀是否合法
+
             //User thisUser = _context.Users.FirstOrDefault(u => u.Id == User.GetUserId());
 
             User thisUser =  _context.Users.OrderBy(x => Guid.NewGuid()).First();
@@ -53,7 +55,10 @@ namespace Qincai.Api.Controllers
                 return NotFound("No Authotize To Upload");
             }
 
-            ImgTokenDto Token = CreateToken(thisUser.Id.ToString(), fileExt);
+            ImgTokenDto Token = CreateToken(thisUser.Id, fileExt);
+
+            //记录图片信息
+            if (!await StroageImgInfo(thisUser.Id,Token.Key)) return BadRequest();
 
             return Token;
         }
@@ -64,14 +69,14 @@ namespace Qincai.Api.Controllers
         /// 生成Token
         /// </summary>
         /// <returns></returns>
-        private ImgTokenDto CreateToken(string userId, string fileExt)
+        private ImgTokenDto CreateToken(Guid userId, string fileExt)
         {
             Mac mac = new Mac(_qiniuConfig.ACCESS_KEY, _qiniuConfig.SECRET_KEY);
             Auth auth = new Auth(mac);
             PutPolicy putPolicy = new PutPolicy()
             {
                 //使用后缀
-                Scope = _qiniuConfig.ImageBucket.Name + ":" + userId + "/" + DateTime.Now.ToString("yyyyMMddhhmmss") + "-" + new Random().Next(100, 900).ToString() + "." + fileExt
+                Scope = _qiniuConfig.ImageBucket.Name + ":" + userId.ToString() + "/" + DateTime.Now.ToString("yyyyMMddhhmmss") + "-" + new Random().Next(100, 900).ToString() + "." + fileExt
             };
             putPolicy.SetExpires(120);
             //限制图片大小
@@ -84,9 +89,33 @@ namespace Qincai.Api.Controllers
             return new ImgTokenDto()
             {
                 Token = auth.CreateUploadToken(jstr),
-                Scope = putPolicy.Scope,
+                Key = putPolicy.Scope.Substring(putPolicy.Scope.IndexOf(":")+1),
                 UploadDomain=_qiniuConfig.ImageBucket.UploadDomain
             };
+        }
+
+        /// <summary>
+        /// 记录图片信息
+        /// </summary>
+        /// <param name="userId">上传者Id</param>
+        /// <param name="sourceUrl">图片相对路径</param>
+        /// <returns></returns>
+        private async Task<bool> StroageImgInfo(Guid userId,string sourceUrl)
+        {
+            //因为限定了Scope所以可以推断出真实的图片地址
+            string thisUrl = _qiniuConfig.ImageBucket.DownloadDomain + "/"+ _qiniuConfig.ImageBucket.Name + "/" + sourceUrl;
+            try
+            {
+                var thisImage = Image.Create(userId, thisUrl);
+                await _context.Images.AddAsync(thisImage);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+            
+            return true;
         }
     }
 }

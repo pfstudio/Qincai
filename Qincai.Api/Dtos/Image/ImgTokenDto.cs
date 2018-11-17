@@ -14,7 +14,7 @@ namespace Qincai.Api.Dtos
         /// <summary>
         /// 允许的文件名
         /// </summary>
-        public string Scope { get; set; }
+        public string Key { get; set; }
         /// <summary>
         /// 上传图片的域名
         /// </summary>

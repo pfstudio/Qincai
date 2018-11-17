@@ -14,7 +14,7 @@ namespace Qincai.Api.Models
         /// <summary>
         /// 上传者
         /// </summary>
-        public User Uploader { get; set; }
+        public Guid UploaderId { get; set; }
         /// <summary>
         /// 上传时间
         /// </summary>
@@ -27,16 +27,15 @@ namespace Qincai.Api.Models
         /// <summary>
         /// 创建图片对象
         /// </summary>
-        /// <param name="name">图片别名</param>
-        /// <param name="uploader">上传者</param>
+        /// <param name="uploaderId">上传者</param>
         /// <param name="sourceUrl">图片地址</param>
         /// <returns></returns>
-        public static Image Create(string name,User uploader,string sourceUrl)
+        public static Image Create(Guid uploaderId,string sourceUrl)
         {
             return new Image
             {
                 Id = Guid.NewGuid(),
-                Uploader = uploader,
+                UploaderId = uploaderId,
                 CreateTime = DateTime.Now,
                 SoureUrl = sourceUrl
             };
