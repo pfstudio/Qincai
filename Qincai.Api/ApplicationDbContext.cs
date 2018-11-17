@@ -57,7 +57,8 @@ namespace Qincai.Api
                 .IsRequired();
             image.Property(i => i.SoureUrl)
                 .IsRequired();
-            image.HasOne(i => i.Uploader);
+            image.Property(i => i.UploaderId)
+                .IsRequired();
         }
     }
 }
