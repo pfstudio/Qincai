@@ -64,6 +64,7 @@ namespace Qincai.Api.Services
                 .Include(a => a.Question)
                 .Include(a => a.RefAnswer)
                 .Where(a => a.Question.Id == questionId)
+                .OrderByDescending(a => a.AnswerTime)
                 .AsNoTracking();
 
             return filter == null ? query : query.Where(filter);
@@ -81,6 +82,7 @@ namespace Qincai.Api.Services
         {
             var query = _context.Questions
                 .Include(q => q.Questioner)
+                .OrderByDescending(q => q.QuestionTime)
                 .AsNoTracking()
                 .AsQueryable();
 
