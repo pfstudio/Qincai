@@ -38,7 +38,7 @@ namespace Qincai.Api.Controllers
         [HttpGet("me")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<PagedResult<AnswerWithQuestionDto>>> ListMyQuestion([FromQuery]AnswerPagedParam pagedParam)
+        public async Task<ActionResult<PagedResult<AnswerWithQuestionDto>>> ListMyAnswer([FromQuery]AnswerPagedParam pagedParam)
         {
             Guid userId = User.GetUserId();
             var answers = _context.Answers

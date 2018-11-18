@@ -26,6 +26,14 @@ namespace Qincai.Api.Extensions
             return jwtConfigSection.Get<JwtConfig>();
         }
 
+        public static QiniuConfig ConfigureQiniu(this IServiceCollection services, IConfiguration configuration)
+        {
+            var qiniuConfigSection = configuration.GetSection("QiniuConfig");
+            services.Configure<Utils.QiniuConfig>(qiniuConfigSection);
+
+            return qiniuConfigSection.Get<QiniuConfig>();
+        }
+
         public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>

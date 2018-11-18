@@ -11,6 +11,7 @@ namespace Qincai.Api.Services
     public interface IImageService
     {
         ImageToken CreateToken(User user);
+        string ConvertToAbsolute(string url);
     }
 
     public class ImageService: IImageService
@@ -20,6 +21,11 @@ namespace Qincai.Api.Services
         public ImageService(IOptions<QiniuConfig> qiniuConfig)
         {
             _qiniuConfig = qiniuConfig.Value;
+        }
+
+        public string ConvertToAbsolute(string url)
+        {
+            return $"https://{_qiniuConfig.ImageBucket.DownloadDomain}/{url}";
         }
 
         public ImageToken CreateToken(User user)

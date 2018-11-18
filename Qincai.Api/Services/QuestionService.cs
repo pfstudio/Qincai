@@ -21,10 +21,12 @@ namespace Qincai.Api.Services
     public class QuestionService : IQuestionService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IImageService _imageService;
 
-        public QuestionService(ApplicationDbContext context)
+        public QuestionService(ApplicationDbContext context, IImageService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
 
         public async Task<Question> CreateAsync(User questioner, CreateQuestion dto)
@@ -39,7 +41,7 @@ namespace Qincai.Api.Services
                 Content = new Content
                 {
                     Text = dto.Text,
-                    Images = dto.Images
+                    Images = dto.Images.Select(_imageService.ConvertToAbsolute).ToList()
                 },
                 QuestionTime = DateTime.Now,
                 LastTime = DateTime.Now,
@@ -113,7 +115,7 @@ namespace Qincai.Api.Services
                 Content = new Content
                 {
                     Text = dto.Text,
-                    Images = dto.Images
+                    Images = dto.Images.Select(_imageService.ConvertToAbsolute).ToList()
                 },
                 Question = question,
                 RefAnswer = refAnswer

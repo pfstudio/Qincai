@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Linq;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,6 +19,8 @@ using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.RegisterServices;
+using Qincai.Api.Utils;
+using System.Collections.Generic;
 
 namespace Qincai.Api
 {
@@ -43,6 +46,13 @@ namespace Qincai.Api
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<IImageService, ImageService>();
 
+            // 配置小程序参数
+            services.ConfigureWxOpen(Configuration);
+            // 配置JWT参数
+            var jwtConfig = services.ConfigureJwt(Configuration);
+            // 配置七牛云参数
+            services.ConfigureQiniu(Configuration);
+
             // 添加类型映射配置
             services.AddAutoMapper(options =>
             {
@@ -53,17 +63,9 @@ namespace Qincai.Api
                     .ForMember(dto => dto.RefAnswer, opt => opt.MapFrom(src => src.RefAnswer));
                 options.CreateMap<Answer, AnswerWithQuestionDto>()
                     .ForMember(dto => dto.RefAnswer, opt => opt.MapFrom(src => src.RefAnswer))
-                    .ForMember(dto => dto.Question,  opt => opt.MapFrom(src => src.Question));
+                    .ForMember(dto => dto.Question, opt => opt.MapFrom(src => src.Question));
                 options.CreateMap<User, UserDto>();
             });
-
-            // 配置小程序参数
-            services.ConfigureWxOpen(Configuration);
-            // 配置JWT参数
-            var jwtConfig = services.ConfigureJwt(Configuration);
-            // 配置七牛云参数
-            var qiniuConfigSection = Configuration.GetSection("QiniuConfig");
-            services.Configure<Utils.QiniuConfig>(qiniuConfigSection);
 
             // 添加JWT认证
             services.AddAuthentication(options =>
