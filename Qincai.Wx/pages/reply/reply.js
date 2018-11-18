@@ -52,9 +52,7 @@ Page({
         title: '提交成功',
         duration: 2000,
         complete:function(res){
-          wx.switchTab({
-            url: '../index/index',
-          })
+          wx.navigateBack({})
         }
       })
     })

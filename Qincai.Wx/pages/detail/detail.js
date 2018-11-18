@@ -32,17 +32,20 @@ Page({
         questionTime: moment(res.data.questionTime).format('YYYY-MM-DD HH: mm: ss')
       })
     })
-    api.question.answerList(that.data.questionId,1,10)
-    .then(function(res){
-      console.log(res)
-      var answerList = res.data.result.map(function(item){
-        item.answerTime = moment(item.answerTime).format('YYYY-MM-DD HH: mm: ss')
-        return item
+  },
+  onShow:function(){
+    let that = this
+    api.question.answerList(that.data.questionId, 1, 10)
+      .then(function (res) {
+        console.log(res)
+        var answerList = res.data.result.map(function (item) {
+          item.answerTime = moment(item.answerTime).format('YYYY-MM-DD HH: mm: ss')
+          return item
+        })
+        that.setData({
+          answers: answerList
+        })
       })
-      that.setData({
-        answers: answerList
-      })
-    })
   },
   reply:function(res){
     let that = this
