@@ -6,9 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title:"",
-    content:"",
-    loading:false
+    title: "",
+    content: "",
+    loading: false,
+    images: []
   },
 
   /**
@@ -16,9 +17,9 @@ Page({
    */
   onLoad: function (options) {
   },
-  titleChange:function(value){
+  titleChange: function (value) {
     this.setData({
-      title:value.detail
+      title: value.detail
     })
   },
   contentChange: function (value) {
@@ -26,22 +27,35 @@ Page({
       content: value.detail
     })
   },
-  submit:function(){
+  chooseImages: function () {
+    wx.chooseImage({
+      count: 3,
+      sizeType: 'compressed',
+      success: res => {
+        this.setData({
+          images: res.tempFilePaths
+        })
+      }
+    })
+  },
+  submit: function () {
     this.setData({
-      loading:true
+      loading: true
     })
     let that = this
-    api.question.create(that.data.title,that.data.content)
-    .then(function(res){
-      wx.switchTab({
-        url: '../index/index',
-        success:function(res){
-          that.setData({
-            loading: false
+    Promise.all(this.data.images.map(image => api.image.uploadImage(image)))
+    .then(urls => {
+      api.question.create(that.data.title, that.data.content, urls)
+        .then(function (res) {
+          wx.switchTab({
+            url: '../index/index',
+            success: function (res) {
+              that.setData({
+                loading: false
+              })
+            }
           })
-        }
-      })
+        })
     })
-
   }
 })

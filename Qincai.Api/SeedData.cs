@@ -2,6 +2,7 @@
 using Qincai.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Qincai.Api
 {
@@ -10,6 +11,11 @@ namespace Qincai.Api
         public static void InitDatabase(IServiceProvider services)
         {
             var dbContent = services.GetRequiredService<ApplicationDbContext>();
+
+            if (dbContent.Users.Any())
+            {
+                return;
+            }
 
             User u1 = new User
             {

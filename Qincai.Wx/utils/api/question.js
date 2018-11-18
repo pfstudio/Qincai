@@ -1,7 +1,7 @@
 import { url, getAuthorize} from './common.js'
 export { create, list, getById, answerList, reply}
 
-function create(title,content){
+function create(title,text,images){
   return new Promise(function(resolve, reject) {
     getAuthorize().then(function(token){
       console.log(token)
@@ -10,7 +10,8 @@ function create(title,content){
         method: 'POST',
         data: {
           title: title,
-          content: content
+          text: text,
+          images: images
         },
         header: {
           Authorization:'Bearer '+token.data.token

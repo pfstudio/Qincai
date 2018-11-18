@@ -1,5 +1,4 @@
-﻿using Qincai.Api.Models;
-using System;
+﻿using System;
 
 namespace Qincai.Api.Dtos
 {
@@ -16,7 +15,7 @@ namespace Qincai.Api.Dtos
         /// <summary>
         /// 问题内容
         /// </summary>
-        public Content Content { get; set; }
+        public ContentDto Content { get; set; }
         /// <summary>
         /// 提问者
         /// </summary>

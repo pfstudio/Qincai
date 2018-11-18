@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Qincai.Api.Dtos
 {
-    public class ImgTokenDto
+    public class ImageToken
     {
         /// <summary>
         /// 上传Token

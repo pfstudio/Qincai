@@ -34,17 +34,19 @@ namespace Qincai.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options
-            //=> options.UseSqlServer(Configuration.GetConnectionString("Local")));
+            => options.UseSqlServer(Configuration.GetConnectionString("Local")));
             //=> options.UseMySql(Configuration.GetConnectionString("MySQL")));
-            => options.UseInMemoryDatabase("Qincai"));
+            //=> options.UseInMemoryDatabase("Qincai"));
 
             // 注入依赖的服务
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IQuestionService, QuestionService>();
+            services.AddScoped<IImageService, ImageService>();
 
             // 添加类型映射配置
             services.AddAutoMapper(options =>
             {
+                options.CreateMap<Content, ContentDto>();
                 options.CreateMap<Question, QuestionDto>();
                 options.CreateMap<Answer, AnswerDto>()
                     // 配置问题引用的映射

@@ -1,18 +1,15 @@
 ﻿using System.Collections.Generic;
 
-namespace Qincai.Api.Models
+namespace Qincai.Api.Dtos
 {
-    /// <summary>
-    /// 内容对象
-    /// </summary>
-    public class Content
+    public class ContentDto
     {
         /// <summary>
         /// 文本内容
         /// </summary>
         public string Text { get; set; }
         /// <summary>
-        /// 图片url
+        /// 图片内容
         /// </summary>
         public List<string> Images { get; set; }
     }

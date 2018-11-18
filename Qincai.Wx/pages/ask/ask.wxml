@@ -15,5 +15,10 @@
     bind:change="contentChange"
     autosize
   />
+  <view class="label">附加内容</view>
+  <van-button bind:tap="chooseImages">选择图片</van-button>
+  <view wx:if="{{images}}" wx:for="{{images}}">
+    <image src="{{item}}"></image>
+  </view>
 </van-cell-group>
 <van-button type="primary" class="container" bind:click="submit" loading="{{loading}}">发布</van-button>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Qincai.Api.Dtos
 {
@@ -15,7 +16,12 @@ namespace Qincai.Api.Dtos
         /// <summary>
         /// 问题内容
         /// </summary>
-        [Required(AllowEmptyStrings = false, ErrorMessage = "问题内容不为空")]
-        public string Content { get; set; }
+        [Required(ErrorMessage = "问题内容不为空")]
+        public string Text { get; set; }
+        /// <summary>
+        /// 问题包含的图片
+        /// </summary>
+        [MaxLength(3, ErrorMessage = "问题图片不超过3幅")]
+        public List<string> Images { get; set; }
     }
 }

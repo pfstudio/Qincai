@@ -38,7 +38,8 @@ namespace Qincai.Api.Services
                 Title = dto.Title,
                 Content = new Content
                 {
-                    Text = dto.Content
+                    Text = dto.Text,
+                    Images = dto.Images
                 },
                 QuestionTime = DateTime.Now,
                 LastTime = DateTime.Now,
@@ -111,7 +112,8 @@ namespace Qincai.Api.Services
                 AnswerTime = DateTime.Now,
                 Content = new Content
                 {
-                    Text = dto.Content
+                    Text = dto.Text,
+                    Images = dto.Images
                 },
                 Question = question,
                 RefAnswer = refAnswer

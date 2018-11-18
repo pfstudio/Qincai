@@ -16,7 +16,7 @@ namespace Qincai.Api.Dtos
         /// <summary>
         /// 回答内容
         /// </summary>
-        public Content Content { get; set; }
+        public ContentDto Content { get; set; }
         /// <summary>
         /// 回答时间
         /// </summary>
@@ -40,7 +40,7 @@ namespace Qincai.Api.Dtos
         /// <summary>
         /// 回答内容
         /// </summary>
-        public Content Content { get; set; }
+        public ContentDto Content { get; set; }
     }
 
     public class AnswerWithQuestionDto: AnswerDto

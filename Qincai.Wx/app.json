@@ -2,8 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/login/login",
-    "pages/ask/ask",
     "pages/answer/answer",
+    "pages/ask/ask",
     "pages/reply/reply",
     "pages/detail/detail",
     "pages/me/me",
