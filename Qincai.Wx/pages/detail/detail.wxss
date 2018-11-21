@@ -54,3 +54,9 @@
 .refContent{
   font-size: small;
 }
+.answerImg{
+  float: left;
+  margin-left: 25rpx;
+  width:200rpx;
+  height: 200rpx;
+}

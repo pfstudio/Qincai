@@ -47,8 +47,7 @@ Page({
     .then(urls => {
       api.question.create(that.data.title, that.data.content, urls)
         .then(function (res) {
-          wx.switchTab({
-            url: '../index/index',
+          wx.navigateBack({
             success: function (res) {
               that.setData({
                 loading: false

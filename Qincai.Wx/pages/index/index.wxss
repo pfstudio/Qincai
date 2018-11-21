@@ -24,3 +24,8 @@
   width: 100% !important;
   margin-left: 0!important;
 }
+.answerImg{
+  margin-left: 40rpx;
+  width:200rpx;
+  height:200rpx;
+}

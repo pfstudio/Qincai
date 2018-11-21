@@ -61,5 +61,6 @@ Page({
     this.setData({
       answer:value.detail
     })
+    console.log(this.data.answer)
   }
 })

@@ -60,7 +60,7 @@ function reply(questionId, content, refAnswerId){
         url: url + '/api/Question/' + questionId + '/Reply',
         method:'POST',
         data:{
-          content:content,
+          text:content,
           refAnswerId: refAnswerId
         },
         header:{

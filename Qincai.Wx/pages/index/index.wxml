@@ -8,6 +8,9 @@
   <block wx:for="{{questions}}" class="questionList">
     <van-panel class="question" id="{{item.id}}" title="标题:{{item.title}}" desc="提问者:{{item.questioner.name}}" autosize bindtap="detail">
       <van-panel class="van-multi-ellipsis--l2" title="问题描述" desc="{{item.content.text}}"/>
+      <block wx:for="{{item.content.images}}" wx:for-item="image">
+        <image class="answerImg" src="{{image}}"></image>
+      </block>
     </van-panel>
   </block>
 </van-cell-group>
