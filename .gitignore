@@ -265,3 +265,4 @@ __pycache__/
 # Vant 组件
 /Qincai.Wx/dist
 /docker
+/Qincai.Api.Tests/appsettings.json

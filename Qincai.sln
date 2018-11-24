@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qincai.Api", "Qincai.Api\Qincai.Api.csproj", "{462E66E5-23EA-42FE-BD48-44C657108BC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qincai.Api.Tests", "Qincai.Api.Tests\Qincai.Api.Tests.csproj", "{000F274C-E067-4CB8-B779-F608A924C742}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{462E66E5-23EA-42FE-BD48-44C657108BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{462E66E5-23EA-42FE-BD48-44C657108BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{462E66E5-23EA-42FE-BD48-44C657108BC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{000F274C-E067-4CB8-B779-F608A924C742}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{000F274C-E067-4CB8-B779-F608A924C742}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{000F274C-E067-4CB8-B779-F608A924C742}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{000F274C-E067-4CB8-B779-F608A924C742}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

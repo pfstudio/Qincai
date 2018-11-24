@@ -7,6 +7,7 @@ using Qincai.Api.Extensions;
 using Qincai.Api.Models;
 using Qincai.Api.Services;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Qincai.Api.Controllers
