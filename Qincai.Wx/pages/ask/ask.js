@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    count:0,
     title: "",
     content: "",
     loading: false,
@@ -27,13 +28,29 @@ Page({
       content: value.detail
     })
   },
-  chooseImages: function () {
+  addImages: function () {
     wx.chooseImage({
-      count: 3,
+      count: 3 - this.data.count,
       sizeType: 'compressed',
       success: res => {
+        let images = this.data.images.concat(res.tempFilePaths)
         this.setData({
-          images: res.tempFilePaths
+          images: images,
+          count: images.length
+        })
+      }
+    })
+  },
+  changeImage: function (value) {
+    wx.chooseImage({
+      count: 1,
+      sizeType: 'compressed',
+      success: res => {
+        let images = this.data.images
+        images[value.target.id] = res.tempFilePaths[0]
+        this.setData({
+          images: images,
+          count: images.length
         })
       }
     })

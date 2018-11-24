@@ -56,7 +56,36 @@
 }
 .answerImg{
   float: left;
-  margin-left: 25rpx;
+  margin-top:25rpx;
+  margin-left: 40rpx;
   width:200rpx;
   height: 200rpx;
+  margin-bottom:25rpx;
+}
+.contentTitle{
+  margin: 25rpx;
+  margin-left: 18rpx;
+  font-size: 25rpx;
+  color: #000000;
+}
+.contentText{
+  margin: 25rpx;
+  margin-left: 18rpx;
+}
+.question{
+  margin: 25rpx;
+  margin-left: 40rpx;
+}
+.questionTitle{
+  color: #000000;
+}
+.questionText{
+  font-size: small;
+  color:#999999;
+}
+.imgBox{
+  overflow:hidden !important;
+}
+.images{
+  display:block !important; height:225rpx !important;
 }

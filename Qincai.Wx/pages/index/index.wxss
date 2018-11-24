@@ -25,7 +25,27 @@
   margin-left: 0!important;
 }
 .answerImg{
+  float: left;
+  margin-top:25rpx;
   margin-left: 40rpx;
   width:200rpx;
-  height:200rpx;
+  height: 200rpx;
+  margin-bottom:25rpx;
+}
+.imgBox{
+  overflow:hidden !important;
+}
+.images{
+  display:block !important; height:225rpx !important;
+}
+.question{
+  margin: 25rpx;
+  margin-left: 40rpx;
+}
+.questionTitle{
+  color: #000000;
+}
+.questionText{
+  font-size: small;
+  color:#999999;
 }

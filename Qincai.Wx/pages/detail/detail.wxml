@@ -1,7 +1,17 @@
 <!--pages/detail/detail.wxml-->
 <view class="label">问题</view>
-<van-panel custom-class="question" title="标题:{{questionTitle}}" desc="提问者:{{questioner}}" autosize use-footer-slot footer-class="footer">
-  <van-panel class="van-multi-ellipsis--l2" title="问题描述" desc="{{questionContent}}"/>
+<van-panel title="标题:{{questionTitle}}" desc="提问者:{{questioner}}"autosize use-footer-slot footer-class="footer">
+  <view>
+    <view class="question">
+    <text class="questionTitle">问题描述\n</text>
+    <text class="questionText">{{questionContent}}</text>
+    </view>
+    <view wx:if="{{questionImages}}"  class="imgBox">
+    <block wx:for="{{questionImages}}" wx:for-item="image" class="images">
+      <image class="answerImg" src="{{image}}" bindtap="showImage" data-url="{{image}}"></image>
+    </block>
+    </view>
+  </view>   
   <view slot = "footer">
     <view>提问时间：{{questionTime}}</view>
   </view>
@@ -18,10 +28,14 @@
           <text class="refContent">{{answer.refAnswer.content.text}}</text>
         </view>
       </view>
-      <view class="answerContent">{{answer.content.text}}</view>
-      <block wx:for="{{answer.content.images}}" wx:for-item="image">
-        <image class="answerImg" src="{{image}}"></image>
-      </block>
+      <view>
+        <view class="answerContent">{{answer.content.text}}</view>
+          <view class="imgBox">
+          <block wx:for="{{answer.content.images}}" wx:for-item="image"  class="images">
+            <image class="answerImg" src="{{image}}"  bindtap="showImage" data-url="{{image}}"></image>
+          </block>
+          </view>
+        </view>
       <view slot = "footer">
         <view class="answerer">
           <view class="answer-slot">回答人:{{answer.answerer.name}}</view>

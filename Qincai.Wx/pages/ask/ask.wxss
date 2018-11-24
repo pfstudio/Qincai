@@ -4,3 +4,28 @@
 .label{
   margin: 20rpx;
 }
+.addImage{
+  height:200rpx;
+}
+.images{
+  display:block !important; height:225rpx !important;
+}
+.imgBox{
+  overflow:hidden !important;
+}
+.answerImg{
+  float: left;
+  margin-top:25rpx;
+  margin-left: 40rpx;
+  width:200rpx;
+  height: 200rpx;
+  margin-bottom:25rpx;
+}
+.submitBtn{  
+  margin-top: 50rpx;
+  margin-left: 40%;
+  margin-right:40%;
+  margin-bottom: 30rpx;
+  display: flex !important;
+  justify-content: center !important;
+}

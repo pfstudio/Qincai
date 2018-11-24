@@ -53,7 +53,7 @@ function answerList(questionId,page,size){
   })
 }
 
-function reply(questionId, content, refAnswerId){
+function reply(questionId, content, refAnswerId,images){
   return new Promise(function (resolve, reject) {
     getAuthorize().then(function (token) {
       wx.request({
@@ -61,6 +61,7 @@ function reply(questionId, content, refAnswerId){
         method:'POST',
         data:{
           text:content,
+          images:images,
           refAnswerId: refAnswerId
         },
         header:{

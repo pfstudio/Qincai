@@ -1,7 +1,17 @@
 <!--pages/reply/reply.wxml-->
     <view class="label">问题</view>
-    <van-panel custom-class="question" title="标题:{{title}}" desc="提问者:{{questioner}}" autosize use-footer-slot footer-class="footer">
-      <van-panel class="van-multi-ellipsis--l2" title="问题描述" desc="{{content}}"/>
+    <van-panel custom-class="question" title="标题:{{title}}" desc="提问者:{{questioner}}" use-footer-slot footer-class="footer">
+      <view>
+        <view class="content">
+        <text class="contentTitle">问题描述\n</text>
+        <text class="contentText">{{content}}</text>
+        </view>
+        <view wx:if="{{questionImages}}" class="imgBox">
+        <block wx:for="{{questionImages}}" wx:for-item="image" class="images">
+          <image class="answerImg" src="{{image}}" bindtap="showImage" data-url="{{image}}"></image>
+        </block>
+        </view>
+      </view>   
       <view slot = "footer">
         <view>提问时间：{{questionTime}}</view>
       </view>
@@ -21,6 +31,13 @@
         autosize
       />
       </van-cell-group>
+    </view>
+    <view class="addImage">
+      <block wx:for="{{answerImages}}" wx:for-item="image" class="images">
+        <image id="{{index}}" class="answerImg" src="{{image}}" bindtap="changeImage"></image>
+      </block>
+      <image wx:if="{{count < 3}}" class="answerImg" src="../../images/addImage.png" bindtap="addImages"></image>
+
     </view>
     <van-button custom-class="submitBtn" type="primary" bind:click="submit" loading="{{loading}}">提交</van-button>
     

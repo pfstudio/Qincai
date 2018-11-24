@@ -9,6 +9,7 @@ Page({
   data: {
     questionId:"",
     questionContent:"",
+    questionImages: null,
     questionTime:"",
     questioner:"",
     answers:[]
@@ -29,6 +30,7 @@ Page({
       that.setData({
         questionTitle: res.data.title,
         questionContent: res.data.content.text,
+        questionImages:res.data.content.images,
         questioner: res.data.questioner.name,
         questionTime: moment(res.data.questionTime).format('YYYY-MM-DD HH: mm: ss')
       })
@@ -45,6 +47,7 @@ Page({
         })
         that.setData({
           answers: answerList
+          
         })
       })
   },
@@ -59,6 +62,12 @@ Page({
     console.log(res)
     wx.navigateTo({
       url: '../reply/reply?questionId=' + that.data.questionId + '&quote=' + res.target.dataset.quote +'&refAnswerId='+res.target.id,
+    })
+  },
+  showImage: function (value) {
+    let image = [value.target.dataset.url]
+    wx.previewImage({
+      urls: image,
     })
   }
 })

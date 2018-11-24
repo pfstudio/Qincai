@@ -7,11 +7,18 @@
 <van-cell-group>
   <block wx:for="{{questions}}" class="questionList">
     <van-panel class="question" id="{{item.id}}" title="标题:{{item.title}}" desc="提问者:{{item.questioner.name}}" autosize bindtap="detail">
-      <van-panel class="van-multi-ellipsis--l2" title="问题描述" desc="{{item.content.text}}"/>
-      <block wx:for="{{item.content.images}}" wx:for-item="image">
-        <image class="answerImg" src="{{image}}"></image>
-      </block>
-    </van-panel>
+    <view>
+    <view class="question">
+    <text class="questionTitle">问题描述\n</text>
+    <text class="questionText">{{item.content.text}}</text>
+    </view>
+    <view wx:if="{{item.content.images}}"  class="imgBox">
+    <block wx:for="{{item.content.images}}" wx:for-item="image" class="images">
+      <image class="answerImg" src="{{image}}" data-url="{{image}}"></image>
+    </block>
+    </view>
+  </view>
+  </van-panel> 
   </block>
 </van-cell-group>
 <van-button round custom-class="questionBtn" type="primary" bind:click="ask">提问</van-button>

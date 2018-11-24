@@ -10,6 +10,7 @@ Page({
   },
   //事件处理函数
   onLoad: function () {
+    
     let that = this;
     let user = wx.getStorageSync('user')
     if (user==""){
@@ -55,6 +56,12 @@ Page({
   ask: function(){
     wx.navigateTo({
       url: '../ask/ask',
+    })
+  },
+  showImage: function (value) {
+    let image = [value.target.dataset.url]
+    wx.previewImage({
+      urls: image,
     })
   }
 })
