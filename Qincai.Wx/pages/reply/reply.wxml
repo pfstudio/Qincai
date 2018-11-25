@@ -1,4 +1,28 @@
 <!--pages/reply/reply.wxml-->
+  <view class="label">回答</view>
+    <view class="inputBox">
+      <view wx:if="{{quote}}" style="padding-top:20rpx;">
+        <view class="quote">{{quote}}</view>
+      </view>
+      <van-cell-group>
+        <van-field     
+        input-class="input-field"
+        value="{{answer}}"
+        placeholder="请输入你回答的内容"
+        type="textarea"
+        bind:change="answerChange"
+        autosize
+      />
+      </van-cell-group>
+    </view>
+
+    <view class="addImage">
+      <block wx:for="{{answerImages}}" wx:for-item="image" class="images">
+        <image id="{{index}}" class="answerImg" src="{{image}}" bindtap="changeImage"></image>
+      </block>
+      <image wx:if="{{count < 3}}" class="answerImg" src="../../images/addImage.png" bindtap="addImages"></image>
+    </view>
+
     <view class="label">问题</view>
     <van-panel custom-class="question" title="标题:{{title}}" desc="提问者:{{questioner}}" use-footer-slot footer-class="footer">
       <view>
@@ -16,28 +40,6 @@
         <view>提问时间：{{questionTime}}</view>
       </view>
     </van-panel>
-    <view class="label">回答</view>
-    <view class="inputBox">
-      <view wx:if="{{quote}}" style="padding-top:20rpx;">
-        <view class="quote">{{quote}}</view>
-      </view>
-      <van-cell-group>
-        <van-field     
-        input-class="input-field"
-        value="{{answer}}"
-        placeholder="请输入你回答的内容"
-        type="textarea"
-        bind:change="answerChange"
-        autosize
-      />
-      </van-cell-group>
-    </view>
-    <view class="addImage">
-      <block wx:for="{{answerImages}}" wx:for-item="image" class="images">
-        <image id="{{index}}" class="answerImg" src="{{image}}" bindtap="changeImage"></image>
-      </block>
-      <image wx:if="{{count < 3}}" class="answerImg" src="../../images/addImage.png" bindtap="addImages"></image>
 
-    </view>
     <van-button custom-class="submitBtn" type="primary" bind:click="submit" loading="{{loading}}">提交</van-button>
     
