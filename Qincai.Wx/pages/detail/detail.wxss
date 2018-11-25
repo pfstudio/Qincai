@@ -3,89 +3,12 @@
   margin: 20rpx;
   margin-left:30rpx !important;
 } 
-.footer{
-  font-size: 30rpx !important;
-  text-align: 'right' !important;
-}
-.answerContent{
-  padding-top: 20rpx !important;
-  padding-left:30rpx !important;
-  font-size: 35rpx;
-  color: #555555;
-  min-height: 200rpx !important;
-  word-break: keep-all;
-  word-wrap: break-word;
-}
-.answer-slot{
-  padding-bottom:20rpx!important; 
-
-}
-.answerBox{
-  margin-bottom: 50rpx!important;
-}
 .replyBtn{
   position: fixed !important;
   bottom:30rpx !important;
   right:20rpx !important;
   box-shadow: 5rpx 5rpx 3rpx 3rpx rgb(168, 167, 167) !important;
 }
-.plus{
-  position: relative;
-  float: right !important;
-  bottom:75rpx;
-}
 .list{
   padding-bottom: 100rpx;
-}
-.quote{
-  width:auto;
-  margin: 0 25rpx;
-  padding-left: 15rpx;
-  background-color: #eeeeee;
-  /* border-style: solid;
-  border-width: 3rpx;
-  border-color: #555555; */
-  border-left: 10rpx solid #333;
-}
-.refFrom{
-  font-size: small;
-  font-weight:bold;
-}
-.refContent{
-  font-size: small;
-}
-.answerImg{
-  float: left;
-  margin-top:25rpx;
-  margin-left: 40rpx;
-  width:200rpx;
-  height: 200rpx;
-  margin-bottom:25rpx;
-}
-.contentTitle{
-  margin: 25rpx;
-  margin-left: 18rpx;
-  font-size: 25rpx;
-  color: #000000;
-}
-.contentText{
-  margin: 25rpx;
-  margin-left: 18rpx;
-}
-.question{
-  margin: 25rpx;
-  margin-left: 40rpx;
-}
-.questionTitle{
-  color: #000000;
-}
-.questionText{
-  font-size: small;
-  color:#999999;
-}
-.imgBox{
-  overflow:hidden !important;
-}
-.images{
-  display:block !important; height:225rpx !important;
 }

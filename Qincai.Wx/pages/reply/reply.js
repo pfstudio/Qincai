@@ -9,14 +9,9 @@ Page({
   data: {
     count:0,
     questionId:"",
+    question:{},
     refAnswerId:null,
-    title:"",
-    content:"",
-    answerImages:[],
-    questionImages:[],
     quote: null,
-    questioner:"",
-    questionTime:"",
     answer:"",
     loading:false
   },
@@ -36,11 +31,13 @@ Page({
     api.question.getById(that.data.questionId)
     .then(function(res){
       that.setData({
-        title: res.data.title,
-        content: res.data.content.text,
-        questionImages:res.data.content.images,
-        questioner: res.data.questioner.name,
-        questionTime: moment(res.data.questionTime).format('YYYY-MM-DD HH: mm: ss')
+        question:{
+          title:res.data.title,
+          content:res.data.content.text,
+          images:res.data.content.images,
+          questioner:res.data.questioner.name,
+          questionTime: moment(res.data.questionTime).format('YYYY-MM-DD HH: mm: ss')
+        }
       })
     })
     console.log(this.data.images)
@@ -98,10 +95,4 @@ Page({
       }
     })
   },
-  showImage:function(value){
-    let image = [value.target.dataset.url]
-    wx.previewImage({
-      urls: image,
-    })
-  }
 })

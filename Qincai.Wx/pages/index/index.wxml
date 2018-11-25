@@ -4,21 +4,9 @@
   <van-tab title="顺序 2"></van-tab>
   <van-tab title="顺序 3"></van-tab>
 </van-tabs> -->
-<van-cell-group>
-  <block wx:for="{{questions}}" class="questionList">
-    <van-panel class="question" id="{{item.id}}" title="标题:{{item.title}}" desc="提问者:{{item.questioner.name}}" autosize bindtap="detail">
-    <view>
-    <view class="question">
-    <text class="questionTitle">问题描述\n</text>
-    <text class="questionText">{{item.content.text}}</text>
-    </view>
-    <view wx:if="{{item.content.images}}"  class="imgBox">
-    <block wx:for="{{item.content.images}}" wx:for-item="image" class="images">
-      <image class="answerImg" src="{{image}}" data-url="{{image}}"></image>
-    </block>
-    </view>
-  </view>
-  </van-panel> 
+<view class="questionList">
+  <block wx:for="{{questions}}" wx:key="id">
+    <questionItem question="{{item}}" id="{{item.id}}" bind:click="detail"/>
   </block>
-</van-cell-group>
+</view>
 <van-button round custom-class="questionBtn" type="primary" bind:click="ask">提问</van-button>

@@ -1,0 +1,19 @@
+<!--Component/question/index.wxml-->
+<view>
+<van-panel title="标题:{{question.title}}" desc="提问者:{{question.questioner}}" autosize use-footer-slot footer-class="footer">
+  <view>
+    <view class="content">
+    <text class="questionTitle">问题描述\n</text>
+    <text class="questionText">{{question.content}}</text>
+    </view>
+    <view wx:if="{{question.images}}"  class="imgBox">
+    <block wx:for="{{question.images}}" wx:for-item="image" class="images">
+      <image class="image" src="{{image}}" bindtap="showImage" data-url="{{image}}"></image>
+    </block>
+    </view>
+  </view>   
+  <view slot = "footer">
+    <view>提问时间：{{question.questionTime}}</view>
+  </view>
+</van-panel>
+</view>

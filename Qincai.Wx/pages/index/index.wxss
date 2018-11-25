@@ -1,51 +1,8 @@
 /**index.wxss**/
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.logoutBtn{
-  padding-top: 10px;
-}
 
-.question{
-  margin: 1%; 
-}
-.content{
-  font-size: 'normal';
-}
 .questionBtn{
   position: fixed !important;
   bottom:30rpx !important;
   right:20rpx !important;
   box-shadow: 5rpx 5rpx 3rpx 3rpx rgb(168, 167, 167) !important;
-}
-.tab{
-  width: 100% !important;
-  margin-left: 0!important;
-}
-.answerImg{
-  float: left;
-  margin-top:25rpx;
-  margin-left: 40rpx;
-  width:200rpx;
-  height: 200rpx;
-  margin-bottom:25rpx;
-}
-.imgBox{
-  overflow:hidden !important;
-}
-.images{
-  display:block !important; height:225rpx !important;
-}
-.question{
-  margin: 25rpx;
-  margin-left: 40rpx;
-}
-.questionTitle{
-  color: #000000;
-}
-.questionText{
-  font-size: small;
-  color:#999999;
 }

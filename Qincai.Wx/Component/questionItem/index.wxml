@@ -1,0 +1,10 @@
+<view>
+  <van-panel class="question" title="标题:{{question.title}}" desc="提问者:{{question.questioner.name}}" autosize bindtap="_detail">
+  <view>
+  <view class="content">
+  <text class="questionTitle">问题描述\n</text>
+  <text class="questionText">{{question.content.text}}</text>
+  </view>
+</view>
+</van-panel> 
+</view>

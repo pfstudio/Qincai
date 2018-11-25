@@ -52,7 +52,7 @@
   color:#999999;
 }
 .addImage{
-  height:200rpx;
+  height:250rpx;
 }
 .images{
   display:block !important; height:225rpx !important;

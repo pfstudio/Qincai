@@ -5,7 +5,8 @@
     "van-cell": "../../dist/cell/index",
     "van-cell-group": "../../dist/cell-group/index",
       "van-tab": "../../dist/tab/index",
-      "van-tabs": "../../dist/tabs/index"
+      "van-tabs": "../../dist/tabs/index",
+    "questionItem":"../../Component/questionItem/index"
   },
   "navigationBarTitleText": "问题列表"
 }

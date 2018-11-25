@@ -1,0 +1,13 @@
+
+.questionTitle{
+  color: #000000;
+}
+.questionText{
+  font-size: small;
+  color:#999999;
+}
+.content{
+  margin: 25rpx;
+  margin-left: 40rpx;
+  padding-bottom: 25rpx;
+}

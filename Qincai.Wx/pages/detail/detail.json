@@ -3,7 +3,9 @@
     "van-button": "../../dist/button/index",
     "van-panel": "../../dist/panel/index",
     "van-cell": "../../dist/cell/index",
-    "van-cell-group": "../../dist/cell-group/index"
+    "van-cell-group": "../../dist/cell-group/index",
+    "question":"../../Component/question/index",
+    "answerItem":"../../Component/answerItem/index"
   },
   "navigationBarTitleText": "回答列表"
 }

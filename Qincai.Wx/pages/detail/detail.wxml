@@ -1,49 +1,10 @@
 <!--pages/detail/detail.wxml-->
 <view class="label">问题</view>
-<van-panel title="标题:{{questionTitle}}" desc="提问者:{{questioner}}"autosize use-footer-slot footer-class="footer">
-  <view>
-    <view class="question">
-    <text class="questionTitle">问题描述\n</text>
-    <text class="questionText">{{questionContent}}</text>
-    </view>
-    <view wx:if="{{questionImages}}"  class="imgBox">
-    <block wx:for="{{questionImages}}" wx:for-item="image" class="images">
-      <image class="answerImg" src="{{image}}" bindtap="showImage" data-url="{{image}}"></image>
-    </block>
-    </view>
-  </view>   
-  <view slot = "footer">
-    <view>提问时间：{{questionTime}}</view>
-  </view>
-</van-panel>
+<question question="{{question}}"/>
 <view class="label">回答列表</view>
 <view class="list">
   <block wx:for="{{answers}}" wx:for-item="answer">
-    <van-panel use-footer-slot footer-class="footer" custom-class="answerBox">
-      <view wx:if="{{answer.refAnswer}}" style="padding-top:20rpx;" >
-        <view class="quote">
-          <text class="refFrom">引用自\t@</text>
-          <text class="refFrom" style='color:#3366ff;'>{{answer.refAnswer.answerer.name}}</text>
-          <text class="refFrom">\t的回答:\n</text>
-          <text class="refContent">{{answer.refAnswer.content.text}}</text>
-        </view>
-      </view>
-      <view>
-        <view class="answerContent">{{answer.content.text}}</view>
-          <view class="imgBox">
-          <block wx:for="{{answer.content.images}}" wx:for-item="image"  class="images">
-            <image class="answerImg" src="{{image}}"  bindtap="showImage" data-url="{{image}}"></image>
-          </block>
-          </view>
-        </view>
-      <view slot = "footer">
-        <view class="answerer">
-          <view class="answer-slot">回答人:{{answer.answerer.name}}</view>
-          <view>回答时间: {{answer.answerTime}}</view>
-        </view>
-        <van-button custom-class="plus" id="{{answer.id}}" data-quote="{{answer.content.text}}" size='small' bind:click="plus">追答</van-button>
-      </view>
-    </van-panel>
+    <answerItem answer="{{answer}}" questionId="{{questionId}}"/>
   </block>
 </view>
 <van-button round custom-class="replyBtn" type="primary" bind:click="reply">回答</van-button>
