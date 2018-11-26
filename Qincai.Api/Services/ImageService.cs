@@ -2,7 +2,7 @@
 using Qincai.Api.Dtos;
 using Qincai.Api.Models;
 using Qincai.Api.Utils;
-using Qiniu.Storage;
+using Qiniu.IO.Model;
 using Qiniu.Util;
 using System;
 
