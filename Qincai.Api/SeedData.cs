@@ -6,12 +6,20 @@ using System.Linq;
 
 namespace Qincai.Api
 {
+    /// <summary>
+    /// 初始化数据库
+    /// </summary>
     public static class SeedData
     {
+        /// <summary>
+        /// 初始化数据库
+        /// </summary>
+        /// <param name="services">服务集合</param>
         public static void InitDatabase(IServiceProvider services)
         {
             var dbContent = services.GetRequiredService<ApplicationDbContext>();
 
+            // 判断是否已初始化
             if (dbContent.Users.Any())
             {
                 return;

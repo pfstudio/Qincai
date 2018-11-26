@@ -3,9 +3,9 @@
 namespace Qincai.Api.Dtos
 {
     /// <summary>
-    /// 问题列表参数
+    /// 回答列表参数
     /// </summary>
-    public class ListQuestion : IPagedParam, ISortedParam
+    public class ListAnswerParam : IPagedParam, ISortedParam
     {
         /// <summary>
         /// 当前页数
@@ -20,26 +20,14 @@ namespace Qincai.Api.Dtos
         public int PageSize { get; set; } = 10;
 
         /// <summary>
-        /// 排序字段(QuestionTime|*LastTime)
+        /// 排序字段
         /// </summary>
-        [RegularExpression("^(QuestionTime|LastTime)$", ErrorMessage = "排序字段错误")]
-        public string OrderBy { get; set; } = "LastTime";
+        [RegularExpression("^(AnswerTime)$", ErrorMessage = "排序字段错误")]
+        public string OrderBy { get; set; } = "AnswerTime";
 
         /// <summary>
         /// 是否降序
         /// </summary>
         public bool Descending { get; set; } = true;
-    }
-
-    /// <summary>
-    /// 搜索问题参数
-    /// </summary>
-    public class SearchQuestion : ListQuestion
-    {
-        /// <summary>
-        /// 搜索标题
-        /// </summary>
-        [MaxLength(20, ErrorMessage = "搜索内容过长")]
-        public string Search { get; set; }
     }
 }

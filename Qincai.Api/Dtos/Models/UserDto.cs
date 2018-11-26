@@ -2,6 +2,9 @@
 
 namespace Qincai.Api.Dtos
 {
+    /// <summary>
+    /// 用户Dto
+    /// </summary>
     public class UserDto
     {
         /// <summary>

@@ -3,9 +3,9 @@
 namespace Qincai.Api.Dtos
 {
     /// <summary>
-    /// 小程序认证
+    /// 小程序认证参数
     /// </summary>
-    public class WxOpenAuthorize
+    public class WxOpenAuthorizeParam
     {
         /// <summary>
         /// 3rd-session

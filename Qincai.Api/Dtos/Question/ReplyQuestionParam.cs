@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations;
 namespace Qincai.Api.Dtos
 {
     /// <summary>
-    /// 用于回答问题
+    /// 回答问题参数
     /// </summary>
-    public class ReplyQuestion
+    public class ReplyQuestionParam
     {
         /// <summary>
         /// 回答内容

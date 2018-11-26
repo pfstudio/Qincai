@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Qincai.Api.Utils;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
@@ -8,32 +6,15 @@ using System.IO;
 
 namespace Qincai.Api.Extensions
 {
+    /// <summary>
+    /// StartUp中注入服务的拓展方法
+    /// </summary>
     public static class ServicesExtension
     {
-        public static WxOpenConfig ConfigureWxOpen(this IServiceCollection services, IConfiguration configuration)
-        {
-            var wxOpenConfigSection = configuration.GetSection("WxOpen");
-            services.Configure<WxOpenConfig>(wxOpenConfigSection);
-
-            return wxOpenConfigSection.Get<WxOpenConfig>();
-        }
-
-        public static JwtConfig ConfigureJwt(this IServiceCollection services, IConfiguration configuration)
-        {
-            var jwtConfigSection = configuration.GetSection("JwtConfig:WxOpen");
-            services.Configure<JwtConfig>(jwtConfigSection);
-
-            return jwtConfigSection.Get<JwtConfig>();
-        }
-
-        public static QiniuConfig ConfigureQiniu(this IServiceCollection services, IConfiguration configuration)
-        {
-            var qiniuConfigSection = configuration.GetSection("QiniuConfig");
-            services.Configure<Utils.QiniuConfig>(qiniuConfigSection);
-
-            return qiniuConfigSection.Get<QiniuConfig>();
-        }
-
+        /// <summary>
+        /// 配置Swagger
+        /// </summary>
+        /// <param name="services">服务集合</param>
         public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>

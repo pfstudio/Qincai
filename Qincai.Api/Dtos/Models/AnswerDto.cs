@@ -1,8 +1,10 @@
-﻿using Qincai.Api.Models;
-using System;
+﻿using System;
 
 namespace Qincai.Api.Dtos
 {
+    /// <summary>
+    /// 一般回答
+    /// </summary>
     public class AnswerDto
     {
         /// <summary>
@@ -27,6 +29,9 @@ namespace Qincai.Api.Dtos
         public RefAnswerDto RefAnswer { get; set; }
     }
 
+    /// <summary>
+    /// 被引用的回答
+    /// </summary>
     public class RefAnswerDto
     {
         /// <summary>
@@ -43,6 +48,9 @@ namespace Qincai.Api.Dtos
         public ContentDto Content { get; set; }
     }
 
+    /// <summary>
+    /// 包含所属问题的回答
+    /// </summary>
     public class AnswerWithQuestionDto: AnswerDto
     {
         /// <summary>

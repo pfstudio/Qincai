@@ -1,24 +1,14 @@
-﻿using System;
-
-namespace Qincai.Api.Models
+﻿namespace Qincai.Api.Dtos
 {
     /// <summary>
-    /// 用户实体
+    /// 创建用户参数
     /// </summary>
-    public class User
+    public class CreateUserParam
     {
         /// <summary>
-        /// 用户Id
-        /// </summary>
-        public Guid Id { get; set; }
-        /// <summary>
-        /// 用户昵称
+        /// 昵称
         /// </summary>
         public string Name { get; set; }
-        /// <summary>
-        /// 角色
-        /// </summary>
-        public string Role { get; internal set; }
         /// <summary>
         /// 头像Url
         /// </summary>
@@ -27,5 +17,9 @@ namespace Qincai.Api.Models
         /// 微信OpenId
         /// </summary>
         public string WxOpenId { get; set; }
+        /// <summary>
+        /// 角色
+        /// </summary>
+        public string Role { get; set; }
     }
 }

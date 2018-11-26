@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Qincai.Api.Dtos
 {
@@ -40,5 +39,20 @@ namespace Qincai.Api.Dtos
         /// 每页数量
         /// </summary>
         int PageSize { get; set; }
+    }
+
+    /// <summary>
+    /// 排序参数
+    /// </summary>
+    public interface ISortedParam
+    {
+        /// <summary>
+        /// 排序字段
+        /// </summary>
+        string OrderBy { get; set; }
+        /// <summary>
+        /// 是否降序
+        /// </summary>
+        bool Descending { get; set; }
     }
 }

@@ -5,7 +5,7 @@ namespace Qincai.Api.Dtos
     /// <summary>
     /// 微信登录参数
     /// </summary>
-    public class WxOpenLogin
+    public class WxOpenLoginParam
     {
         /// <summary>
         /// wx.login 返回的code

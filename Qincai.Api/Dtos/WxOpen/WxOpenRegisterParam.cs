@@ -5,7 +5,7 @@ namespace Qincai.Api.Dtos
     /// <summary>
     /// 微信注册参数
     /// </summary>
-    public class WxOpenRegister
+    public class WxOpenRegisterParam
     {
         /// <summary>
         /// 3rd-Session Id

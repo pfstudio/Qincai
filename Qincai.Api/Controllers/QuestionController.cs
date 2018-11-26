@@ -7,7 +7,6 @@ using Qincai.Api.Extensions;
 using Qincai.Api.Models;
 using Qincai.Api.Services;
 using System;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -29,8 +28,9 @@ namespace Qincai.Api.Controllers
         /// <summary>
         /// 依赖注入
         /// </summary>
-        /// <param name="mapper">model2dto</param>
+        /// <param name="mapper">对象映射</param>
         /// <param name="questionService">问题相关的服务</param>
+        /// <param name="userService">用户相关的服务</param>
         public QuestionController(IMapper mapper, IQuestionService questionService, IUserService userService)
         {
             _mapper = mapper;
@@ -46,7 +46,7 @@ namespace Qincai.Api.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [AllowAnonymous]
-        public async Task<ActionResult<PagedResult<QuestionDto>>> List([FromQuery]SearchQuestion dto)
+        public async Task<ActionResult<PagedResult<QuestionDto>>> List([FromQuery]SearchQuestionParam dto)
         {
             Expression<Func<Question, bool>> filter = null;
             if (dto.Search != null)
@@ -71,10 +71,11 @@ namespace Qincai.Api.Controllers
         [HttpGet("me")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<PagedResult<QuestionDto>>> ListMyQuestion([FromQuery]ListQuestion dto)
+        public async Task<ActionResult<PagedResult<QuestionDto>>> ListMyQuestion([FromQuery]ListQuestionParam dto)
         {
             Guid userId = User.GetUserId();
-            var questions = _questsionService.GetQuery(q => q.Questioner.Id == userId, dto)
+            var questions = _questsionService
+                .GetQuery(q => q.Questioner.Id == userId, dto)
                 // 此处使用ProjectTo拓展实现对IQueryable对象的映射
                 .ProjectTo<QuestionDto>(_mapper.ConfigurationProvider);
 
@@ -112,13 +113,16 @@ namespace Qincai.Api.Controllers
         [ProducesResponseType(404)]
         [AllowAnonymous]
         public async Task<ActionResult<PagedResult<AnswerDto>>> ListAnswersByQuestionId(
-            [FromRoute]Guid id, [FromQuery]ListAnswer dto)
+            [FromRoute]Guid id, [FromQuery]ListAnswerParam dto)
         {
+            // 判断问题是否存在
             if (!await _questsionService.ExistAsync(id))
             {
                 return NotFound();
             }
-            var answers = _questsionService.GetAnswersQuery(id, sorted: dto)
+
+            var answers = _questsionService
+                .GetAnswersQuery(id, dto)
                 .ProjectTo<AnswerDto>(_mapper.ConfigurationProvider);
 
             return await answers.Paged(dto);
@@ -128,11 +132,10 @@ namespace Qincai.Api.Controllers
         /// 创建一个新的问题
         /// </summary>
         /// <param name="dto">新问题</param>
-        /// <param name="userId">用户Id</param>
         [HttpPost("[Action]")]
         [ProducesResponseType(201)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<QuestionDto>> Create([FromBody]CreateQuestion dto)
+        public async Task<ActionResult<QuestionDto>> Create([FromBody]CreateQuestionParam dto)
         {
             User questioner = await _userService.GetByIdAsync(User.GetUserId());
             Question question = await _questsionService.CreateAsync(questioner, dto);
@@ -152,8 +155,9 @@ namespace Qincai.Api.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(401)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<AnswerDto>> Reply([FromRoute]Guid id, [FromBody]ReplyQuestion dto)
+        public async Task<ActionResult<AnswerDto>> Reply([FromRoute]Guid id, [FromBody]ReplyQuestionParam dto)
         {
+            // 判断问题是否存在
             if (!await _questsionService.ExistAsync(id))
             {
                 return NotFound();

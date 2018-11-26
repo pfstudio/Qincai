@@ -1,22 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace Qincai.Api
 {
+    /// <summary>
+    /// 入口类
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// 入口函数
+        /// </summary>
+        /// <param name="args">启动参数</param>
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();
         }
 
+        /// <summary>
+        /// 创建默认的WebHost
+        /// </summary>
+        /// <param name="args">启动参数</param>
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();

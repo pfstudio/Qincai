@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Qincai.Api.Dtos;
 using Qincai.Api.Models;
 using Qincai.Api.Services;
@@ -8,10 +9,19 @@ using Qincai.Api.Utils;
 using Senparc.Weixin;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
+using Senparc.Weixin.WxOpen.Entities;
+using Senparc.Weixin.WxOpen.Helpers;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Qincai.Api.Controllers
 {
+    /// <summary>
+    /// 微信小程序相关API
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class WxOpenController : ControllerBase
@@ -21,6 +31,13 @@ namespace Qincai.Api.Controllers
         private readonly WxOpenConfig _wxOpenConfig;
         private readonly JwtConfig _jwtConfig;
 
+        /// <summary>
+        /// 依赖注入
+        /// </summary>
+        /// <param name="userService">用户服务</param>
+        /// <param name="mapper">对象映射</param>
+        /// <param name="wxOpenConfig">微信小程序配置</param>
+        /// <param name="jwtConfig">JWT配置</param>
         public WxOpenController(IUserService userService, IMapper mapper,
             IOptions<WxOpenConfig> wxOpenConfig, IOptions<JwtConfig> jwtConfig)
         {
@@ -36,7 +53,7 @@ namespace Qincai.Api.Controllers
         /// <param name="model">登录参数</param>
         [HttpPost("[Action]")]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<WxOpenLoginResult>> Login([FromBody]WxOpenLogin model)
+        public async Task<ActionResult<WxOpenLoginResult>> Login([FromBody]WxOpenLoginParam model)
         {
             // 根据code从服务器换取session_id, session_key
             var jsonResult = await SnsApi.JsCode2JsonAsync(
@@ -67,17 +84,31 @@ namespace Qincai.Api.Controllers
         /// <summary>
         /// 微信注册
         /// </summary>
-        /// <param name="model">注册参数</param>
+        /// <param name="dto">注册参数</param>
         [HttpPost("[Action]")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<UserDto>> Register([FromBody]WxOpenRegister model)
+        public async Task<ActionResult<UserDto>> Register([FromBody]WxOpenRegisterParam dto)
         {
+            // TODO: 检查签名
             // 解码用户信息
-            // TODO: 可能存在解密失败的问题
-            var userInfo = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(
-                model.SessionId, model.EncryptedData, model.Iv);
-            // TODO: 可能需要检查签名和水印
+            // TODO: 是否存在空引用
+            DecodedUserInfo userInfo = null;
+            try
+            {
+                userInfo = EncryptHelper.DecodeUserInfoBySessionId(
+                    dto.SessionId, dto.EncryptedData, dto.Iv);
+            }
+            // 处理解码错误异常
+            catch (SecurityTokenEncryptionFailedException)
+            {
+                return BadRequest("解码错误");
+            }
+            // 检验水印
+            if (!userInfo.CheckWatermark(_wxOpenConfig.AppId))
+            {
+                return BadRequest("非法请求");
+            }
             // 判断用户是否已注册
             // TODO: 封装后应该提供其他查找方式
             if (await _userService.ExistByOpenIdAsync(userInfo.openId))
@@ -86,13 +117,14 @@ namespace Qincai.Api.Controllers
                 return BadRequest(ModelState);
             }
             // 新建用户
-            User user = await _userService.CreateAsync(new CreateUser
-            {
-                Name = userInfo.nickName,
-                AvatarUrl = userInfo.avatarUrl,
-                WxOpenId = userInfo.openId,
-                Role = "用户"
-            });
+            User user = await _userService.CreateAsync(
+                new CreateUserParam
+                {
+                    Name = userInfo.nickName,
+                    AvatarUrl = userInfo.avatarUrl,
+                    WxOpenId = userInfo.openId,
+                    Role = "用户"
+                });
 
             return _mapper.Map<UserDto>(user);
         }
@@ -103,18 +135,47 @@ namespace Qincai.Api.Controllers
         /// <param name="model">登录态参数</param>
         [HttpPost("[Action]")]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<AuthorizeResult>> Authorize([FromBody]WxOpenAuthorize model)
+        public async Task<ActionResult<AuthorizeResult>> Authorize([FromBody]WxOpenAuthorizeParam model)
         {
+            // 查找session
             var session = SessionContainer.GetSession(model.SessionId);
             if (session == null)
             {
                 return AuthorizeResult.Fail("sesiion 已过期");
             }
+            // 查找用户
             User user = await _userService.GetByOpenIdAsync(session.OpenId);
-
-            var token = JwtTokenHelper.Create(_jwtConfig, user);
+            // 创建Token
+            var token = CreateJwtToken(_jwtConfig, user);
 
             return AuthorizeResult.Success(token);
+        }
+
+        /// <summary>
+        /// 创建Jwt Token
+        /// </summary>
+        /// <param name="jwtConfig">Jwt 配置参数</param>
+        /// <param name="user">授权用户</param>
+        /// <returns>Jwt Token</returns>
+        private string CreateJwtToken(JwtConfig jwtConfig, User user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            // 添加Claims
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Role, user.Role)
+            };
+            var subject = new ClaimsIdentity(claims);
+            var credentials = new SigningCredentials(
+                jwtConfig.Key, SecurityAlgorithms.HmacSha256Signature);
+            // 有效期2min
+            var token = tokenHandler.CreateJwtSecurityToken(
+                jwtConfig.Issuer, jwtConfig.Audience, subject,
+                expires: DateTime.Now.AddMinutes(2), issuedAt: DateTime.Now,
+                signingCredentials: credentials);
+
+            return tokenHandler.WriteToken(token);
         }
     }
 }

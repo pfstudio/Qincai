@@ -20,6 +20,11 @@ namespace Qincai.Api.Controllers
         private readonly IImageService _imageService;
         private readonly IUserService _userService;
 
+        /// <summary>
+        /// 依赖注入
+        /// </summary>
+        /// <param name="imageService">图片服务</param>
+        /// <param name="userService">用户服务</param>
         public ImageController(IImageService imageService, IUserService userService)
         {
             _imageService = imageService;

@@ -2,6 +2,9 @@
 
 namespace Qincai.Api.Dtos
 {
+    /// <summary>
+    /// 问题Dto
+    /// </summary>
     public class QuestionDto
     {
         /// <summary>

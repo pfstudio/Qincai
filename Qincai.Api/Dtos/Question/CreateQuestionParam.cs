@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 namespace Qincai.Api.Dtos
 {
     /// <summary>
-    /// 用于创建一个新问题
+    /// 创建问题参数
     /// </summary>
-    public class CreateQuestion
+    public class CreateQuestionParam
     {
         /// <summary>
         /// 问题标题
