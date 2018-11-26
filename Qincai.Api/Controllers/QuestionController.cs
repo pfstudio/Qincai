@@ -7,6 +7,8 @@ using Qincai.Api.Extensions;
 using Qincai.Api.Models;
 using Qincai.Api.Services;
 using System;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Qincai.Api.Controllers
@@ -37,60 +39,47 @@ namespace Qincai.Api.Controllers
         }
 
         /// <summary>
-        /// 创建一个新的问题
-        /// </summary>
-        /// <param name="model">新问题</param>
-        /// <param name="userId">用户Id</param>
-        [HttpPost("[Action]")]
-        [ProducesResponseType(201)]
-        [ProducesResponseType(401)]
-        public async Task<ActionResult<QuestionDto>> Create([FromBody]CreateQuestion model)
-        {
-            User questioner = await _userService.GetByIdAsync(User.GetUserId());
-            Question question = await _questsionService.CreateAsync(questioner, model);
-
-            // 返回201，以及location uri
-            // 不应直接返回任何数据库模型！！！
-            // 此处使用AutoMap实现映射
-            return CreatedAtRoute("GetQuestion", new { question.Id }, _mapper.Map<QuestionDto>(question));
-        }
-
-        /// <summary>
         /// 问题列表
         /// </summary>
         /// <remarks>后期需要按某一字段排序</remarks>
-        /// <param name="pagedParam">分页参数</param>
+        /// <param name="dto">问题列表参数</param>
         [HttpGet]
         [ProducesResponseType(200)]
         [AllowAnonymous]
-        public async Task<ActionResult<PagedResult<QuestionDto>>> List([FromQuery]QuestionPagedParam pagedParam)
+        public async Task<ActionResult<PagedResult<QuestionDto>>> List([FromQuery]SearchQuestion dto)
         {
-            var questions = _questsionService.GetQuery()
+            Expression<Func<Question, bool>> filter = null;
+            if (dto.Search != null)
+            {
+                // TODO: 忽略大小写
+                filter = q => q.Title.Contains(dto.Search);
+            }
+            var questions = _questsionService.GetQuery(filter, dto)
                 // 此处使用ProjectTo拓展实现对IQueryable对象的映射
                 .ProjectTo<QuestionDto>(_mapper.ConfigurationProvider);
 
-            // 利用PagedResult，实现分页
-            // TODO：缺少更高级的分页控制
-            return await PagedResult<QuestionDto>.CreateAsync(questions, pagedParam);
+            // 基于拓展实现分页
+            var pagedResult = await questions.Paged(dto);
+
+            return pagedResult;
         }
 
         /// <summary>
         /// 我的问题
         /// </summary>
-        /// <param name="pagedParam">分页参数</param>
+        /// <param name="dto">分页参数</param>
         [HttpGet("me")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<PagedResult<QuestionDto>>> ListMyQuestion([FromQuery]QuestionPagedParam pagedParam)
+        public async Task<ActionResult<PagedResult<QuestionDto>>> ListMyQuestion([FromQuery]ListQuestion dto)
         {
             Guid userId = User.GetUserId();
-            var questions = _questsionService.GetQuery(q => q.Questioner.Id == userId)
+            var questions = _questsionService.GetQuery(q => q.Questioner.Id == userId, dto)
                 // 此处使用ProjectTo拓展实现对IQueryable对象的映射
                 .ProjectTo<QuestionDto>(_mapper.ConfigurationProvider);
 
-            // 利用PagedResult，实现分页
-            // TODO：缺少更高级的分页控制
-            return await PagedResult<QuestionDto>.CreateAsync(questions, pagedParam);
+            // 基于拓展实现分页
+            return await questions.Paged(dto);
         }
 
         /// <summary>
@@ -117,34 +106,53 @@ namespace Qincai.Api.Controllers
         /// 问题的回答列表
         /// </summary>
         /// <param name="id">问题Id</param>
-        /// <param name="pagedParam">分页参数</param>
+        /// <param name="dto">回答列表参数</param>
         [HttpGet("{id}/Answers")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [AllowAnonymous]
         public async Task<ActionResult<PagedResult<AnswerDto>>> ListAnswersByQuestionId(
-            [FromRoute]Guid id, [FromQuery]AnswerPagedParam pagedParam)
+            [FromRoute]Guid id, [FromQuery]ListAnswer dto)
         {
             if (!await _questsionService.ExistAsync(id))
             {
                 return NotFound();
             }
-            var answers = _questsionService.GetAnswersQuery(id)
+            var answers = _questsionService.GetAnswersQuery(id, sorted: dto)
                 .ProjectTo<AnswerDto>(_mapper.ConfigurationProvider);
 
-            return await PagedResult<AnswerDto>.CreateAsync(answers, pagedParam);
+            return await answers.Paged(dto);
+        }
+
+        /// <summary>
+        /// 创建一个新的问题
+        /// </summary>
+        /// <param name="dto">新问题</param>
+        /// <param name="userId">用户Id</param>
+        [HttpPost("[Action]")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(401)]
+        public async Task<ActionResult<QuestionDto>> Create([FromBody]CreateQuestion dto)
+        {
+            User questioner = await _userService.GetByIdAsync(User.GetUserId());
+            Question question = await _questsionService.CreateAsync(questioner, dto);
+
+            // 返回201，以及location uri
+            // 不应直接返回任何数据库模型！！！
+            // 此处使用AutoMap实现映射
+            return CreatedAtRoute("GetQuestion", new { question.Id }, _mapper.Map<QuestionDto>(question));
         }
 
         /// <summary>
         /// 回答问题
         /// </summary>
         /// <param name="id">问题Id</param>
-        /// <param name="model">新回答</param>
+        /// <param name="dto">新回答</param>
         [HttpPost("{id}/Reply")]
         [ProducesResponseType(201)]
         [ProducesResponseType(401)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<AnswerDto>> Reply([FromRoute]Guid id, [FromBody]ReplyQuestion model)
+        public async Task<ActionResult<AnswerDto>> Reply([FromRoute]Guid id, [FromBody]ReplyQuestion dto)
         {
             if (!await _questsionService.ExistAsync(id))
             {
@@ -153,7 +161,7 @@ namespace Qincai.Api.Controllers
 
             User answerer = await _userService.GetByIdAsync(User.GetUserId());
 
-            Answer answer = await _questsionService.ReplyAsync(id, answerer, model);
+            Answer answer = await _questsionService.ReplyAsync(id, answerer, dto);
 
             return CreatedAtRoute("GetQuestion", new { id }, _mapper.Map<AnswerDto>(answer));
         }

@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Linq.Dynamic.Core;
 
 namespace Qincai.Api.Services
 {
@@ -12,9 +13,9 @@ namespace Qincai.Api.Services
     {
         Task<Question> GetByIdAsync(Guid questionId);
         Task<Question> CreateAsync(User questioner, CreateQuestion dto);
-        IQueryable<Question> GetQuery(Expression<Func<Question, bool>> filter=null);
+        IQueryable<Question> GetQuery(Expression<Func<Question, bool>> filter=null, ISortedParam sorted=null);
         Task<Answer> ReplyAsync(Guid questionId, User answerer, ReplyQuestion dto);
-        IQueryable<Answer> GetAnswersQuery(Guid questionId, Expression<Func<Answer, bool>> filter=null);
+        IQueryable<Answer> GetAnswersQuery(Guid questionId, Expression<Func<Answer, bool>> filter=null, ISortedParam sorted=null);
         Task<bool> ExistAsync(Guid questionId);
     }
 
@@ -60,17 +61,25 @@ namespace Qincai.Api.Services
             return _context.Questions.AnyAsync(q => q.Id == questionId);
         }
 
-        public IQueryable<Answer> GetAnswersQuery(Guid questionId, Expression<Func<Answer, bool>> filter=null)
+        public IQueryable<Answer> GetAnswersQuery(Guid questionId, Expression<Func<Answer, bool>> filter=null, ISortedParam sorted=null)
         {
             var query =  _context.Answers
                 .Include(a => a.Answerer)
                 .Include(a => a.Question)
                 .Include(a => a.RefAnswer)
                 .Where(a => a.Question.Id == questionId)
-                .OrderByDescending(a => a.AnswerTime)
                 .AsNoTracking();
 
-            return filter == null ? query : query.Where(filter);
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (sorted != null)
+            {
+                query = query.OrderBy(sorted.OrderBy + (sorted.Descending ? " descending" : ""));
+            }
+
+            return query;
         }
 
         public Task<Question> GetByIdAsync(Guid questionId)
@@ -81,15 +90,23 @@ namespace Qincai.Api.Services
                 .SingleOrDefaultAsync();
         }
 
-        public IQueryable<Question> GetQuery(Expression<Func<Question, bool>> filter=null)
+        public IQueryable<Question> GetQuery(Expression<Func<Question, bool>> filter=null, ISortedParam sorted=null)
         {
             var query = _context.Questions
                 .Include(q => q.Questioner)
-                .OrderByDescending(q => q.QuestionTime)
                 .AsNoTracking()
                 .AsQueryable();
 
-            return filter == null ? query : query.Where(filter);
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (sorted != null)
+            {
+                query = query.OrderBy(sorted.OrderBy + (sorted.Descending ? " descending" : ""));
+            }
+
+            return query;
         }
 
         public async Task<Answer> ReplyAsync(Guid questionId, User answerer, ReplyQuestion dto)

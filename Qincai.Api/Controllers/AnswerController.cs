@@ -34,11 +34,11 @@ namespace Qincai.Api.Controllers
         /// <summary>
         /// 我的回答
         /// </summary>
-        /// <param name="pagedParam">分页参数</param>
+        /// <param name="dto">分页参数</param>
         [HttpGet("me")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<PagedResult<AnswerWithQuestionDto>>> ListMyAnswer([FromQuery]AnswerPagedParam pagedParam)
+        public async Task<ActionResult<PagedResult<AnswerWithQuestionDto>>> ListMyAnswer([FromQuery]ListAnswer dto)
         {
             Guid userId = User.GetUserId();
             var answers = _context.Answers
@@ -51,7 +51,7 @@ namespace Qincai.Api.Controllers
 
             // 利用PagedResult，实现分页
             // TODO：缺少更高级的分页控制
-            return await PagedResult<AnswerWithQuestionDto>.CreateAsync(answers, pagedParam);
+            return await answers.Paged(dto);
         }
     }
 }
