@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Options;
-using Qincai.Api.Dtos;
-using Qincai.Api.Models;
+using Qincai.Dtos;
+using Qincai.Models;
 using Qincai.Api.Utils;
 using Qiniu.IO.Model;
 using Qiniu.Util;
 using System;
 
-namespace Qincai.Api.Services
+namespace Qincai.Services
 {
     /// <summary>
     /// 图片相关服务接口

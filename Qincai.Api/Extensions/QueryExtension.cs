@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Qincai.Api.Dtos;
-using Qincai.Api.Models;
+using Qincai.Dtos;
 using System.Linq;
 using System.Threading.Tasks;
 

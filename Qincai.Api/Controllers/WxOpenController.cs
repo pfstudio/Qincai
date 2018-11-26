@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Qincai.Api.Dtos;
-using Qincai.Api.Models;
-using Qincai.Api.Services;
+using Qincai.Dtos;
+using Qincai.Models;
+using Qincai.Services;
 using Qincai.Api.Utils;
 using Senparc.Weixin;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
@@ -100,7 +100,7 @@ namespace Qincai.Api.Controllers
                     dto.SessionId, dto.EncryptedData, dto.Iv);
             }
             // 处理解码错误异常
-            catch (SecurityTokenEncryptionFailedException)
+            catch (System.Security.Cryptography.CryptographicException)
             {
                 return BadRequest("解码错误");
             }

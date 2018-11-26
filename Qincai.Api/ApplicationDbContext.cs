@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Qincai.Api.Models;
+using Qincai.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

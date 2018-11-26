@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Qincai.Api.Dtos
+namespace Qincai.Dtos
 {
     /// <summary>
     /// 回答问题参数

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Qincai.Api.Models
+namespace Qincai.Models
 {
     /// <summary>
     /// 问题实体

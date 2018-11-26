@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Qincai.Api.Models
+namespace Qincai.Models
 {
     /// <summary>
     /// 用户实体

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Qincai.Api.Dtos
+namespace Qincai.Dtos
 {
     /// <summary>
     /// 小程序认证参数

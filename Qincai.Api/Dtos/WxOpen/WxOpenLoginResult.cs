@@ -1,4 +1,4 @@
-﻿namespace Qincai.Api.Dtos
+﻿namespace Qincai.Dtos
 {
     /// <summary>
     /// 登录结果

@@ -1,4 +1,4 @@
-﻿namespace Qincai.Api.Dtos
+﻿namespace Qincai.Dtos
 {
     /// <summary>
     /// 认证结果

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Qincai.Api.Dtos
+namespace Qincai.Dtos
 {
     /// <summary>
     /// 内容Dto

@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Qincai.Api.Dtos;
-using Qincai.Api.Models;
+using Qincai.Api;
+using Qincai.Dtos;
+using Qincai.Models;
 using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 
-namespace Qincai.Api.Services
+namespace Qincai.Services
 {
     /// <summary>
     /// 回答相关服务接口

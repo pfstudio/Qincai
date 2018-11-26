@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Qincai.Api.Dtos
+﻿namespace Qincai.Dtos
 {
     /// <summary>
     /// 图片上传Token

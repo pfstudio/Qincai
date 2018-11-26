@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Qincai.Api.Dtos
+namespace Qincai.Dtos
 {
     /// <summary>
     /// 微信登录参数

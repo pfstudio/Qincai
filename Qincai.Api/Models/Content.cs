@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Qincai.Api.Models
+namespace Qincai.Models
 {
     /// <summary>
     /// 内容对象

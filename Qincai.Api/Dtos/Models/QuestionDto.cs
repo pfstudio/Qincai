@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Qincai.Api.Dtos
+namespace Qincai.Dtos
 {
     /// <summary>
     /// 问题Dto

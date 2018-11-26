@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Qincai.Api.Dtos
+namespace Qincai.Dtos
 {
     /// <summary>
     /// 分页结果

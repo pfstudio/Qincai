@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Qincai.Api.Models;
+using Qincai.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
