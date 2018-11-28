@@ -1,4 +1,4 @@
-
+const moment = require('../../utils/moment-with-locales.js')
 Component({
   /**
    * 组件的属性列表
@@ -8,11 +8,6 @@ Component({
       type: Object,
       value: null
     },
-    questionId:{
-      type:String,
-      value:null
-    }
-
   },
 
   /**
@@ -31,5 +26,13 @@ Component({
         url: '../detail/detail?questionId=' + this.data.question.id,
       })
     },
+  },
+  ready:function(){
+    moment.locale("zh-cn")
+    let que = this.data.question;
+    que.questionTime=moment(que.questionTime).fromNow()
+    this.setData({
+      question:que
+    })
   }
 })

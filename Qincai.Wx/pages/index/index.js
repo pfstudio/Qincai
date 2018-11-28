@@ -36,11 +36,6 @@ Page({
     let that = this
     api.question.list(1,10)
     .then(function(res){
-      moment.locale("zh-cn")
-      var answerList = res.data.result.map(function (item) {
-        item.questionTime = moment(item.questionTime).fromNow()
-        return item
-      })
       that.setData({
         questions:res.data.result
       })
