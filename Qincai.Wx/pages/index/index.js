@@ -33,7 +33,6 @@ Page({
     }
   },
   onShow:function(){
-    
     let that = this
     api.question.list(1,10)
     .then(function(res){
@@ -47,27 +46,9 @@ Page({
       })
     })
   },
-  logout:function(){
-    wx.clearStorage();
-    wx.navigateTo({
-      url: '../login/login',
-    })
-  },
-  detail: function (detail) {
-    console.log(detail)
-    wx.navigateTo({
-      url: '../detail/detail?questionId=' + detail.currentTarget.id,
-    })
-  },
   ask: function(){
     wx.navigateTo({
       url: '../ask/ask',
-    })
-  },
-  showImage: function (value) {
-    let image = [value.target.dataset.url]
-    wx.previewImage({
-      urls: image,
     })
   }
 })

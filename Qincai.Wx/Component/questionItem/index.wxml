@@ -1,4 +1,4 @@
-<view class="question" bindtap="_detail">
+<view class="question" bindtap="detail">
   <view class="questioner">
     <image class="avatar" src="{{question.questioner.avatarUrl}}"/>
     <text class="name">{{question.questioner.name}}</text>
