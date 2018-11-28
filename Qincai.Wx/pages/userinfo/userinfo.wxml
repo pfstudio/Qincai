@@ -1,0 +1,27 @@
+<!--pages/userinfo/userinfo.wxml-->
+<view class = "margin_20view">
+  <text class = "font">ID: 1747122</text>
+  <text class = "variable_idfont"> 注册时间: 2018-11-27</text>
+</view>
+
+<view class = "margin_4view">
+  <text class = "font">昵称</text>
+  <image class = "image" src = "../../images/right.png"></image>
+  <text class = "variable_namefont">user_name</text>
+  
+</view>
+
+<view class = "margin_4view">
+  <text class = "font">更多</text>
+  <image class = "image" src = "../../images/right.png"></image>
+</view>
+
+<view class = "margin_20view">
+  <text class = "font">登陆密码</text>
+  <image class = "image" src = "../../images/right.png"></image>
+  <text class = "variable_namefont"> 修改 </text>
+</view>
+
+<view class = "margin_20view" style=' text-align:center;'>
+  <text class='logout'>退出登录</text>
+</view>

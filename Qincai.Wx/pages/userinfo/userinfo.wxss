@@ -1,0 +1,51 @@
+/* pages/userinfo/userinfo.wxss */
+.margin_20view{
+  background-color: #ffffff;
+  height: 100rpx;
+  margin-top:20rpx;
+  padding-top:2rpx;
+}
+.margin_4view{
+  background-color: #ffffff;
+  height: 100rpx;
+  margin-top: 4rpx;
+  padding-top:2rpx;
+}
+.font{
+  font-size: small;
+  position:relative;
+  top: 25rpx;
+  margin-left: 20rpx;
+}
+.variable_idfont{
+  font-size:small;
+  position:relative;
+  color:#CDC5BF;
+  top:25rpx;
+  right:30rpx;
+  float:right;
+}
+.variable_namefont{
+  font-size:small;
+  position:relative;
+  float:right;
+  top:25rpx;
+  color:#CDC5BF;
+  right:50rpx;
+}
+.image{
+  width: 50rpx;
+  height: 50rpx;
+  position: relative;
+  float: right;
+  right: 15rpx;
+  top:25rpx;
+}
+.logout{
+  color: #FF4040;
+  position: relative;
+  top:15rpx;
+
+}
+
+
