@@ -1,7 +1,7 @@
-                                     <!--pages/me.wxml-->
+<!--pages/me.wxml-->
 <view class="user">
-  <image class="avatar"  src="{{user.avatarUrl}}"/>
-  <view class="userName" bindtap='userinfo' >{{user.name}}</view>
+  <image class="avatar" src="{{user.avatarUrl}}"/>
+  <view class="userName">{{user.name}}</view>
 </view>
 <van-cell-group>
   <van-cell title="我的问题" is-link bind:click="myQuestion"/>

@@ -23,10 +23,5 @@ Page({
     wx.navigateTo({
       url: '../myQuestion/myQuestion',
     })
-  },
-  userinfo: function(){
-    wx.navigateTo({
-      url: '../userinfo/userinfo',
-    })
   }
 })

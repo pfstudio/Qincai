@@ -1,14 +1,10 @@
-<view class="question" bindtap="detail">
-  <view class="questioner">
-    <image class="avatar" src="{{question.questioner.avatarUrl}}"/>
-    <text class="name">{{question.questioner.name}}</text>
-    
-  </view>
+<view>
+  <van-panel class="question" title="标题:{{question.title}}" desc="提问者:{{question.questioner.name}}" autosize bindtap="_detail">
+  <view>
   <view class="content">
-  <text class="questionTitle">{{question.title}}\t</text>
-  <text class="questionContent">{{question.content.text}}</text>
+  <text class="questionTitle">问题描述\n</text>
+  <text class="questionText">{{question.content.text}}</text>
   </view>
-  <view class="footer">
-    <view>{{question.questionTime}}</view>
-  </view>
+</view>
+</van-panel> 
 </view>

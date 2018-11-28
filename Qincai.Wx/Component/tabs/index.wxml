@@ -1,8 +1,0 @@
-<!--Component/tabs.wxml-->
-<view class="tabs">
-  <block wx:for="{{tabs}}" wx:key="">
-    <view class="tab" id="{{index}}"  style="color:{{active == index?tabColor:'black'}};width:{{width/tabs.length}}rpx;" bindtap="tabClick">
-      <text class="tabText" id="{{index}}"  style="{{active == index?'border-bottom: 8rpx solid '+tabColor+';':''}}" bindtap="tabClick" >{{item}}</text>
-    </view>
-  </block>
-</view>

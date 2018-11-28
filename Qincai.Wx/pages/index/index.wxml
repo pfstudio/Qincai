@@ -4,13 +4,9 @@
   <van-tab title="顺序 2"></van-tab>
   <van-tab title="顺序 3"></van-tab>
 </van-tabs> -->
-<view class="toolLine">
-  <van-icon name="search" size="45rpx"custom-class="searchIcon" bind:click="search"/>
-  <tabs tabs="{{tabs}}" active="0" width="600" bind:change="tabChange"/>
-</view>
 <view class="questionList">
   <block wx:for="{{questions}}" wx:key="id">
-    <questionItem question="{{item}}"/>
+    <questionItem question="{{item}}" id="{{item.id}}" bind:click="detail"/>
   </block>
 </view>
 <van-button round custom-class="questionBtn" type="primary" bind:click="ask">提问</van-button>

@@ -1,4 +1,4 @@
-const moment = require('../../utils/moment-with-locales.js')
+
 Component({
   /**
    * 组件的属性列表
@@ -8,6 +8,11 @@ Component({
       type: Object,
       value: null
     },
+    questionId:{
+      type:String,
+      value:null
+    }
+
   },
 
   /**
@@ -21,10 +26,8 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    detail(){
-      wx.navigateTo({
-        url: '../detail/detail?questionId=' + this.data.question.id,
-      })
+    _detail(){
+      this.triggerEvent("click")
     },
-  },
+  }
 })
