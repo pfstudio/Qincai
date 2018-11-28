@@ -23,10 +23,10 @@ function create(title,text,images){
   })
 }
 
-function list(page,size){
+function list(page=10, size=1, search="", orderby="QuestionTime", descending=true){
   return new Promise(function(resolve,reject){
     wx.request({
-      url: url+'/api/Question?page=' + page + '&size=' + size,
+      url: url+'/api/Question?page=' + page + '&size=' + size + '&search=' + search + '&orderby=' + orderby + '&descending=' + descending,
       success: res => resolve(res),
       fail: res => reject(res)
     })

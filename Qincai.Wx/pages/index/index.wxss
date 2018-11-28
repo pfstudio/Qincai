@@ -6,3 +6,16 @@
   right:20rpx !important;
   box-shadow: 5rpx 5rpx 3rpx 3rpx rgb(168, 167, 167) !important;
 }
+.searchIcon{
+  display: inline-block;
+  margin:25rpx 25rpx;
+}
+.tabs{
+  display: inline-block;
+}
+.tab{
+}
+.toolLine{
+  background-color: #ffffff;
+  border-bottom: 1rpx solid #dddddd;
+}

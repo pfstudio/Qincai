@@ -2,6 +2,7 @@
   <view class="questioner">
     <image class="avatar" src="{{question.questioner.avatarUrl}}"/>
     <text class="name">{{question.questioner.name}}</text>
+    
   </view>
   <view class="content">
   <text class="questionTitle">{{question.title}}\t</text>

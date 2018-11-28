@@ -1,0 +1,14 @@
+/* Component/tabs.wxss */
+.tabs{
+  display: inline-block;
+  height: 100%;
+}
+.tab{
+  display: inline-block;
+  text-align: center;
+}
+.tabText{
+  font-size: 35rpx;
+  position: relative;
+  bottom: 10rpx;
+}

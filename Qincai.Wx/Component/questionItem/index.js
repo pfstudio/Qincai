@@ -27,12 +27,4 @@ Component({
       })
     },
   },
-  ready:function(){
-    moment.locale("zh-cn")
-    let que = this.data.question;
-    que.questionTime=moment(que.questionTime).fromNow()
-    this.setData({
-      question:que
-    })
-  }
 })

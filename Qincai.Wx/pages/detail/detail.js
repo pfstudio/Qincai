@@ -1,5 +1,5 @@
 // pages/detail/detail.js
-const moment = require('../../utils/moment.js')
+const moment = require('../../utils/moment-with-locales.js')
 import api from '../../utils/api/index.js'
 Page({
 
