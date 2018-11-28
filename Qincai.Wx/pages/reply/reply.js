@@ -10,6 +10,7 @@ Page({
     count:0,
     questionId:"",
     question:{},
+    answerImages:[],
     refAnswerId:null,
     quote: null,
     answer:"",
