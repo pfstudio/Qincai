@@ -1,5 +1,5 @@
 import { url, getAuthorize} from './common.js'
-export { create, list, getById, answerList, reply}
+export { create, list, getById, answerList, reply,me}
 
 function create(title,text,images){
   return new Promise(function(resolve, reject) {
@@ -65,6 +65,21 @@ function reply(questionId, content, refAnswerId,images){
           refAnswerId: refAnswerId
         },
         header:{
+          Authorization: 'Bearer ' + token.data.token
+        },
+        success: res => resolve(res),
+        fail: res => reject(res)
+      })
+    })
+  })
+}
+
+function me (page ,size){
+  return new Promise(function(resolve,reject){
+    getAuthorize().then(function(token){
+      wx.request({
+        url: url+'/api/Question/me?page=' + page + '&size=' + size,
+        header: {
           Authorization: 'Bearer ' + token.data.token
         },
         success: res => resolve(res),

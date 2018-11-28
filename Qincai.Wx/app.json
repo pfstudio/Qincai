@@ -7,8 +7,7 @@
     "pages/reply/reply",
     "pages/detail/detail",
     "pages/me/me",
-    "pages/myQuestion/myQuestion",
-    "pages/search/search"
+    "pages/myQuestion/myQuestion"
   ],
   "window": {
     "backgroundTextStyle": "light",

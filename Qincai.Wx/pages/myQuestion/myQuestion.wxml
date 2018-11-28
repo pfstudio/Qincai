@@ -1,2 +1,12 @@
 <!--pages/myQuestion/myQuestion.wxml-->
-<text>pages/myQuestion/myQuestion.wxml</text>
+<van-tabs bind:click="onClick">
+  <van-tab title="问题">
+   <view class="questionList">
+    <block wx:for="{{myquestions}}" wx:key="id">
+      <questionItem question="{{item}}" id="{{item.id}}" bind:click="detail"/>
+    </block>
+   </view>
+  </van-tab>
+  
+  <van-tab title="回答"></van-tab>
+</van-tabs>
