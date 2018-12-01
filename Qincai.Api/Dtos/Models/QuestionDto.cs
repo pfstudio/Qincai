@@ -40,5 +40,9 @@ namespace Qincai.Dtos
         /// 问题类别
         /// </summary>
         public string Category { get; set; }
+        /// <summary>
+        /// 回答数
+        /// </summary>
+        public int AnswerNum { get; set; }
     }
 }

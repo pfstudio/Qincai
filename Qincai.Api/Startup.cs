@@ -20,6 +20,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.RegisterServices;
 using System;
 using System.Security.Claims;
+using System.Linq;
 
 namespace Qincai.Api
 {
@@ -50,9 +51,9 @@ namespace Qincai.Api
         {
             #region 配置数据库连接
             services.AddDbContext<ApplicationDbContext>(options
-            //=> options.UseSqlServer(Configuration.GetConnectionString("Local")));
+            => options.UseSqlServer(Configuration.GetConnectionString("Local")));
             //=> options.UseMySql(Configuration.GetConnectionString("MySQL")));
-            => options.UseInMemoryDatabase("Qincai"));
+            //=> options.UseInMemoryDatabase("Qincai"));
             #endregion
 
             #region 配置外部服务参数
@@ -74,7 +75,8 @@ namespace Qincai.Api
             services.AddAutoMapper(options =>
             {
                 options.CreateMap<Content, ContentDto>();
-                options.CreateMap<Question, QuestionDto>();
+                options.CreateMap<Question, QuestionDto>()
+                    .ForMember(dto => dto.AnswerNum, opt => opt.MapFrom(src => src.Answers.Count()));
                 options.CreateMap<Answer, AnswerDto>()
                     // 配置问题引用的映射
                     .ForMember(dto => dto.RefAnswer, opt => opt.MapFrom(src => src.RefAnswer));

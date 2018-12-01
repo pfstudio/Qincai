@@ -94,7 +94,8 @@ namespace Qincai.Services
         public IQueryable<Question> GetQuery(Expression<Func<Question, bool>> filter = null, ISortedParam sorted = null)
         {
             var query = _context.Questions
-                .Include(q => q.Questioner)
+                //.Include(q => q.Questioner)
+                //.Include(q => q.Answers)
                 .AsNoTracking()
                 .AsQueryable();
 
