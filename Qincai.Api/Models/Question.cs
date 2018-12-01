@@ -20,6 +20,13 @@ namespace Qincai.Models
         /// 问题内容
         /// </summary>
         public Content Content { get; set; }
+        /// <summary>
+        /// 问题类别
+        /// </summary>
+        public string Category { get; set; }
+        ///// <summary>
+        ///// 问题标签
+        ///// </summary>
         //public List<string> Tags { get; set; }
         /// <summary>
         /// 问题的回答

@@ -161,7 +161,9 @@ namespace Qincai.Services
                 },
                 QuestionTime = DateTime.Now,
                 LastTime = DateTime.Now,
-                Questioner = questioner
+                Questioner = questioner,
+                Category = dto.Category
+                //Tags = dto.Tags
             };
 
             // 保存修改

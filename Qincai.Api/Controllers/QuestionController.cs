@@ -7,8 +7,10 @@ using Qincai.Api.Extensions;
 using Qincai.Models;
 using Qincai.Services;
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Qincai.Api.Controllers
 {
@@ -49,10 +51,28 @@ namespace Qincai.Api.Controllers
         public async Task<ActionResult<PagedResult<QuestionDto>>> List([FromQuery]SearchQuestionParam dto)
         {
             Expression<Func<Question, bool>> filter = null;
+            List<Expression<Func<Question, bool>>> filters = new List<Expression<Func<Question, bool>>>();
+            // 查找关键词
             if (dto.Search != null)
             {
                 // TODO: 忽略大小写
-                filter = q => q.Title.Contains(dto.Search);
+                filters.Add(q => q.Title.Contains(dto.Search));
+            }
+            // 查找类别
+            if (dto.Category != null)
+            {
+                filters.Add(q => q.Category == dto.Category);
+            }
+            // 拼接表达式
+            if (filters.Count > 0)
+            {
+                // Reduce
+                filter = filters.Aggregate((left, right) =>
+                {
+                    ParameterExpression param = left.Parameters[0];
+                    return Expression.Lambda<Func<Question, bool>>(
+                        Expression.AndAlso(left.Body, Expression.Invoke(right, param)), param);
+                });
             }
             var questions = _questsionService.GetQuery(filter, dto)
                 // 此处使用ProjectTo拓展实现对IQueryable对象的映射

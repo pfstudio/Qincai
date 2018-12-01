@@ -41,5 +41,14 @@ namespace Qincai.Dtos
         /// </summary>
         [MaxLength(20, ErrorMessage = "搜索内容过长")]
         public string Search { get; set; }
+        ///// <summary>
+        ///// 所需查找问题的标签
+        ///// </summary>
+        //public string Tag { get; set; }
+        /// <summary>
+        /// 所需查找问题的分类
+        /// </summary>
+        [MaxLength(10, ErrorMessage = "类别名过长")]
+        public string Category { get; set; }
     }
 }

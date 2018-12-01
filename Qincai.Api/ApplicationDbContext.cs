@@ -61,6 +61,8 @@ namespace Qincai.Api
             question.OwnsOne(q => q.Content)
                 .Property(c => c.Images)
                 .HasConversion(splitStringConverter);
+            //question.Property(q => q.Tags)
+            //    .HasConversion(splitStringConverter);
 
             // 配置回答表
             answer.Property(a => a.Id)

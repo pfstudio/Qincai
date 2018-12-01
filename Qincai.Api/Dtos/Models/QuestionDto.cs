@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Qincai.Dtos
 {
@@ -31,5 +32,13 @@ namespace Qincai.Dtos
         /// 最后一次回答时间
         /// </summary>
         public DateTime LastTime { get; set; }
+        ///// <summary>
+        ///// 问题的标签
+        ///// </summary>
+        //public List<string> Tags { get; set; }
+        /// <summary>
+        /// 问题类别
+        /// </summary>
+        public string Category { get; set; }
     }
 }

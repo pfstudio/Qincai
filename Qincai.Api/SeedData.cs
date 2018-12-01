@@ -69,7 +69,9 @@ namespace Qincai.Api
                         },
                         AnswerTime = new DateTime(2018, 11, 1, 10, 01, 00)
                     }
-                }
+                },
+                //Tags = new List<string> { "测试" },
+                Category = "其他"
             };
 
             Question q2 = new Question
@@ -82,7 +84,9 @@ namespace Qincai.Api
                 },
                 Questioner = u3,
                 QuestionTime = DateTime.Now,
-                LastTime = DateTime.Now
+                LastTime = DateTime.Now,
+                //Tags = new List<string> { "测试" },
+                Category = "其他"
             };
 
             dbContent.AddRange(u1, u2, u3);
