@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Qincai.Dtos
 {
@@ -50,5 +51,9 @@ namespace Qincai.Dtos
         /// </summary>
         [MaxLength(10, ErrorMessage = "类别名过长")]
         public string Category { get; set; }
+        /// <summary>
+        /// 提问者的Id
+        /// </summary>
+        public Guid? UserId { get; set; }
     }
 }

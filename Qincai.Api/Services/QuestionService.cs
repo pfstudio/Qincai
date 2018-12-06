@@ -56,6 +56,11 @@ namespace Qincai.Services
         /// <param name="dto">回答问题参数</param>
         /// <returns>问题的回答</returns>
         Task<Answer> ReplyAsync(Guid questionId, User answerer, ReplyQuestionParam dto);
+        /// <summary>
+        /// 软删除问题
+        /// </summary>
+        /// <param name="questionId">问题Id</param>
+        Task DeleteAsync(Guid questionId);
     }
 
     /// <summary>
@@ -168,7 +173,7 @@ namespace Qincai.Services
             };
 
             // 保存修改
-            await _context.AddAsync(question);
+            _context.Add(question);
             await _context.SaveChangesAsync();
 
             return question;
@@ -217,6 +222,18 @@ namespace Qincai.Services
             await _context.SaveChangesAsync();
 
             return answer;
+        }
+
+        /// <summary>
+        /// <see cref="IQuestionService.DeleteAsync(Guid)"/>
+        /// </summary>
+        public async Task DeleteAsync(Guid questionId)
+        {
+            Question question = await _context.Questions.FindAsync(questionId);
+            question.IsDelete = true;
+
+            _context.Update(question);
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Qincai.Models
     /// <summary>
     /// 问题实体
     /// </summary>
-    public class Question
+    public class Question : IHasOwner<User>, ISoftDelete
     {
         /// <summary>
         /// 问题Id
@@ -44,19 +44,15 @@ namespace Qincai.Models
         /// 最后回答时间
         /// </summary>
         public DateTime LastTime { get; set; }
-        //public QuestionType Type { get; set; }
-        //public QuestionStatus Status { get; set; }
+        /// <summary>
+        /// 软删除标记
+        /// </summary>
+        public bool IsDelete { get; set; } = false;
+
+        /// <summary>
+        /// 资源所有者
+        /// </summary>
+        public User Owner => Questioner;
+
     }
-
-    //public enum QuestionType
-    //{
-    //    OnlyTeacher,
-    //    Public
-    //}
-
-    //public enum QuestionStatus
-    //{
-    //    Open,
-    //    Closed
-    //}
 }

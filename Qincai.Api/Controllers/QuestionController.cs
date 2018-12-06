@@ -2,15 +2,16 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Qincai.Dtos;
 using Qincai.Api.Extensions;
+using Qincai.Api.Utils;
+using Qincai.Dtos;
 using Qincai.Models;
 using Qincai.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace Qincai.Api.Controllers
 {
@@ -24,6 +25,7 @@ namespace Qincai.Api.Controllers
     public class QuestionController : ControllerBase
     {
         private readonly IMapper _mapper;
+        private readonly IAuthorizationService _authorizationService;
         private readonly IQuestionService _questsionService;
         private readonly IUserService _userService;
 
@@ -31,11 +33,14 @@ namespace Qincai.Api.Controllers
         /// 依赖注入
         /// </summary>
         /// <param name="mapper">对象映射</param>
+        /// <param name="authorizationService">认证服务</param>
         /// <param name="questionService">问题相关的服务</param>
         /// <param name="userService">用户相关的服务</param>
-        public QuestionController(IMapper mapper, IQuestionService questionService, IUserService userService)
+        public QuestionController(IMapper mapper, IAuthorizationService authorizationService,
+            IQuestionService questionService, IUserService userService)
         {
             _mapper = mapper;
+            _authorizationService = authorizationService;
             _questsionService = questionService;
             _userService = userService;
         }
@@ -62,6 +67,11 @@ namespace Qincai.Api.Controllers
             if (dto.Category != null)
             {
                 filters.Add(q => q.Category == dto.Category);
+            }
+            // 查找提问者
+            if (dto.UserId != null)
+            {
+                filters.Add(q => q.Questioner.Id == dto.UserId);
             }
             // 拼接表达式
             if (filters.Count > 0)
@@ -108,6 +118,7 @@ namespace Qincai.Api.Controllers
         /// </summary>
         /// <param name="id">问题Id</param>
         //  此处Name是因为CreateAtRoute需要
+        //  Name指路由名称
         [HttpGet("{id}", Name = "GetQuestion")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
@@ -188,6 +199,31 @@ namespace Qincai.Api.Controllers
             Answer answer = await _questsionService.ReplyAsync(id, answerer, dto);
 
             return CreatedAtRoute("GetQuestion", new { id }, _mapper.Map<AnswerDto>(answer));
+        }
+
+        /// <summary>
+        /// 删除问题
+        /// </summary>
+        /// <param name="id">问题Id</param>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(401)]
+        public async Task<ActionResult> Delete([FromRoute]Guid id)
+        {
+            // 获取要删除的问题
+            Question question = await _questsionService.GetByIdAsync(id);
+            // 检验权限
+            AuthorizationResult authorizationResult = await _authorizationService.AuthorizeAsync(
+                User, question, AuthorizationPolicies.Ownered);
+            // 授权失败
+            if (!authorizationResult.Succeeded)
+            {
+                return Unauthorized();
+            }
+            // 删除问题
+            await _questsionService.DeleteAsync(id);
+
+            return NoContent();
         }
     }
 }

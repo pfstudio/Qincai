@@ -21,6 +21,7 @@ using Senparc.Weixin.RegisterServices;
 using System;
 using System.Security.Claims;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Qincai.Api
 {
@@ -146,6 +147,14 @@ namespace Qincai.Api
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // 配置授权策略
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(AuthorizationPolicies.Ownered, policy =>
+                    policy.AddRequirements(new OwneredRequirement()));
+            });
+            services.AddSingleton<IAuthorizationHandler, OwneredAuthorizationHandler>();
 
             // 添加Swagger
             services.ConfigureSwagger();

@@ -5,7 +5,7 @@ namespace Qincai.Models
     /// <summary>
     /// 用户实体
     /// </summary>
-    public class User
+    public class User : ISoftDelete
     {
         /// <summary>
         /// 用户Id
@@ -18,7 +18,7 @@ namespace Qincai.Models
         /// <summary>
         /// 角色
         /// </summary>
-        public string Role { get; internal set; }
+        public string Role { get; set; }
         /// <summary>
         /// 头像Url
         /// </summary>
@@ -27,5 +27,9 @@ namespace Qincai.Models
         /// 微信OpenId
         /// </summary>
         public string WxOpenId { get; set; }
+        /// <summary>
+        /// 软删除标志
+        /// </summary>
+        public bool IsDelete { get; set; } = false;
     }
 }
