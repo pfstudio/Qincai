@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Qincai.Dtos;
 using Qincai.Api.Extensions;
+using Qincai.Dtos;
 using Qincai.Models;
 using Qincai.Services;
 using System.Threading.Tasks;

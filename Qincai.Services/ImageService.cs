@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Qincai.Dtos;
 using Qincai.Models;
-using Qincai.Api.Utils;
 using Qiniu.IO.Model;
 using Qiniu.Util;
 using System;

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Qincai.Api;
 using Qincai.Dtos;
 using Qincai.Models;
 using System;

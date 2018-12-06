@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,20 +9,20 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Qincai.Dtos;
 using Qincai.Api.Extensions;
+using Qincai.Api.Utils;
+using Qincai.Dtos;
 using Qincai.Models;
 using Qincai.Services;
-using Qincai.Api.Utils;
 using Senparc.CO2NET;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.RegisterServices;
 using System;
-using System.Security.Claims;
 using System.Linq;
-using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.Text;
 
 namespace Qincai.Api
 {
@@ -52,8 +53,8 @@ namespace Qincai.Api
         {
             #region 配置数据库连接
             services.AddDbContext<ApplicationDbContext>(options
-            => options.UseSqlServer(Configuration.GetConnectionString("Local")));
-            //=> options.UseMySql(Configuration.GetConnectionString("MySQL")));
+            //=> options.UseSqlServer(Configuration.GetConnectionString("Local")));
+            => options.UseMySql(Configuration.GetConnectionString("MySQL")));
             //=> options.UseInMemoryDatabase("Qincai"));
             #endregion
 
@@ -104,6 +105,7 @@ namespace Qincai.Api
             {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
+                SecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Secret));
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     // 客户端
@@ -114,7 +116,7 @@ namespace Qincai.Api
                     ValidIssuer = jwtConfig.Issuer,
                     // 签名
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = jwtConfig.Key,
+                    IssuerSigningKey =key,
                     // 有效期
                     ValidateLifetime = true
                 };
