@@ -2,8 +2,8 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Qincai.Dtos;
 using Qincai.Api.Extensions;
+using Qincai.Dtos;
 using Qincai.Services;
 using System;
 using System.Threading.Tasks;

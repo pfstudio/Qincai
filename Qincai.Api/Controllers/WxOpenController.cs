@@ -5,7 +5,6 @@ using Microsoft.IdentityModel.Tokens;
 using Qincai.Dtos;
 using Qincai.Models;
 using Qincai.Services;
-using Qincai.Api.Utils;
 using Senparc.Weixin;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
@@ -15,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Qincai.Api.Controllers
@@ -167,8 +167,9 @@ namespace Qincai.Api.Controllers
                 new Claim(ClaimTypes.Role, user.Role)
             };
             var subject = new ClaimsIdentity(claims);
+            SecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Secret));
             var credentials = new SigningCredentials(
-                jwtConfig.Key, SecurityAlgorithms.HmacSha256Signature);
+                key, SecurityAlgorithms.HmacSha256Signature);
             // 有效期2min
             var token = tokenHandler.CreateJwtSecurityToken(
                 jwtConfig.Issuer, jwtConfig.Audience, subject,

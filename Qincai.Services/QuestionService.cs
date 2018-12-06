@@ -3,10 +3,9 @@ using Qincai.Dtos;
 using Qincai.Models;
 using System;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
-using Qincai.Api;
 
 namespace Qincai.Services
 {

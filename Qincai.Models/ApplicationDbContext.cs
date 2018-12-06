@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Qincai.Api
+namespace Qincai.Models
 {
     /// <summary>
     /// 数据库上下文
@@ -78,7 +78,7 @@ namespace Qincai.Api
                 .Property(c => c.Images)
                 .HasConversion(splitStringConverter);
             // 过滤软删除
-            answer.HasQueryFilter(a => a.IsDelete != true);
+            //answer.HasQueryFilter(a => a.IsDelete != true);
 
             // 配置用户表
             user.Property(u => u.Id)

@@ -1,7 +1,4 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System.Text;
-
-namespace Qincai.Api.Utils
+﻿namespace Qincai.Dtos
 {
     /// <summary>
     /// JWT配置参数
@@ -20,16 +17,6 @@ namespace Qincai.Api.Utils
         /// 接受者
         /// </summary>
         public string Audience { get; set; }
-        /// <summary>
-        /// 由密钥创建的Key
-        /// </summary>
-        public SymmetricSecurityKey Key
-        {
-            get
-            {
-                return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Secret));
-            }
-        }
     }
 
     /// <summary>

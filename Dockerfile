@@ -4,9 +4,8 @@ EXPOSE 80
 
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-COPY ["Qincai.Api.csproj", "."]
-RUN dotnet restore
 COPY . .
+RUN dotnet restore
 RUN dotnet build -c Release -o /app
 
 FROM build AS publish
