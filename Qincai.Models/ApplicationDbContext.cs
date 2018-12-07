@@ -51,9 +51,10 @@ namespace Qincai.Models
 
             // 配置问题表
             question.Property(q => q.Id)
-                // TODO: 生产环境中需由数据库生成
+                // TODO: 是否需要需由数据库生成
                 .ValueGeneratedNever()
                 .IsRequired();
+            // 问题标题最长为100
             question.Property(q => q.Title)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -61,12 +62,15 @@ namespace Qincai.Models
             question.OwnsOne(q => q.Content)
                 .Property(c => c.Images)
                 .HasConversion(splitStringConverter);
+            // 问题文本最长为500
+            question.Property(q => q.Content.Text)
+                .HasMaxLength(500);
             // 过滤软删除
             question.HasQueryFilter(q => q.IsDelete != true);
 
             // 配置回答表
             answer.Property(a => a.Id)
-                // TODO: 生产环境中需由数据库生成
+                // TODO: 生产环境中是否需由数据库生成
                 .ValueGeneratedNever()
                 .IsRequired();
             answer.HasOne(a => a.Question)
@@ -77,6 +81,9 @@ namespace Qincai.Models
             answer.OwnsOne(a => a.Content)
                 .Property(c => c.Images)
                 .HasConversion(splitStringConverter);
+            // 回答文本最长为500
+            answer.Property(a => a.Content.Text)
+                .HasMaxLength(500);
             // 过滤软删除
             //answer.HasQueryFilter(a => a.IsDelete != true);
 
@@ -88,6 +95,11 @@ namespace Qincai.Models
             user.Property(u => u.Name)
                 .IsRequired()
                 .HasMaxLength(20);
+            user.Property(u => u.Role)
+                .IsRequired();
+            // 微信OpenId 不能重复
+            user.HasIndex(u => u.WxOpenId)
+                .IsUnique();
         }
     }
 }

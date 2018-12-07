@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Qincai.Services
 {
@@ -14,12 +15,23 @@ namespace Qincai.Services
     public interface IAnswerService
     {
         /// <summary>
+        /// 根据Id获取回答
+        /// </summary>
+        /// <param name="answerId">回答Id</param>
+        /// <returns>回答实体</returns>
+        Task<Answer> GetByIdAsync(Guid answerId);
+        /// <summary>
         /// 查找回答
         /// </summary>
         /// <param name="filter">查询条件</param>
         /// <param name="sorted">排序参数</param>
         /// <returns>回答的可查询对象</returns>
         IQueryable<Answer> GetQuery(Expression<Func<Answer, bool>> filter = null, ISortedParam sorted = null);
+        /// <summary>
+        /// 软删除回答
+        /// </summary>
+        /// <param name="answerId">回答Id</param>
+        Task DeleteAsync(Guid answerId);
     }
 
     /// <summary>
@@ -36,6 +48,19 @@ namespace Qincai.Services
         public AnswerService(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        /// <summary>
+        /// <see cref="IAnswerService.GetByIdAsync(Guid)"/>
+        /// </summary>
+        public Task<Answer> GetByIdAsync(Guid answerId)
+        {
+            return _context.Answers
+                .Include(a => a.Answerer)
+                .Include(a => a.RefAnswer)
+                .Include(a => a.Question)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(a => a.Id == answerId);
         }
 
         /// <summary>
@@ -59,6 +84,18 @@ namespace Qincai.Services
             }
 
             return query;
+        }
+
+        /// <summary>
+        /// <see cref="IAnswerService.DeleteAsync(Guid)"/>
+        /// </summary>
+        public async Task DeleteAsync(Guid answerId)
+        {
+            Answer answer = await _context.Answers.FindAsync(answerId);
+            answer.IsDelete = true;
+
+            _context.Update(answer);
+            await _context.SaveChangesAsync();
         }
     }
 }

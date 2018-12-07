@@ -2,6 +2,7 @@
 using Qincai.Dtos;
 using Qincai.Models;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -83,7 +84,9 @@ namespace Qincai.Services
         /// </summary>
         public async Task<User> GetByIdAsync(Guid userId)
         {
-            return await _context.Users.FindAsync(userId);
+            return await _context.Users
+                .AsNoTracking()
+                .SingleOrDefaultAsync(u => u.Id == userId);
         }
 
         /// <summary>
@@ -91,8 +94,9 @@ namespace Qincai.Services
         /// </summary>
         public async Task<User> GetByOpenIdAsync(string openId)
         {
-            return await _context.Users.Where(u => u.WxOpenId == openId)
-                .SingleOrDefaultAsync();
+            return await _context.Users
+                .AsNoTracking()
+                .SingleOrDefaultAsync(u => u.WxOpenId == openId);
         }
 
         /// <summary>
@@ -102,7 +106,6 @@ namespace Qincai.Services
         {
             User user = new User
             {
-                Id = Guid.NewGuid(),
                 Name = dto.Name,
                 AvatarUrl = dto.AvatarUrl,
                 WxOpenId = dto.WxOpenId,

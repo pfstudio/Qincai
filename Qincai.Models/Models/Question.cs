@@ -11,7 +11,7 @@ namespace Qincai.Models
         /// <summary>
         /// 问题Id
         /// </summary>
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         /// <summary>
         /// 问题标题
         /// </summary>
@@ -39,11 +39,11 @@ namespace Qincai.Models
         /// <summary>
         /// 提问时间
         /// </summary>
-        public DateTime QuestionTime { get; set; }
+        public DateTime QuestionTime { get; set; } = DateTime.Now;
         /// <summary>
         /// 最后回答时间
         /// </summary>
-        public DateTime LastTime { get; set; }
+        public DateTime LastTime { get; set; } = DateTime.Now;
         /// <summary>
         /// 软删除标记
         /// </summary>

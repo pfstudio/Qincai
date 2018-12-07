@@ -1,4 +1,6 @@
-﻿namespace Qincai.Dtos
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Qincai.Dtos
 {
     /// <summary>
     /// 创建用户参数
@@ -16,10 +18,12 @@
         /// <summary>
         /// 微信OpenId
         /// </summary>
+        [Required(AllowEmptyStrings = false, ErrorMessage = "微信OpenId不为空")]
         public string WxOpenId { get; set; }
         /// <summary>
         /// 角色
         /// </summary>
+        [Required(AllowEmptyStrings = false, ErrorMessage = "用户角色不为空")]
         public string Role { get; set; }
     }
 }
