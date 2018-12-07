@@ -6,3 +6,6 @@
 <van-cell-group>
   <van-cell title="我的问题" is-link bind:click="myQuestion"/>
 </van-cell-group>
+<van-cell-group>
+  <van-cell title="清除缓存" is-link bind:click="clear"/>
+</van-cell-group>

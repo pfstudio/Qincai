@@ -13,7 +13,8 @@ Page({
     refAnswerId:null,
     quote: null,
     answer:"",
-    loading:false
+    loading:false,
+    answerImages: []
   },
 
   /**
@@ -47,7 +48,7 @@ Page({
     this.setData({
       loading:true
     })
-    console.log(that.data.answer)
+    // console.log(that.data.answer)
     Promise.all(this.data.answerImages.map(image => api.image.uploadImage(image)))
       .then(urls => {
         api.question.reply(that.data.questionId, that.data.answer, that.data.refAnswerId, urls)
@@ -62,11 +63,12 @@ Page({
           })
       })
   },
+  // TODO：获取文本框数据是否放在点击事件里面更好
   answerChange:function(value){
     this.setData({
       answer:value.detail
     })
-    console.log(this.data.answer)
+    //console.log(this.data.answer)
   },
   addImages:function(){
     wx.chooseImage({

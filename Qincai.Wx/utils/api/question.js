@@ -14,7 +14,7 @@ function create(title,text,images){
           images: images
         },
         header: {
-          Authorization:'Bearer '+token.data.token
+          Authorization:'Bearer '+token
         },
         success: res => resolve(res),
         fail: res => reject(res)
@@ -65,7 +65,7 @@ function reply(questionId, content, refAnswerId,images){
           refAnswerId: refAnswerId
         },
         header:{
-          Authorization: 'Bearer ' + token.data.token
+          Authorization: 'Bearer ' + token
         },
         success: res => resolve(res),
         fail: res => reject(res)
@@ -80,7 +80,7 @@ function me (page ,size){
       wx.request({
         url: url+'/api/Question/me?page=' + page + '&size=' + size,
         header: {
-          Authorization: 'Bearer ' + token.data.token
+          Authorization: 'Bearer ' + token
         },
         success: res => resolve(res),
         fail: res => reject(res)
