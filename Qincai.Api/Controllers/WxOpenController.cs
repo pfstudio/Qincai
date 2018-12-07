@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -22,8 +23,9 @@ namespace Qincai.Api.Controllers
     /// <summary>
     /// 微信小程序相关API
     /// </summary>
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+    [Produces("application/json")]
     public class WxOpenController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -50,34 +52,37 @@ namespace Qincai.Api.Controllers
         /// <summary>
         /// 微信登录
         /// </summary>
-        /// <param name="model">登录参数</param>
+        /// <param name="dto">登录参数</param>
         [HttpPost("[Action]")]
-        [ProducesResponseType(200)]
-        public async Task<ActionResult<WxOpenLoginResult>> Login([FromBody]WxOpenLoginParam model)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<WxOpenLoginResult>> Login([FromBody]WxOpenLoginParam dto)
         {
             // 根据code从服务器换取session_id, session_key
             var jsonResult = await SnsApi.JsCode2JsonAsync(
-                _wxOpenConfig.AppId, _wxOpenConfig.Secret, model.Code);
+                _wxOpenConfig.AppId, _wxOpenConfig.Secret, dto.Code);
             if (jsonResult.errcode != ReturnCode.请求成功)
             {
-                return WxOpenLoginResult.Fail(jsonResult.errmsg);
+                return BadRequest(jsonResult.errmsg);
             }
             // unionId 暂不使用
             string unionId = jsonResult.unionid ?? "";
             // 新建3rd-Session
             // TODO: 3rd-Session需要处理过期
             // TODO: 是否有自动过期机制
-            var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key, unionId);
+            var sessionBag = SessionContainer.UpdateSession(
+                null, jsonResult.openid, jsonResult.session_key, unionId);
             // 根据openid查找用户
             User user = await _userService.GetByOpenIdAsync(jsonResult.openid);
-
+            // 未找到用户说明没注册
             if (user == null)
             {
-                return WxOpenLoginResult.UnRegister(sessionBag.Key);
+                return new WxOpenLoginResult(sessionBag.Key);
             }
             else
             {
-                return WxOpenLoginResult.Success(sessionBag.Key, _mapper.Map<UserDto>(user));
+                // 登录成功返回用户信息
+                return new WxOpenLoginResult(sessionBag.Key, _mapper.Map<UserDto>(user));
             }
         }
 
@@ -86,13 +91,12 @@ namespace Qincai.Api.Controllers
         /// </summary>
         /// <param name="dto">注册参数</param>
         [HttpPost("[Action]")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<UserDto>> Register([FromBody]WxOpenRegisterParam dto)
         {
             // TODO: 检查签名
             // 解码用户信息
-            // TODO: 是否存在空引用
             DecodedUserInfo userInfo = null;
             try
             {
@@ -118,12 +122,13 @@ namespace Qincai.Api.Controllers
             }
             // 新建用户
             User user = await _userService.CreateAsync(
+                // TODO：提供用户自定义数据
                 new CreateUserParam
                 {
                     Name = userInfo.nickName,
                     AvatarUrl = userInfo.avatarUrl,
                     WxOpenId = userInfo.openId,
-                    Role = "用户"
+                    Role = UserRole.User
                 });
 
             return _mapper.Map<UserDto>(user);
@@ -132,23 +137,24 @@ namespace Qincai.Api.Controllers
         /// <summary>
         /// 微信授权
         /// </summary>
-        /// <param name="model">登录态参数</param>
+        /// <param name="dto">登录态参数</param>
         [HttpPost("[Action]")]
-        [ProducesResponseType(200)]
-        public async Task<ActionResult<AuthorizeResult>> Authorize([FromBody]WxOpenAuthorizeParam model)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<string>> Authorize([FromBody]WxOpenAuthorizeParam dto)
         {
             // 查找session
-            var session = SessionContainer.GetSession(model.SessionId);
+            var session = SessionContainer.GetSession(dto.SessionId);
             if (session == null)
             {
-                return AuthorizeResult.Fail("sesiion 已过期");
+                return Unauthorized();
             }
             // 查找用户
             User user = await _userService.GetByOpenIdAsync(session.OpenId);
             // 创建Token
             var token = CreateJwtToken(_jwtConfig, user);
 
-            return AuthorizeResult.Success(token);
+            return token;
         }
 
         /// <summary>

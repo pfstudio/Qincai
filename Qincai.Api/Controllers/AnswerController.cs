@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Qincai.Api.Extensions;
 using Qincai.Api.Utils;
@@ -44,8 +45,7 @@ namespace Qincai.Api.Controllers
         /// </summary>
         /// <param name="dto">分页参数</param>
         [HttpGet("me")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(401)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<PagedResult<AnswerWithQuestionDto>>> ListMyAnswer([FromQuery]ListAnswerParam dto)
         {
             Guid userId = User.GetUserId();
@@ -63,22 +63,26 @@ namespace Qincai.Api.Controllers
         /// </summary>
         /// <param name="id">回答Id</param>
         [HttpDelete("{id}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Delete([FromRoute]Guid id)
         {
+            // 获取要删除的回答
             Answer answer = await _answerService.GetByIdAsync(id);
             if (answer == null)
             {
                 return NotFound();
             }
+            // 检验权限
             AuthorizationResult authorizationResult = await _authorizationService.AuthorizeAsync(
                 User, answer, AuthorizationPolicies.Ownered);
+            // 授权失败
             if (!authorizationResult.Succeeded)
             {
-                return Unauthorized();
+                return Forbid();
             }
+            // 删除回答
             await _answerService.DeleteAsync(id);
 
             return NoContent();

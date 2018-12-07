@@ -32,4 +32,10 @@ namespace Qincai.Models
         /// </summary>
         public bool IsDelete { get; set; } = false;
     }
+
+    public static class UserRole
+    {
+        public const string User = "用户";
+        public const string Admin = "管理员";
+    }
 }

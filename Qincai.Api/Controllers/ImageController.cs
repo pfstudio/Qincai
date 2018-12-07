@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Qincai.Api.Extensions;
 using Qincai.Dtos;
@@ -11,11 +12,11 @@ namespace Qincai.Api.Controllers
     /// <summary>
     /// 图片管理相关API
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [Produces("application/json")]
-    [Authorize]
     [ApiController]
-    public class ImageController : Controller
+    public class ImageController : ControllerBase
     {
         private readonly IImageService _imageService;
         private readonly IUserService _userService;
@@ -35,13 +36,13 @@ namespace Qincai.Api.Controllers
         /// 返回图片上传Token
         /// </summary>
         [HttpGet("UploadToken")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        public async Task<ActionResult<ImageToken>> GetUploadToken()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<ImageUploadToken>> GetUploadToken()
         {
+            // 获取上传者
             User uploader = await _userService.GetByIdAsync(User.GetUserId());
-
-            ImageToken token = _imageService.CreateToken(uploader);
+            // 创建上传Token
+            ImageUploadToken token = _imageService.CreateToken(uploader);
 
             return token;
         }

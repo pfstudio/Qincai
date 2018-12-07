@@ -18,7 +18,6 @@ namespace Qincai.Dtos
         /// <summary>
         /// 微信OpenId
         /// </summary>
-        [Required(AllowEmptyStrings = false, ErrorMessage = "微信OpenId不为空")]
         public string WxOpenId { get; set; }
         /// <summary>
         /// 角色
