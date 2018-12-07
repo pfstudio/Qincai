@@ -241,6 +241,12 @@
             <param name="dto">创建用户参数</param>
             <returns>创建的用户</returns>
         </member>
+        <member name="M:Qincai.Services.IUserService.UpdateAsync(Qincai.Dtos.UpdateUserParam)">
+            <summary>
+            更新用户信息
+            </summary>
+            <param name="dto">更新用户参数</param>
+        </member>
         <member name="T:Qincai.Services.UserService">
             <summary>
             用户服务
@@ -275,6 +281,11 @@
         <member name="M:Qincai.Services.UserService.CreateAsync(Qincai.Dtos.CreateUserParam)">
             <summary>
             <see cref="M:Qincai.Services.IUserService.CreateAsync(Qincai.Dtos.CreateUserParam)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.UserService.UpdateAsync(Qincai.Dtos.UpdateUserParam)">
+            <summary>
+            <see cref="M:Qincai.Services.IUserService.UpdateAsync(Qincai.Dtos.UpdateUserParam)"/>
             </summary>
         </member>
     </members>

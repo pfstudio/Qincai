@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Qincai.Dtos
 {
@@ -24,5 +26,12 @@ namespace Qincai.Dtos
         /// 每页数量
         /// </summary>
         public int PageSize { get; set; }
+
+        public PagedResult<T> Map(Func<T, T> func)
+        {
+            Result = Result.Select(func);
+
+            return this;
+        }
     }
 }

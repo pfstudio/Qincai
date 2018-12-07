@@ -45,6 +45,11 @@ namespace Qincai.Services
         /// <param name="dto">创建用户参数</param>
         /// <returns>创建的用户</returns>
         Task<User> CreateAsync(CreateUserParam dto);
+        /// <summary>
+        /// 更新用户信息
+        /// </summary>
+        /// <param name="dto">更新用户参数</param>
+        Task UpdateAsync(UpdateUserParam dto);
     }
 
     /// <summary>
@@ -85,7 +90,6 @@ namespace Qincai.Services
         public async Task<User> GetByIdAsync(Guid userId)
         {
             return await _context.Users
-                .AsNoTracking()
                 .SingleOrDefaultAsync(u => u.Id == userId);
         }
 
@@ -95,7 +99,6 @@ namespace Qincai.Services
         public async Task<User> GetByOpenIdAsync(string openId)
         {
             return await _context.Users
-                .AsNoTracking()
                 .SingleOrDefaultAsync(u => u.WxOpenId == openId);
         }
 
@@ -117,6 +120,14 @@ namespace Qincai.Services
             await _context.SaveChangesAsync();
 
             return user;
+        }
+
+        /// <summary>
+        /// <see cref="IUserService.UpdateAsync(UpdateUserParam)"/>
+        /// </summary>
+        public Task UpdateAsync(UpdateUserParam dto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

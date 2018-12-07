@@ -59,7 +59,6 @@ namespace Qincai.Services
                 .Include(a => a.Answerer)
                 .Include(a => a.RefAnswer)
                 .Include(a => a.Question)
-                .AsNoTracking()
                 .SingleOrDefaultAsync(a => a.Id == answerId);
         }
 

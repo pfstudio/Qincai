@@ -9,5 +9,9 @@
         /// 资源拥有者策略
         /// </summary>
         public const string Ownered = nameof(Ownered);
+        /// <summary>
+        /// 管理员权限策略
+        /// </summary>
+        public const string Admin = nameof(Admin);
     }
 }
