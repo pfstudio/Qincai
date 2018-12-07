@@ -28,5 +28,11 @@ Page({
     wx.navigateTo({
       url: '../userinfo/userinfo',
     })
+  },
+  clear: function(){
+    wx.clearStorageSync()
+    wx.reLaunch({
+      url: '../login/login',
+    })
   }
 })

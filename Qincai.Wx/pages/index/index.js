@@ -13,26 +13,6 @@ Page({
   },
   //事件处理函数
   onLoad: function () {
-    
-    let that = this;
-    let user = wx.getStorageSync('user')
-    if (user==""){
-      wx.redirectTo({
-        url: '../login/login',
-      })
-    }
-    else{
-      wx.checkSession({
-        success:function(res){
-          console.log(res)
-        },
-        fail:function(e){
-          wx.redirectTo({
-            url: '../login/login',
-          })
-        }
-      })
-    }
   },
   onShow:function(){
     let that = this

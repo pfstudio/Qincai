@@ -33,7 +33,7 @@ function getUploadToken() {
         url: url + '/api/Image/UploadToken',
         method: 'GET',
         header: {
-          Authorization: 'Bearer ' + token.data.token
+          Authorization: 'Bearer ' + token
         },
         success: res => resolve(res.data),
         fail: res => reject(res)
