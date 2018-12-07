@@ -17,7 +17,7 @@ namespace Qincai.Services
         /// </summary>
         /// <param name="user">用户实体</param>
         /// <returns>上传相关参数</returns>
-        ImageToken CreateToken(User user);
+        ImageUploadToken CreateToken(User user);
         /// <summary>
         /// 转换为绝对路径
         /// </summary>
@@ -45,7 +45,7 @@ namespace Qincai.Services
         /// <summary>
         /// <see cref="IImageService.CreateToken(User)"/>
         /// </summary>
-        public ImageToken CreateToken(User user)
+        public ImageUploadToken CreateToken(User user)
         {
             Mac mac = new Mac(_qiniuConfig.ACCESS_KEY, _qiniuConfig.SECRET_KEY);
             Auth auth = new Auth(mac);
@@ -68,7 +68,7 @@ namespace Qincai.Services
             // putPolicy.CallbackUrl ="";
 
             //返回生成的token模型
-            return new ImageToken()
+            return new ImageUploadToken()
             {
                 // 上传Token
                 Token = auth.CreateUploadToken(putPolicy.ToJsonString()),

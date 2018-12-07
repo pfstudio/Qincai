@@ -3,7 +3,7 @@
     /// <summary>
     /// 图片上传Token
     /// </summary>
-    public class ImageToken
+    public class ImageUploadToken
     {
         /// <summary>
         /// 上传Token
