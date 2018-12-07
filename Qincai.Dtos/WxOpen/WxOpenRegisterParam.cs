@@ -5,7 +5,7 @@ namespace Qincai.Dtos
     /// <summary>
     /// 微信注册参数
     /// </summary>
-    public class WxOpenRegisterParam
+    public class WxOpenRegisterParam : IUserRegister
     {
         /// <summary>
         /// 3rd-Session Id
@@ -22,5 +22,7 @@ namespace Qincai.Dtos
         /// </summary>
         [Required(AllowEmptyStrings = false, ErrorMessage = "解密向量不为空")]
         public string Iv { get; set; }
+        public string Name { get; set; }
+        public string AvatarUrl { get; set; }
     }
 }

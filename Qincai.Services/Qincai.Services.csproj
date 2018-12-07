@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>./Qincai.Services.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Qiniu.Shared" Version="7.2.15" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.9" />
@@ -12,6 +16,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Qincai.Dtos\Qincai.Dtos.csproj" />
     <ProjectReference Include="..\Qincai.Models\Qincai.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Qincai.Services.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -14,9 +14,7 @@ namespace Qincai.Models.Test
         [Fact]
         public void QuestionTest()
         {
-            Question question = new Question
-            {
-            };
+            Question question = new Question();
             Assert.False(question.IsDelete);
         }
     }

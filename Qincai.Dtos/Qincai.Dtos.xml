@@ -1,0 +1,494 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qincai.Dtos</name>
+    </assembly>
+    <members>
+        <member name="T:Qincai.Dtos.ListAnswerParam">
+            <summary>
+            回答列表参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ListAnswerParam.Page">
+            <summary>
+            当前页数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ListAnswerParam.PageSize">
+            <summary>
+            每页数量
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ListAnswerParam.OrderBy">
+            <summary>
+            排序字段
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ListAnswerParam.Descending">
+            <summary>
+            是否降序
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.JwtConfig">
+            <summary>
+            JWT配置参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.JwtConfig.Secret">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.JwtConfig.Issuer">
+            <summary>
+            颁发者
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.JwtConfig.Audience">
+            <summary>
+            接受者
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.QiniuConfig">
+            <summary>
+            七牛云配置参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.QiniuConfig.ACCESS_KEY">
+            <summary>
+            AK
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.QiniuConfig.SECRET_KEY">
+            <summary>
+            SK
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.QiniuConfig.ImageBucket">
+            <summary>
+            存储桶
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.QiniuConfig.Bucket">
+            <summary>
+            Bucket配置参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.QiniuConfig.Bucket.Name">
+            <summary>
+            Bucket名
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.QiniuConfig.Bucket.UploadDomain">
+            <summary>
+            上传域名
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.QiniuConfig.Bucket.DownloadDomain">
+            <summary>
+            下载域名
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.WxOpenConfig">
+            <summary>
+            微信小程序配置参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.WxOpenConfig.AppId">
+            <summary>
+            微信小程序 AppId
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.WxOpenConfig.Secret">
+            <summary>
+            微信小程序 Secert
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.ImageUploadToken">
+            <summary>
+            图片上传Token
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ImageUploadToken.Token">
+            <summary>
+            上传Token
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ImageUploadToken.Key">
+            <summary>
+            允许的文件名
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ImageUploadToken.UploadDomain">
+            <summary>
+            上传图片的域名
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.IPagedParam">
+            <summary>
+            分页参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.IPagedParam.Page">
+            <summary>
+            当前页数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.IPagedParam.PageSize">
+            <summary>
+            每页数量
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.ISortedParam">
+            <summary>
+            排序参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ISortedParam.OrderBy">
+            <summary>
+            排序字段
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ISortedParam.Descending">
+            <summary>
+            是否降序
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.AnswerDto">
+            <summary>
+            一般回答
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.AnswerDto.Id">
+            <summary>
+            问题Id
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.AnswerDto.Answerer">
+            <summary>
+            回答者
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.AnswerDto.Content">
+            <summary>
+            回答内容
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.AnswerDto.AnswerTime">
+            <summary>
+            回答时间
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.AnswerDto.RefAnswer">
+            <summary>
+            引用的回答
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.RefAnswerDto">
+            <summary>
+            被引用的回答
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.RefAnswerDto.Id">
+            <summary>
+            问题Id
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.RefAnswerDto.Answerer">
+            <summary>
+            回答者
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.RefAnswerDto.Content">
+            <summary>
+            回答内容
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.AnswerWithQuestionDto">
+            <summary>
+            包含所属问题的回答
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.AnswerWithQuestionDto.Question">
+            <summary>
+            所回答的问题
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.ContentDto">
+            <summary>
+            内容Dto
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ContentDto.Text">
+            <summary>
+            文本内容
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ContentDto.Images">
+            <summary>
+            图片内容
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.QuestionDto">
+            <summary>
+            问题Dto
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.QuestionDto.Id">
+            <summary>
+            问题Id
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.QuestionDto.Title">
+            <summary>
+            问题标题
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.QuestionDto.Content">
+            <summary>
+            问题内容
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.QuestionDto.Questioner">
+            <summary>
+            提问者
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.QuestionDto.QuestionTime">
+            <summary>
+            提问时间
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.QuestionDto.LastTime">
+            <summary>
+            最后一次回答时间
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.QuestionDto.Category">
+            <summary>
+            问题类别
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.QuestionDto.AnswerNum">
+            <summary>
+            回答数
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.UserDto">
+            <summary>
+            用户Dto
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.UserDto.Id">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.UserDto.Name">
+            <summary>
+            用户昵称
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.UserDto.AvatarUrl">
+            <summary>
+            用户头像
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.PagedResult`1">
+            <summary>
+            分页结果
+            </summary>
+            <typeparam name="T">列表元素类型</typeparam>
+        </member>
+        <member name="P:Qincai.Dtos.PagedResult`1.Result">
+            <summary>
+            分页结果
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.PagedResult`1.TotalPage">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.PagedResult`1.CrtPage">
+            <summary>
+            当前页数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.PagedResult`1.PageSize">
+            <summary>
+            每页数量
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.CreateQuestionParam">
+            <summary>
+            创建问题参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.CreateQuestionParam.Title">
+            <summary>
+            问题标题
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.CreateQuestionParam.Text">
+            <summary>
+            问题内容
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.CreateQuestionParam.Images">
+            <summary>
+            问题包含的图片
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.CreateQuestionParam.Category">
+            <summary>
+            问题的分类
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.ListQuestionParam">
+            <summary>
+            问题列表参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ListQuestionParam.Page">
+            <summary>
+            当前页数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ListQuestionParam.PageSize">
+            <summary>
+            每页数量
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ListQuestionParam.OrderBy">
+            <summary>
+            排序字段(QuestionTime|*LastTime)
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ListQuestionParam.Descending">
+            <summary>
+            是否降序
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.ReplyQuestionParam">
+            <summary>
+            回答问题参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ReplyQuestionParam.Text">
+            <summary>
+            回答内容
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ReplyQuestionParam.Images">
+            <summary>
+            回答中包含的图片
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.ReplyQuestionParam.RefAnswerId">
+            <summary>
+            引用的回答
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.SearchQuestionParam">
+            <summary>
+            搜索问题参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.SearchQuestionParam.Search">
+            <summary>
+            搜索关键词
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.SearchQuestionParam.Category">
+            <summary>
+            所需查找问题的分类
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.SearchQuestionParam.UserId">
+            <summary>
+            提问者的Id
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.CreateUserParam">
+            <summary>
+            创建用户参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.CreateUserParam.Name">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.CreateUserParam.AvatarUrl">
+            <summary>
+            头像Url
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.CreateUserParam.WxOpenId">
+            <summary>
+            微信OpenId
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.CreateUserParam.Role">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.WxOpenAuthorizeParam">
+            <summary>
+            小程序认证参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.WxOpenAuthorizeParam.SessionId">
+            <summary>
+            3rd-session
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.WxOpenLoginParam">
+            <summary>
+            微信登录参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.WxOpenLoginParam.Code">
+            <summary>
+            wx.login 返回的code
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.WxOpenLoginResult">
+            <summary>
+            登录结果
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.WxOpenLoginResult.User">
+            <summary>
+            用户属性
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.WxOpenLoginResult.SessionId">
+            <summary>
+            3rd-Session Id
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.WxOpenRegisterParam">
+            <summary>
+            微信注册参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.WxOpenRegisterParam.SessionId">
+            <summary>
+            3rd-Session Id
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.WxOpenRegisterParam.EncryptedData">
+            <summary>
+            加密后的用户数据
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.WxOpenRegisterParam.Iv">
+            <summary>
+            解密用参数
+            </summary>
+        </member>
+    </members>
+</doc>

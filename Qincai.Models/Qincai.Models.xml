@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qincai.Models</name>
+    </assembly>
+    <members>
+        <member name="T:Qincai.Models.ApplicationDbContext">
+            <summary>
+            数据库上下文
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.ApplicationDbContext.Questions">
+            <summary>
+            问题表
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.ApplicationDbContext.Answers">
+            <summary>
+            回答表
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.ApplicationDbContext.Users">
+            <summary>
+            用户表
+            </summary>
+        </member>
+        <member name="M:Qincai.Models.ApplicationDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{Qincai.Models.ApplicationDbContext})">
+            <summary>
+            构造函数
+            </summary>
+            <param name="options">数据库参数</param>
+        </member>
+        <member name="M:Qincai.Models.ApplicationDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            配置数据库架构
+            </summary>
+            <param name="modelBuilder"><see cref="T:Microsoft.EntityFrameworkCore.ModelBuilder"/></param>
+        </member>
+        <member name="T:Qincai.Models.IHasOwner`1">
+            <summary>
+            资源拥有者约束
+            </summary>
+            <typeparam name="T">拥有者类型</typeparam>
+        </member>
+        <member name="P:Qincai.Models.IHasOwner`1.Owner">
+            <summary>
+            拥有者
+            </summary>
+        </member>
+        <member name="T:Qincai.Models.ISoftDelete">
+            <summary>
+            软删除约束
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.ISoftDelete.IsDelete">
+            <summary>
+            软删除标志
+            </summary>
+        </member>
+        <member name="T:Qincai.Models.Answer">
+            <summary>
+            回答实体
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Answer.Id">
+            <summary>
+            回答Id
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Answer.Answerer">
+            <summary>
+            回答者
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Answer.Question">
+            <summary>
+            所属问题
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Answer.Content">
+            <summary>
+            回答内容
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Answer.AnswerTime">
+            <summary>
+            回答时间
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Answer.RefAnswer">
+            <summary>
+            引用的回答
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Answer.IsDelete">
+            <summary>
+            软删除标志
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Answer.Owner">
+            <summary>
+            资源拥有者
+            </summary>
+        </member>
+        <member name="T:Qincai.Models.Content">
+            <summary>
+            内容对象
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Content.Text">
+            <summary>
+            文本内容
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Content.Images">
+            <summary>
+            图片url
+            </summary>
+        </member>
+        <member name="T:Qincai.Models.Question">
+            <summary>
+            问题实体
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Question.Id">
+            <summary>
+            问题Id
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Question.Title">
+            <summary>
+            问题标题
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Question.Content">
+            <summary>
+            问题内容
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Question.Category">
+            <summary>
+            问题类别
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Question.Answers">
+            <summary>
+            问题的回答
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Question.Questioner">
+            <summary>
+            提问者
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Question.QuestionTime">
+            <summary>
+            提问时间
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Question.LastTime">
+            <summary>
+            最后回答时间
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Question.IsDelete">
+            <summary>
+            软删除标记
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.Question.Owner">
+            <summary>
+            资源所有者
+            </summary>
+        </member>
+        <member name="T:Qincai.Models.User">
+            <summary>
+            用户实体
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.User.Id">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.User.Name">
+            <summary>
+            用户昵称
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.User.Role">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.User.AvatarUrl">
+            <summary>
+            头像Url
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.User.WxOpenId">
+            <summary>
+            微信OpenId
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.User.IsDelete">
+            <summary>
+            软删除标志
+            </summary>
+        </member>
+    </members>
+</doc>

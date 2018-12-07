@@ -54,8 +54,8 @@ namespace Qincai.Api
             #region 配置数据库连接
             services.AddDbContext<ApplicationDbContext>(options
             //=> options.UseSqlServer(Configuration.GetConnectionString("Local")));
-            => options.UseMySql(Configuration.GetConnectionString("MySQL")));
-            //=> options.UseInMemoryDatabase("Qincai"));
+            //=> options.UseMySql(Configuration.GetConnectionString("MySQL")));
+            => options.UseInMemoryDatabase("Qincai"));
             #endregion
 
             #region 配置外部服务参数

@@ -61,9 +61,6 @@ namespace Qincai.Models
             question.OwnsOne(q => q.Content)
                 .Property(c => c.Images)
                 .HasConversion(splitStringConverter);
-            // 问题文本最长为500
-            question.Property(q => q.Content.Text)
-                .HasMaxLength(500);
             // 过滤软删除
             question.HasQueryFilter(q => q.IsDelete != true);
 
@@ -80,9 +77,6 @@ namespace Qincai.Models
             answer.OwnsOne(a => a.Content)
                 .Property(c => c.Images)
                 .HasConversion(splitStringConverter);
-            // 回答文本最长为500
-            answer.Property(a => a.Content.Text)
-                .HasMaxLength(500);
             // 过滤软删除
             //answer.HasQueryFilter(a => a.IsDelete != true);
 

@@ -5,17 +5,17 @@ VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qincai.Api", "Qincai.Api\Qincai.Api.csproj", "{462E66E5-23EA-42FE-BD48-44C657108BC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qincai.Models", "Qincai.Models\Qincai.Models.csproj", "{27D8C49E-07EC-4B53-A221-498A6D8228AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qincai.Models", "Qincai.Models\Qincai.Models.csproj", "{27D8C49E-07EC-4B53-A221-498A6D8228AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qincai.Services", "Qincai.Services\Qincai.Services.csproj", "{104B15D0-D378-41A9-A262-7ADED798455E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qincai.Services", "Qincai.Services\Qincai.Services.csproj", "{104B15D0-D378-41A9-A262-7ADED798455E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qincai.Dtos", "Qincai.Dtos\Qincai.Dtos.csproj", "{2F91BEFB-24A5-480C-B533-B001BBA35680}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qincai.Dtos", "Qincai.Dtos\Qincai.Dtos.csproj", "{2F91BEFB-24A5-480C-B533-B001BBA35680}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{21BC86D4-2E83-4F0D-A8A6-E5326E88ED9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qincai.Models.Test", "UnitTests\Qincai.Models.Test\Qincai.Models.Test.csproj", "{A9F097E4-D2F7-4CF3-919E-AAF9E95603FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qincai.Models.Test", "UnitTests\Qincai.Models.Test\Qincai.Models.Test.csproj", "{A9F097E4-D2F7-4CF3-919E-AAF9E95603FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qincai.Services.Test", "UnitTests\Qincai.Services.Test\Qincai.Services.Test.csproj", "{7F18D206-869A-4C01-84EE-E4558B92C758}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qincai.Services.Test", "UnitTests\Qincai.Services.Test\Qincai.Services.Test.csproj", "{7F18D206-869A-4C01-84EE-E4558B92C758}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

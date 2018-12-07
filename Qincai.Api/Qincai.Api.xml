@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qincai.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Qincai.Api.Controllers.AnswerController">
+            <summary>
+            回答相关API
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.Controllers.AnswerController.#ctor(Qincai.Services.IAnswerService,AutoMapper.IMapper,Microsoft.AspNetCore.Authorization.IAuthorizationService)">
+            <summary>
+            依赖注入
+            </summary>
+            <param name="answerService">回答服务</param>
+            <param name="mapper">对象映射</param>
+            <param name="authorizationService">认证服务</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.AnswerController.ListMyAnswer(Qincai.Dtos.ListAnswerParam)">
+            <summary>
+            我的回答
+            </summary>
+            <param name="dto">分页参数</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.AnswerController.Delete(System.Guid)">
+            <summary>
+            删除回答
+            </summary>
+            <param name="id">回答Id</param>
+        </member>
+        <member name="T:Qincai.Api.Controllers.ImageController">
+            <summary>
+            图片管理相关API
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.Controllers.ImageController.#ctor(Qincai.Services.IImageService,Qincai.Services.IUserService)">
+            <summary>
+            依赖注入
+            </summary>
+            <param name="imageService">图片服务</param>
+            <param name="userService">用户服务</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.ImageController.GetUploadToken">
+            <summary>
+            返回图片上传Token
+            </summary>
+        </member>
+        <member name="T:Qincai.Api.Controllers.QuestionController">
+            <summary>
+            问题相关API
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.Controllers.QuestionController.#ctor(AutoMapper.IMapper,Microsoft.AspNetCore.Authorization.IAuthorizationService,Qincai.Services.IQuestionService,Qincai.Services.IUserService)">
+            <summary>
+            依赖注入
+            </summary>
+            <param name="mapper">对象映射</param>
+            <param name="authorizationService">认证服务</param>
+            <param name="questionService">问题相关的服务</param>
+            <param name="userService">用户相关的服务</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.QuestionController.List(Qincai.Dtos.SearchQuestionParam)">
+            <summary>
+            问题列表
+            </summary>
+            <remarks>后期需要按某一字段排序</remarks>
+            <param name="dto">问题列表参数</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.QuestionController.ListMyQuestion(Qincai.Dtos.ListQuestionParam)">
+            <summary>
+            我的问题
+            </summary>
+            <param name="dto">分页参数</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.QuestionController.GetById(System.Guid)">
+            <summary>
+            根据Id获取问题
+            </summary>
+            <param name="id">问题Id</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.QuestionController.ListAnswersByQuestionId(System.Guid,Qincai.Dtos.ListAnswerParam)">
+            <summary>
+            问题的回答列表
+            </summary>
+            <param name="id">问题Id</param>
+            <param name="dto">回答列表参数</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.QuestionController.Create(Qincai.Dtos.CreateQuestionParam)">
+            <summary>
+            创建一个新的问题
+            </summary>
+            <param name="dto">新问题</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.QuestionController.Reply(System.Guid,Qincai.Dtos.ReplyQuestionParam)">
+            <summary>
+            回答问题
+            </summary>
+            <param name="id">问题Id</param>
+            <param name="dto">新回答</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.QuestionController.Delete(System.Guid)">
+            <summary>
+            删除问题
+            </summary>
+            <param name="id">问题Id</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.QuestionController.CreateQuestionFilter(Qincai.Dtos.SearchQuestionParam)">
+            <summary>
+            创建搜索问题时的过滤器
+            </summary>
+            <param name="dto">搜索参数</param>
+            <returns>过滤器对象</returns>
+        </member>
+        <member name="T:Qincai.Api.Controllers.WxOpenController">
+            <summary>
+            微信小程序相关API
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.Controllers.WxOpenController.#ctor(Qincai.Services.IUserService,AutoMapper.IMapper,Microsoft.Extensions.Options.IOptions{Qincai.Dtos.WxOpenConfig},Microsoft.Extensions.Options.IOptions{Qincai.Dtos.JwtConfig})">
+            <summary>
+            依赖注入
+            </summary>
+            <param name="userService">用户服务</param>
+            <param name="mapper">对象映射</param>
+            <param name="wxOpenConfig">微信小程序配置</param>
+            <param name="jwtConfig">JWT配置</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.WxOpenController.Login(Qincai.Dtos.WxOpenLoginParam)">
+            <summary>
+            微信登录
+            </summary>
+            <param name="dto">登录参数</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.WxOpenController.Register(Qincai.Dtos.WxOpenRegisterParam)">
+            <summary>
+            微信注册
+            </summary>
+            <param name="dto">注册参数</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.WxOpenController.Authorize(Qincai.Dtos.WxOpenAuthorizeParam)">
+            <summary>
+            微信授权
+            </summary>
+            <param name="dto">登录态参数</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.WxOpenController.CreateJwtToken(Qincai.Dtos.JwtConfig,Qincai.Models.User)">
+            <summary>
+            创建Jwt Token
+            </summary>
+            <param name="jwtConfig">Jwt 配置参数</param>
+            <param name="user">授权用户</param>
+            <returns>Jwt Token</returns>
+        </member>
+        <member name="T:Qincai.Api.Extensions.QueryExtension">
+            <summary>
+            查询拓展
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.Extensions.QueryExtension.Paged``1(System.Linq.IQueryable{``0},Qincai.Dtos.IPagedParam)">
+            <summary>
+            分页
+            </summary>
+            <param name="query">可查询对象</param>
+            <param name="pagedParam">分页参数</param>
+            <returns>分页结果</returns>
+        </member>
+        <member name="T:Qincai.Api.Extensions.ServicesExtension">
+            <summary>
+            StartUp中注入服务的拓展方法
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.Extensions.ServicesExtension.ConfigureSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            配置Swagger
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="T:Qincai.Api.Extensions.UserExtension">
+            <summary>
+            用户信息相关的拓展方法
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.Extensions.UserExtension.GetUserId(System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            解析User Id，已由中间件确保用户存在
+            </summary>
+            <param name="claimsPrincipal">用户令牌</param>
+            <returns>(Guid)User Id</returns>
+        </member>
+        <member name="T:Qincai.Api.Program">
+            <summary>
+            入口类
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.Program.Main(System.String[])">
+            <summary>
+            入口函数
+            </summary>
+            <param name="args">启动参数</param>
+        </member>
+        <member name="M:Qincai.Api.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            创建默认的WebHost
+            </summary>
+            <param name="args">启动参数</param>
+        </member>
+        <member name="T:Qincai.Api.SeedData">
+            <summary>
+            初始化数据库
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.SeedData.InitDatabase(System.IServiceProvider)">
+            <summary>
+            初始化数据库
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="T:Qincai.Api.Startup">
+            <summary>
+            配置类
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            依赖注入
+            </summary>
+            <param name="configuration">配置对象</param>
+        </member>
+        <member name="P:Qincai.Api.Startup.Configuration">
+            <summary>
+            配置对象
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            配置服务
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="M:Qincai.Api.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.Extensions.Options.IOptions{Senparc.CO2NET.SenparcSetting},Microsoft.Extensions.Options.IOptions{Senparc.Weixin.Entities.SenparcWeixinSetting})">
+            <summary>
+            配置App Pipelines
+            </summary>
+            <param name="app">app builder</param>
+            <param name="env">环境参数</param>
+            <param name="senparcSetting">senparc 设置</param>
+            <param name="senparcWeixinSetting">senparc 微信设置</param>
+        </member>
+        <member name="T:Qincai.Api.Utils.AuthorizationPolicies">
+            <summary>
+            定义的授权策略类型
+            </summary>
+        </member>
+        <member name="F:Qincai.Api.Utils.AuthorizationPolicies.Ownered">
+            <summary>
+            资源拥有者策略
+            </summary>
+        </member>
+        <member name="T:Qincai.Api.Utils.OwneredAuthorizationHandler">
+            <summary>
+            资源拥有者授权Handler
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.Utils.OwneredAuthorizationHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,Qincai.Api.Utils.OwneredRequirement,Qincai.Models.IHasOwner{Qincai.Models.User})">
+            <summary>
+            重载授权过程
+            </summary>
+            <param name="context">认证上下文</param>
+            <param name="requirement">要求</param>
+            <param name="resource">资源</param>
+        </member>
+        <member name="T:Qincai.Api.Utils.OwneredRequirement">
+            <summary>
+            资源拥有者 要求
+            </summary>
+        </member>
+    </members>
+</doc>

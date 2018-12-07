@@ -32,8 +32,15 @@ namespace Qincai.Api.Extensions
                     { "Bearer", new string[] { } }
                 });
                 // TODO: 对于文件不存在情况下的异常处理
-                var filePath = Path.Combine(AppContext.BaseDirectory, "Qincai.Api.xml");
-                c.IncludeXmlComments(filePath);
+                string[] files = new string[]
+                {
+                    "Qincai.Api.xml", "Qincai.Dtos.xml", "Qincai.Models.xml"
+                };
+                foreach (var file in files)
+                {
+                    var filePath = Path.Combine(AppContext.BaseDirectory, file);
+                    c.IncludeXmlComments(filePath);
+                }
             });
             return services;
         }

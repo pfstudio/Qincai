@@ -1,0 +1,281 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qincai.Services</name>
+    </assembly>
+    <members>
+        <member name="T:Qincai.Services.IAnswerService">
+            <summary>
+            回答相关服务接口
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.IAnswerService.GetByIdAsync(System.Guid)">
+            <summary>
+            根据Id获取回答
+            </summary>
+            <param name="answerId">回答Id</param>
+            <returns>回答实体</returns>
+        </member>
+        <member name="M:Qincai.Services.IAnswerService.GetQuery(System.Linq.Expressions.Expression{System.Func{Qincai.Models.Answer,System.Boolean}},Qincai.Dtos.ISortedParam)">
+            <summary>
+            查找回答
+            </summary>
+            <param name="filter">查询条件</param>
+            <param name="sorted">排序参数</param>
+            <returns>回答的可查询对象</returns>
+        </member>
+        <member name="M:Qincai.Services.IAnswerService.DeleteAsync(System.Guid)">
+            <summary>
+            软删除回答
+            </summary>
+            <param name="answerId">回答Id</param>
+        </member>
+        <member name="T:Qincai.Services.AnswerService">
+            <summary>
+            回答服务
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.AnswerService.#ctor(Qincai.Models.ApplicationDbContext)">
+            <summary>
+            依赖注入
+            </summary>
+            <param name="context">数据库上下文</param>
+        </member>
+        <member name="M:Qincai.Services.AnswerService.GetByIdAsync(System.Guid)">
+            <summary>
+            <see cref="M:Qincai.Services.IAnswerService.GetByIdAsync(System.Guid)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.AnswerService.GetQuery(System.Linq.Expressions.Expression{System.Func{Qincai.Models.Answer,System.Boolean}},Qincai.Dtos.ISortedParam)">
+            <summary>
+            <see cref="M:Qincai.Services.IAnswerService.GetQuery(System.Linq.Expressions.Expression{System.Func{Qincai.Models.Answer,System.Boolean}},Qincai.Dtos.ISortedParam)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.AnswerService.DeleteAsync(System.Guid)">
+            <summary>
+            <see cref="M:Qincai.Services.IAnswerService.DeleteAsync(System.Guid)"/>
+            </summary>
+        </member>
+        <member name="T:Qincai.Services.IImageService">
+            <summary>
+            图片相关服务接口
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.IImageService.CreateToken(Qincai.Models.User)">
+            <summary>
+            创建上传Token
+            </summary>
+            <param name="user">用户实体</param>
+            <returns>上传相关参数</returns>
+        </member>
+        <member name="M:Qincai.Services.IImageService.ConvertToAbsolute(System.String)">
+            <summary>
+            转换为绝对路径
+            </summary>
+            <param name="url">相对路径</param>
+            <returns>图片的绝对路径</returns>
+        </member>
+        <member name="T:Qincai.Services.ImageService">
+            <summary>
+            图片服务
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.ImageService.#ctor(Microsoft.Extensions.Options.IOptions{Qincai.Dtos.QiniuConfig})">
+            <summary>
+            依赖注入
+            </summary>
+            <param name="qiniuConfig">七牛云配置文件</param>
+        </member>
+        <member name="M:Qincai.Services.ImageService.CreateToken(Qincai.Models.User)">
+            <summary>
+            <see cref="M:Qincai.Services.IImageService.CreateToken(Qincai.Models.User)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.ImageService.ConvertToAbsolute(System.String)">
+            <summary>
+            <see cref="M:Qincai.Services.IImageService.ConvertToAbsolute(System.String)"/>
+            </summary>
+        </member>
+        <member name="T:Qincai.Services.IQuestionService">
+            <summary>
+            问题相关服务接口
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.IQuestionService.GetByIdAsync(System.Guid)">
+            <summary>
+            根据Id获取问题
+            </summary>
+            <param name="questionId">问题Id</param>
+            <returns>问题实体</returns>
+        </member>
+        <member name="M:Qincai.Services.IQuestionService.GetQuery(System.Linq.Expressions.Expression{System.Func{Qincai.Models.Question,System.Boolean}},Qincai.Dtos.ISortedParam)">
+            <summary>
+            查找问题
+            </summary>
+            <param name="filter">查询条件</param>
+            <param name="sorted">排序参数</param>
+            <returns>问题的可查询对象</returns>
+        </member>
+        <member name="M:Qincai.Services.IQuestionService.GetAnswersQuery(System.Guid,Qincai.Dtos.ISortedParam)">
+            <summary>
+            查找对应问题的回答
+            </summary>
+            <param name="questionId">问题Id</param>
+            <param name="sorted">排序参数</param>
+            <returns>回答的可查询对象</returns>
+        </member>
+        <member name="M:Qincai.Services.IQuestionService.ExistAsync(System.Guid)">
+            <summary>
+            根据Id判断问题是否存在
+            </summary>
+            <param name="questionId">问题Id</param>
+            <returns>问题是否存在</returns>
+        </member>
+        <member name="M:Qincai.Services.IQuestionService.CreateAsync(Qincai.Models.User,Qincai.Dtos.CreateQuestionParam)">
+            <summary>
+            创建问题
+            </summary>
+            <param name="questioner">提问者</param>
+            <param name="dto">创建问题参数</param>
+            <returns>创建的问题</returns>
+        </member>
+        <member name="M:Qincai.Services.IQuestionService.ReplyAsync(System.Guid,Qincai.Models.User,Qincai.Dtos.ReplyQuestionParam)">
+            <summary>
+            回答问题
+            </summary>
+            <param name="questionId">问题Id</param>
+            <param name="answerer">回答者</param>
+            <param name="dto">回答问题参数</param>
+            <returns>问题的回答</returns>
+        </member>
+        <member name="M:Qincai.Services.IQuestionService.DeleteAsync(System.Guid)">
+            <summary>
+            软删除问题
+            </summary>
+            <param name="questionId">问题Id</param>
+        </member>
+        <member name="T:Qincai.Services.QuestionService">
+            <summary>
+            问题服务
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.QuestionService.#ctor(Qincai.Models.ApplicationDbContext)">
+            <summary>
+            依赖注入
+            </summary>
+            <param name="context">数据库上下文</param>
+            <param name="imageService">图片服务</param>
+        </member>
+        <member name="M:Qincai.Services.QuestionService.GetByIdAsync(System.Guid)">
+            <summary>
+            <see cref="M:Qincai.Services.IQuestionService.GetByIdAsync(System.Guid)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.QuestionService.GetQuery(System.Linq.Expressions.Expression{System.Func{Qincai.Models.Question,System.Boolean}},Qincai.Dtos.ISortedParam)">
+            <summary>
+            <see cref="M:Qincai.Services.IQuestionService.GetQuery(System.Linq.Expressions.Expression{System.Func{Qincai.Models.Question,System.Boolean}},Qincai.Dtos.ISortedParam)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.QuestionService.GetAnswersQuery(System.Guid,Qincai.Dtos.ISortedParam)">
+            <summary>
+            <see cref="M:Qincai.Services.IQuestionService.GetAnswersQuery(System.Guid,Qincai.Dtos.ISortedParam)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.QuestionService.ExistAsync(System.Guid)">
+            <summary>
+            <see cref="M:Qincai.Services.IQuestionService.ExistAsync(System.Guid)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.QuestionService.CreateAsync(Qincai.Models.User,Qincai.Dtos.CreateQuestionParam)">
+            <summary>
+            <see cref="M:Qincai.Services.IQuestionService.CreateAsync(Qincai.Models.User,Qincai.Dtos.CreateQuestionParam)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.QuestionService.ReplyAsync(System.Guid,Qincai.Models.User,Qincai.Dtos.ReplyQuestionParam)">
+            <summary>
+            <see cref="M:Qincai.Services.IQuestionService.ReplyAsync(System.Guid,Qincai.Models.User,Qincai.Dtos.ReplyQuestionParam)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.QuestionService.DeleteAsync(System.Guid)">
+            <summary>
+            <see cref="M:Qincai.Services.IQuestionService.DeleteAsync(System.Guid)"/>
+            </summary>
+        </member>
+        <member name="T:Qincai.Services.IUserService">
+            <summary>
+            用户相关服务接口
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.IUserService.ExistByIdAsync(System.Guid)">
+            <summary>
+            根据Id判断用户是否存在
+            </summary>
+            <param name="userId">用户Id</param>
+            <returns>用户是否存在</returns>
+        </member>
+        <member name="M:Qincai.Services.IUserService.ExistByOpenIdAsync(System.String)">
+            <summary>
+            根据OpenId判断用户是否存在
+            </summary>
+            <param name="openId">微信用户OpenId</param>
+            <returns>用户是否存在</returns>
+        </member>
+        <member name="M:Qincai.Services.IUserService.GetByIdAsync(System.Guid)">
+            <summary>
+            根据Id获取用户
+            </summary>
+            <param name="userId">用户Id</param>
+            <returns>用户实体</returns>
+        </member>
+        <member name="M:Qincai.Services.IUserService.GetByOpenIdAsync(System.String)">
+            <summary>
+            根据OpenId获取用户
+            </summary>
+            <param name="openId">微信用户OpenId</param>
+            <returns>用户实体</returns>
+        </member>
+        <member name="M:Qincai.Services.IUserService.CreateAsync(Qincai.Dtos.CreateUserParam)">
+            <summary>
+            创建用户
+            </summary>
+            <param name="dto">创建用户参数</param>
+            <returns>创建的用户</returns>
+        </member>
+        <member name="T:Qincai.Services.UserService">
+            <summary>
+            用户服务
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.UserService.#ctor(Qincai.Models.ApplicationDbContext)">
+            <summary>
+            依赖注入
+            </summary>
+            <param name="context">数据库上下文</param>
+        </member>
+        <member name="M:Qincai.Services.UserService.ExistByIdAsync(System.Guid)">
+            <summary>
+            <see cref="M:Qincai.Services.IUserService.ExistByIdAsync(System.Guid)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.UserService.ExistByOpenIdAsync(System.String)">
+            <summary>
+            <see cref="M:Qincai.Services.IUserService.ExistByOpenIdAsync(System.String)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.UserService.GetByIdAsync(System.Guid)">
+            <summary>
+            <see cref="M:Qincai.Services.IUserService.GetByIdAsync(System.Guid)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.UserService.GetByOpenIdAsync(System.String)">
+            <summary>
+            <see cref="M:Qincai.Services.IUserService.GetByOpenIdAsync(System.String)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.UserService.CreateAsync(Qincai.Dtos.CreateUserParam)">
+            <summary>
+            <see cref="M:Qincai.Services.IUserService.CreateAsync(Qincai.Dtos.CreateUserParam)"/>
+            </summary>
+        </member>
+    </members>
+</doc>
