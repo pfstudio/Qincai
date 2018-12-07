@@ -208,10 +208,15 @@ namespace Qincai.Api.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult> Delete([FromRoute]Guid id)
         {
             // 获取要删除的问题
             Question question = await _questsionService.GetByIdAsync(id);
+            if (question == null)
+            {
+                return NotFound();
+            }
             // 检验权限
             AuthorizationResult authorizationResult = await _authorizationService.AuthorizeAsync(
                 User, question, AuthorizationPolicies.Ownered);

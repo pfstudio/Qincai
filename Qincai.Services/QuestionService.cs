@@ -68,17 +68,15 @@ namespace Qincai.Services
     public class QuestionService : IQuestionService
     {
         private readonly ApplicationDbContext _context;
-        private readonly IImageService _imageService;
 
         /// <summary>
         /// 依赖注入
         /// </summary>
         /// <param name="context">数据库上下文</param>
         /// <param name="imageService">图片服务</param>
-        public QuestionService(ApplicationDbContext context, IImageService imageService)
+        public QuestionService(ApplicationDbContext context)
         {
             _context = context;
-            _imageService = imageService;
         }
 
         /// <summary>
@@ -88,8 +86,8 @@ namespace Qincai.Services
         {
             return _context.Questions
                 .Include(q => q.Questioner)
-                .Where(q => q.Id == questionId)
-                .SingleOrDefaultAsync();
+                .AsNoTracking()
+                .SingleOrDefaultAsync(q => q.Id == questionId);
         }
 
         /// <summary>
@@ -98,8 +96,6 @@ namespace Qincai.Services
         public IQueryable<Question> GetQuery(Expression<Func<Question, bool>> filter = null, ISortedParam sorted = null)
         {
             var query = _context.Questions
-                //.Include(q => q.Questioner)
-                //.Include(q => q.Answers)
                 .AsNoTracking()
                 .AsQueryable();
 
@@ -154,21 +150,15 @@ namespace Qincai.Services
             // 创建新问题
             var question = new Question
             {
-                // 为了方便测试，Guid由代码直接生成
-                // TODO: 转入生成环境后，Guid由数据库自主生成
-                Id = Guid.NewGuid(),
                 Title = dto.Title,
                 // 问题内容
                 Content = new Content
                 {
                     Text = dto.Text,
-                    Images = dto.Images.Select(_imageService.ConvertToAbsolute).ToList()
+                    Images = dto.Images
                 },
-                QuestionTime = DateTime.Now,
-                LastTime = DateTime.Now,
                 Questioner = questioner,
                 Category = dto.Category
-                //Tags = dto.Tags
             };
 
             // 保存修改
@@ -190,24 +180,19 @@ namespace Qincai.Services
                 .ThenInclude(a => a.Answerer)
                 .Include(q => q.Answers)
                 .ThenInclude(a => a.RefAnswer)
-                .Where(q => q.Id == questionId)
-                // TODO: 是否会出错？
-                .SingleAsync();
+                .SingleAsync(q => q.Id == questionId);
 
             // TODO: 暂时对引用问题不存在的问题，作静默处理
             Answer refAnswer = await _context.Answers
-                .Where(a => a.Id == dto.RefAnswerId)
-                .SingleOrDefaultAsync();
+                .SingleOrDefaultAsync(a => a.Id == dto.RefAnswerId);
 
             Answer answer = new Answer
             {
-                Id = Guid.NewGuid(),
                 Answerer = answerer,
-                AnswerTime = DateTime.Now,
                 Content = new Content
                 {
                     Text = dto.Text,
-                    Images = dto.Images.Select(_imageService.ConvertToAbsolute).ToList()
+                    Images = dto.Images
                 },
                 Question = question,
                 RefAnswer = refAnswer

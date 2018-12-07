@@ -64,6 +64,7 @@ namespace Qincai.Services
             // 限制图片大小
             putPolicy.FsizeLimit = 10 * 1024 * 1024;
             // 七牛云上传成功后对服务器的回调
+            // TODO: 回调后对图片进行审计
             // putPolicy.CallbackUrl ="";
 
             //返回生成的token模型
