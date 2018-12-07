@@ -167,6 +167,7 @@ namespace Qincai.Api.Controllers
                 return NotFound();
             }
             User answerer = await _userService.GetByIdAsync(User.GetUserId());
+            dto.Images = dto.Images.Select(image => _imageService.ConvertToAbsolute(image)).ToList();
             Answer answer = await _questsionService.ReplyAsync(id, answerer, dto);
 
             return CreatedAtRoute("GetQuestion", new { id }, _mapper.Map<AnswerDto>(answer));
