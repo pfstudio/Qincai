@@ -6,7 +6,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DocumentationFile>.\Qincai.Api.xml</DocumentationFile>
+    <DocumentationFile>./Qincai.Api.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath />
   </PropertyGroup>
 
   <ItemGroup>

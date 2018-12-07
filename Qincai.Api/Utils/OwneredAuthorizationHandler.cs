@@ -20,7 +20,7 @@ namespace Qincai.Api.Utils
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, OwneredRequirement requirement, IHasOwner<User> resource)
         {
             User owner = resource.Owner;
-            if (owner.Role == "admin" || owner.Id == context.User.GetUserId())
+            if (owner.Role == UserRole.Admin || owner.Id == context.User.GetUserId())
             {
                 context.Succeed(requirement);
             }
