@@ -86,7 +86,6 @@ namespace Qincai.Services
         {
             return _context.Questions
                 .Include(q => q.Questioner)
-                .AsNoTracking()
                 .SingleOrDefaultAsync(q => q.Id == questionId);
         }
 

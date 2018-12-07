@@ -51,7 +51,7 @@ namespace Qincai.Models
             // 配置问题表
             question.Property(q => q.Id)
                 // TODO: 是否需要需由数据库生成
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .IsRequired();
             // 问题标题最长为100
             question.Property(q => q.Title)
@@ -67,7 +67,7 @@ namespace Qincai.Models
             // 配置回答表
             answer.Property(a => a.Id)
                 // TODO: 生产环境中是否需由数据库生成
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .IsRequired();
             answer.HasOne(a => a.Question)
                 .WithMany(q => q.Answers)
@@ -83,7 +83,7 @@ namespace Qincai.Models
             // 配置用户表
             user.Property(u => u.Id)
                 // TODO: 生产环境中需由数据库生成
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .IsRequired();
             user.Property(u => u.Name)
                 .IsRequired()

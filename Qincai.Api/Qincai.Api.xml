@@ -51,7 +51,7 @@
             问题相关API
             </summary>
         </member>
-        <member name="M:Qincai.Api.Controllers.QuestionController.#ctor(AutoMapper.IMapper,Microsoft.AspNetCore.Authorization.IAuthorizationService,Qincai.Services.IQuestionService,Qincai.Services.IUserService)">
+        <member name="M:Qincai.Api.Controllers.QuestionController.#ctor(AutoMapper.IMapper,Microsoft.AspNetCore.Authorization.IAuthorizationService,Qincai.Services.IQuestionService,Qincai.Services.IUserService,Qincai.Services.IImageService)">
             <summary>
             依赖注入
             </summary>
@@ -59,6 +59,7 @@
             <param name="authorizationService">认证服务</param>
             <param name="questionService">问题相关的服务</param>
             <param name="userService">用户相关的服务</param>
+            <param name="imageService"></param>
         </member>
         <member name="M:Qincai.Api.Controllers.QuestionController.List(Qincai.Dtos.SearchQuestionParam)">
             <summary>
@@ -111,6 +112,39 @@
             </summary>
             <param name="dto">搜索参数</param>
             <returns>过滤器对象</returns>
+        </member>
+        <member name="T:Qincai.Api.Controllers.UserController">
+            <summary>
+            用户相关API
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.Controllers.UserController.#ctor(AutoMapper.IMapper,Microsoft.AspNetCore.Authorization.IAuthorizationService,Qincai.Services.IUserService)">
+            <summary>
+            依赖注入
+            </summary>
+            <param name="mapper">对象映射</param>
+            <param name="authorizationService">认证服务</param>
+            <param name="userService">用户服务</param>
+        </member>
+        <member name="M:Qincai.Api.Controllers.UserController.GetById(System.Guid)">
+            <summary>
+            获取用户信息
+            </summary>
+            <param name="id">用户Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qincai.Api.Controllers.UserController.GetMyInfo">
+            <summary>
+            获取用户自己的信息
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.Controllers.UserController.UpdateInfo(System.Guid,Qincai.Dtos.UpdateUserParam)">
+            <summary>
+            更新用户信息
+            </summary>
+            <param name="id"></param>
+            <param name="dto"></param>
+            <returns></returns>
         </member>
         <member name="T:Qincai.Api.Controllers.WxOpenController">
             <summary>
@@ -255,6 +289,11 @@
         <member name="F:Qincai.Api.Utils.AuthorizationPolicies.Ownered">
             <summary>
             资源拥有者策略
+            </summary>
+        </member>
+        <member name="F:Qincai.Api.Utils.AuthorizationPolicies.Admin">
+            <summary>
+            管理员权限策略
             </summary>
         </member>
         <member name="T:Qincai.Api.Utils.OwneredAuthorizationHandler">

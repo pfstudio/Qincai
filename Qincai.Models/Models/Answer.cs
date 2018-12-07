@@ -10,7 +10,7 @@ namespace Qincai.Models
         /// <summary>
         /// 回答Id
         /// </summary>
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
         /// <summary>
         /// 回答者
         /// </summary>

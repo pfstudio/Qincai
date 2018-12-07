@@ -435,6 +435,21 @@
             角色
             </summary>
         </member>
+        <member name="T:Qincai.Dtos.UpdateUserParam">
+            <summary>
+            更新用户信息参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.UpdateUserParam.Name">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.UpdateUserParam.AvatarUrl">
+            <summary>
+            头像
+            </summary>
+        </member>
         <member name="T:Qincai.Dtos.WxOpenAuthorizeParam">
             <summary>
             小程序认证参数
@@ -488,6 +503,16 @@
         <member name="P:Qincai.Dtos.WxOpenRegisterParam.Iv">
             <summary>
             解密用参数
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.WxOpenRegisterParam.Name">
+            <summary>
+            用户自定义昵称
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.WxOpenRegisterParam.AvatarUrl">
+            <summary>
+            用户自定义头像
             </summary>
         </member>
     </members>

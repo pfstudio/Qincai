@@ -29,6 +29,7 @@ namespace Qincai.Api.Controllers
         private readonly IAuthorizationService _authorizationService;
         private readonly IQuestionService _questsionService;
         private readonly IUserService _userService;
+        private readonly IImageService _imageService;
 
         /// <summary>
         /// 依赖注入
@@ -37,13 +38,15 @@ namespace Qincai.Api.Controllers
         /// <param name="authorizationService">认证服务</param>
         /// <param name="questionService">问题相关的服务</param>
         /// <param name="userService">用户相关的服务</param>
+        /// <param name="imageService"></param>
         public QuestionController(IMapper mapper, IAuthorizationService authorizationService,
-            IQuestionService questionService, IUserService userService)
+            IQuestionService questionService, IUserService userService, IImageService imageService)
         {
             _mapper = mapper;
             _authorizationService = authorizationService;
             _questsionService = questionService;
             _userService = userService;
+            _imageService = imageService;
         }
 
         /// <summary>
@@ -63,9 +66,7 @@ namespace Qincai.Api.Controllers
                 .ProjectTo<QuestionDto>(_mapper.ConfigurationProvider);
 
             // 基于拓展实现分页
-            var pagedResult = await questions.Paged(dto);
-
-            return pagedResult;
+            return await questions.Paged(dto);
         }
 
         /// <summary>
@@ -140,6 +141,8 @@ namespace Qincai.Api.Controllers
         public async Task<ActionResult<QuestionDto>> Create([FromBody]CreateQuestionParam dto)
         {
             User questioner = await _userService.GetByIdAsync(User.GetUserId());
+            // 将图片转为绝对路径
+            dto.Images = dto.Images.Select(image => _imageService.ConvertToAbsolute(image)).ToList();
             Question question = await _questsionService.CreateAsync(questioner, dto);
 
             // 返回201，以及location uri

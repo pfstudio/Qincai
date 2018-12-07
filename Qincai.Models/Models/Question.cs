@@ -11,7 +11,7 @@ namespace Qincai.Models
         /// <summary>
         /// 问题Id
         /// </summary>
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
         /// <summary>
         /// 问题标题
         /// </summary>
