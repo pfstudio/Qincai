@@ -1,5 +1,7 @@
-import api from '../../utils/api/index.js'
 const app = getApp()
+let api = app.globalData.api
+import { uploadImage } from '../../utils/api-helper.js'
+
 Page({
 
   /**
@@ -60,18 +62,24 @@ Page({
       loading: true
     })
     let that = this
-    Promise.all(this.data.images.map(image => api.image.uploadImage(image)))
+    Promise.all(this.data.images.map(image => uploadImage(image, api)))
     .then(urls => {
-      api.question.create(that.data.title, that.data.content, urls)
-        .then(function (res) {
-          wx.navigateBack({
-            success: function (res) {
-              that.setData({
-                loading: false
-              })
-            }
-          })
+      api.CreateQuestion({
+        dto: {
+        title: that.data.title,
+        text: that.data.content,
+        images: urls
+        }
+      })
+      .then(function (res) {
+        wx.navigateBack({
+          success: function (res) {
+            that.setData({
+              loading: false
+            })
+          }
         })
+      })
     })
   }
 })

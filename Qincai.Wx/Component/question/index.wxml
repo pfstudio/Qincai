@@ -8,7 +8,7 @@
     </view>
     <view wx:if="{{question.images}}"  class="imgBox">
     <block wx:for="{{question.images}}" wx:for-item="image" class="images">
-      <image class="image" src="{{image}}" bindtap="showImage" data-url="{{image}}"></image>
+      <image class="image" src="{{image}}-maxsize200" bindtap="showImage" data-url="{{image}}"></image>
     </block>
     </view>
   </view>   

@@ -1,7 +1,7 @@
-import api from '../../utils/api/index.js'
-// pages/myQuestion/myQuestion.js
-Page({
+const app = getApp()
+const api = app.globalData.api
 
+Page({
   data: {
    id:'',
    myquestions:[],
@@ -17,11 +17,10 @@ Page({
 
   onShow: function () {
     let that = this
-    api.question.me(1,10)
+    api.ListMyQuestions()
     .then(function(res){
-      console.log(res)
       that.setData({
-        myquestions:res.data.result
+        myquestions:res.result
       })
     })
   },
