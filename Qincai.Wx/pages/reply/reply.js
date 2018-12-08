@@ -1,7 +1,8 @@
-// pages/reply/reply.js
 const moment = require('../../utils/moment.js')
-import Dialog from '../../dist/dialog/dialog'
-import api from '../../utils/api/index.js'
+const app = getApp()
+const api = app.globalData.api
+import { uploadImage } from '../../utils/api-helper.js'
+
 Page({
   /**
    * 页面的初始数据
@@ -23,25 +24,25 @@ Page({
   onLoad: function (options) {
     let that = this
     let user = wx.getStorageSync('user')
-    console.log(options)
     this.setData({
       questionId:options.questionId,
       quote:options.quote,
       refAnswerId: options.refAnswerId
     })
-    api.question.getById(that.data.questionId)
+    api.GetQuestionById({
+      id: that.data.questionId
+    })
     .then(function(res){
       that.setData({
         question:{
-          title:res.data.title,
-          content:res.data.content.text,
-          images:res.data.content.images,
-          questioner:res.data.questioner.name,
-          questionTime: moment(res.data.questionTime).format('YYYY-MM-DD HH: mm: ss')
+          title:res.title,
+          content:res.content.text,
+          images:res.content.images,
+          questioner:res.questioner.name,
+          questionTime: moment(res.questionTime).format('YYYY-MM-DD HH: mm: ss')
         }
       })
     })
-    console.log(this.data.images)
   },
   submit:function(){
     let that = this
@@ -49,18 +50,25 @@ Page({
       loading:true
     })
     // console.log(that.data.answer)
-    Promise.all(this.data.answerImages.map(image => api.image.uploadImage(image)))
+    Promise.all(this.data.answerImages.map(image => uploadImage(image, api)))
       .then(urls => {
-        api.question.reply(that.data.questionId, that.data.answer, that.data.refAnswerId, urls)
-          .then(function (res) {
-            wx.navigateBack({
-              success: function (res) {
-                that.setData({
-                  loading: false
-                })
-              }
-            })
+        api.ReplyQuestion({
+          id: that.data.questionId,
+          dto: {
+            text: that.data.answer,
+            images: urls,
+            refAnswerId: that.data.refAnswerId
+          }
+        })
+        .then(function (res) {
+          wx.navigateBack({
+            success: function (res) {
+              that.setData({
+                loading: false
+              })
+            }
           })
+        })
       })
   },
   // TODO：获取文本框数据是否放在点击事件里面更好

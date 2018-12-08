@@ -1,8 +1,9 @@
 //index.js
 //获取应用实例
 const app = getApp()
-import api from '../../utils/api/index.js'
+let api = app.globalData.api
 const moment = require('../../utils/moment-with-locales.js')
+moment.locale("zh-cn")
 const orderBys = ["QuestionTime","LastTime"]
 Page({
   data: {
@@ -16,15 +17,14 @@ Page({
   },
   onShow:function(){
     let that = this
-    api.question.list(1, 10)
+    api.ListQuestions()
     .then(function(res){
-      moment.locale("zh-cn")
-      res.data.result.map(function (item) {
+      res.result.map(function (item) {
         item.questionTime = moment(item.questionTime).fromNow()
         return item
       })
       that.setData({
-        questions:res.data.result
+        questions:res.result
       })
     })
   },
@@ -35,15 +35,16 @@ Page({
   },
   tabChange:function(value){
     let that = this
-    api.question.list(1,10,"",orderBys[value.detail],true)
+    api.ListQuestions({
+      orderBy: orderBys[value.detail]
+    })
       .then(function (res) {
-        moment.locale("zh-cn")
-        res.data.result.map(function (item) {
+        res.result.map(function (item) {
           item.questionTime = moment(item.questionTime).fromNow()
           return item
         })
         that.setData({
-          questions: res.data.result
+          questions: res.result
         })
       })
   },
