@@ -93,7 +93,7 @@ namespace Qincai.Api.Controllers
                 }
             }
 
-            await _userService.UpdateAsync(dto);
+            await _userService.UpdateAsync(id ,dto);
 
             return NoContent();
         }
