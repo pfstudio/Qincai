@@ -48,8 +48,9 @@ namespace Qincai.Services
         /// <summary>
         /// 更新用户信息
         /// </summary>
+        /// <param name="id">欲更改用户的id</param>
         /// <param name="dto">更新用户参数</param>
-        Task UpdateAsync(UpdateUserParam dto);
+        Task UpdateAsync(Guid id, UpdateUserParam dto);
     }
 
     /// <summary>
@@ -123,11 +124,18 @@ namespace Qincai.Services
         }
 
         /// <summary>
-        /// <see cref="IUserService.UpdateAsync(UpdateUserParam)"/>
+        /// <see cref="IUserService.UpdateAsync(Guid, UpdateUserParam)"/>
         /// </summary>
-        public Task UpdateAsync(UpdateUserParam dto)
+        public async Task UpdateAsync(Guid id, UpdateUserParam dto)
         {
-            throw new NotImplementedException();
+            User user = await GetByIdAsync(id);
+
+            user.Name = string.IsNullOrEmpty(dto.Name) ? user.Name : dto.Name;
+            user.AvatarUrl = string.IsNullOrEmpty(dto.AvatarUrl) ? user.AvatarUrl : dto.AvatarUrl;
+
+            // TODO: 数据库异常处理
+            _context.Update(user);
+            await _context.SaveChangesAsync();
         }
     }
 }
