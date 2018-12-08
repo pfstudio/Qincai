@@ -56,7 +56,7 @@ namespace Qincai.Api.Controllers
         [HttpPost("[Action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<WxOpenLoginResult>> Login([FromBody]WxOpenLoginParam dto)
+        public async Task<ActionResult<WxOpenLoginResult>> WxLogin([FromBody]WxOpenLoginParam dto)
         {
             // 根据code从服务器换取session_id, session_key
             var jsonResult = await SnsApi.JsCode2JsonAsync(
@@ -93,7 +93,7 @@ namespace Qincai.Api.Controllers
         [HttpPost("[Action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UserDto>> Register([FromBody]WxOpenRegisterParam dto)
+        public async Task<ActionResult<UserDto>> WxRegister([FromBody]WxOpenRegisterParam dto)
         {
             // TODO: 检查签名
             // 解码用户信息
@@ -141,7 +141,7 @@ namespace Qincai.Api.Controllers
         [HttpPost("[Action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<string>> Authorize([FromBody]WxOpenAuthorizeParam dto)
+        public async Task<ActionResult<string>> WxAuthorize([FromBody]WxOpenAuthorizeParam dto)
         {
             // 查找session
             var session = SessionContainer.GetSession(dto.SessionId);

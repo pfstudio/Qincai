@@ -46,7 +46,7 @@ namespace Qincai.Api.Controllers
         /// <param name="dto">分页参数</param>
         [HttpGet("me")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<PagedResult<AnswerWithQuestionDto>>> ListMyAnswer([FromQuery]ListAnswerParam dto)
+        public async Task<ActionResult<PagedResult<AnswerWithQuestionDto>>> ListMyAnswers([FromQuery]ListAnswerParam dto)
         {
             Guid userId = User.GetUserId();
             var answers = _answerService
@@ -66,7 +66,7 @@ namespace Qincai.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> Delete([FromRoute]Guid id)
+        public async Task<ActionResult> DeleteAnswer([FromRoute]Guid id)
         {
             // 获取要删除的回答
             Answer answer = await _answerService.GetByIdAsync(id);

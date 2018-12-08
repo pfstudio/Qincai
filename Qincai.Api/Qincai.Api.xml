@@ -17,13 +17,13 @@
             <param name="mapper">对象映射</param>
             <param name="authorizationService">认证服务</param>
         </member>
-        <member name="M:Qincai.Api.Controllers.AnswerController.ListMyAnswer(Qincai.Dtos.ListAnswerParam)">
+        <member name="M:Qincai.Api.Controllers.AnswerController.ListMyAnswers(Qincai.Dtos.ListAnswerParam)">
             <summary>
             我的回答
             </summary>
             <param name="dto">分页参数</param>
         </member>
-        <member name="M:Qincai.Api.Controllers.AnswerController.Delete(System.Guid)">
+        <member name="M:Qincai.Api.Controllers.AnswerController.DeleteAnswer(System.Guid)">
             <summary>
             删除回答
             </summary>
@@ -61,20 +61,20 @@
             <param name="userService">用户相关的服务</param>
             <param name="imageService"></param>
         </member>
-        <member name="M:Qincai.Api.Controllers.QuestionController.List(Qincai.Dtos.SearchQuestionParam)">
+        <member name="M:Qincai.Api.Controllers.QuestionController.ListQuestions(Qincai.Dtos.SearchQuestionParam)">
             <summary>
             问题列表
             </summary>
             <remarks>后期需要按某一字段排序</remarks>
             <param name="dto">问题列表参数</param>
         </member>
-        <member name="M:Qincai.Api.Controllers.QuestionController.ListMyQuestion(Qincai.Dtos.ListQuestionParam)">
+        <member name="M:Qincai.Api.Controllers.QuestionController.ListMyQuestions(Qincai.Dtos.ListQuestionParam)">
             <summary>
             我的问题
             </summary>
             <param name="dto">分页参数</param>
         </member>
-        <member name="M:Qincai.Api.Controllers.QuestionController.GetById(System.Guid)">
+        <member name="M:Qincai.Api.Controllers.QuestionController.GetQuestionById(System.Guid)">
             <summary>
             根据Id获取问题
             </summary>
@@ -87,20 +87,20 @@
             <param name="id">问题Id</param>
             <param name="dto">回答列表参数</param>
         </member>
-        <member name="M:Qincai.Api.Controllers.QuestionController.Create(Qincai.Dtos.CreateQuestionParam)">
+        <member name="M:Qincai.Api.Controllers.QuestionController.CreateQuestion(Qincai.Dtos.CreateQuestionParam)">
             <summary>
             创建一个新的问题
             </summary>
             <param name="dto">新问题</param>
         </member>
-        <member name="M:Qincai.Api.Controllers.QuestionController.Reply(System.Guid,Qincai.Dtos.ReplyQuestionParam)">
+        <member name="M:Qincai.Api.Controllers.QuestionController.ReplyQuestion(System.Guid,Qincai.Dtos.ReplyQuestionParam)">
             <summary>
             回答问题
             </summary>
             <param name="id">问题Id</param>
             <param name="dto">新回答</param>
         </member>
-        <member name="M:Qincai.Api.Controllers.QuestionController.Delete(System.Guid)">
+        <member name="M:Qincai.Api.Controllers.QuestionController.DeleteQuestion(System.Guid)">
             <summary>
             删除问题
             </summary>
@@ -126,19 +126,19 @@
             <param name="authorizationService">认证服务</param>
             <param name="userService">用户服务</param>
         </member>
-        <member name="M:Qincai.Api.Controllers.UserController.GetById(System.Guid)">
+        <member name="M:Qincai.Api.Controllers.UserController.GetUserInfoById(System.Guid)">
             <summary>
             获取用户信息
             </summary>
             <param name="id">用户Id</param>
             <returns></returns>
         </member>
-        <member name="M:Qincai.Api.Controllers.UserController.GetMyInfo">
+        <member name="M:Qincai.Api.Controllers.UserController.GetMyUserInfo">
             <summary>
             获取用户自己的信息
             </summary>
         </member>
-        <member name="M:Qincai.Api.Controllers.UserController.UpdateInfo(System.Guid,Qincai.Dtos.UpdateUserParam)">
+        <member name="M:Qincai.Api.Controllers.UserController.UpdateUserInfo(System.Guid,Qincai.Dtos.UpdateUserParam)">
             <summary>
             更新用户信息
             </summary>
@@ -160,19 +160,19 @@
             <param name="wxOpenConfig">微信小程序配置</param>
             <param name="jwtConfig">JWT配置</param>
         </member>
-        <member name="M:Qincai.Api.Controllers.WxOpenController.Login(Qincai.Dtos.WxOpenLoginParam)">
+        <member name="M:Qincai.Api.Controllers.WxOpenController.WxLogin(Qincai.Dtos.WxOpenLoginParam)">
             <summary>
             微信登录
             </summary>
             <param name="dto">登录参数</param>
         </member>
-        <member name="M:Qincai.Api.Controllers.WxOpenController.Register(Qincai.Dtos.WxOpenRegisterParam)">
+        <member name="M:Qincai.Api.Controllers.WxOpenController.WxRegister(Qincai.Dtos.WxOpenRegisterParam)">
             <summary>
             微信注册
             </summary>
             <param name="dto">注册参数</param>
         </member>
-        <member name="M:Qincai.Api.Controllers.WxOpenController.Authorize(Qincai.Dtos.WxOpenAuthorizeParam)">
+        <member name="M:Qincai.Api.Controllers.WxOpenController.WxAuthorize(Qincai.Dtos.WxOpenAuthorizeParam)">
             <summary>
             微信授权
             </summary>
@@ -280,6 +280,18 @@
             <param name="env">环境参数</param>
             <param name="senparcSetting">senparc 设置</param>
             <param name="senparcWeixinSetting">senparc 微信设置</param>
+        </member>
+        <member name="T:Qincai.Api.Utils.AuthorizationHeaderOperationFilter">
+            <summary>
+            判断是否需要添加Authorize Header
+            </summary>
+        </member>
+        <member name="M:Qincai.Api.Utils.AuthorizationHeaderOperationFilter.Apply(Swashbuckle.AspNetCore.Swagger.Operation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Adds an authorization header to the given operation in Swagger.
+            </summary>
+            <param name="operation">The Swashbuckle operation.</param>
+            <param name="context">The Swashbuckle operation filter context.</param>
         </member>
         <member name="T:Qincai.Api.Utils.AuthorizationPolicies">
             <summary>

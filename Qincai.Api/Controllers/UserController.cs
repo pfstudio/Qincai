@@ -46,7 +46,7 @@ namespace Qincai.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UserDto>> GetById([FromRoute]Guid id)
+        public async Task<ActionResult<UserDto>> GetUserInfoById([FromRoute]Guid id)
         {
             User user = await _userService.GetByIdAsync(id);
             if (user == null)
@@ -62,7 +62,7 @@ namespace Qincai.Api.Controllers
         /// </summary>
         [HttpGet("me")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<UserDto>> GetMyInfo()
+        public async Task<ActionResult<UserDto>> GetMyUserInfo()
         {
             User user = await _userService.GetByIdAsync(User.GetUserId());
 
@@ -79,7 +79,7 @@ namespace Qincai.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> UpdateInfo([FromRoute]Guid id, [FromBody]UpdateUserParam dto)
+        public async Task<ActionResult> UpdateUserInfo([FromRoute]Guid id, [FromBody]UpdateUserParam dto)
         {
             // 判断是否为当前用户
             var userId = User.GetUserId();

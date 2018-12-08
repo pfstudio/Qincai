@@ -362,7 +362,7 @@
         </member>
         <member name="P:Qincai.Dtos.ListQuestionParam.OrderBy">
             <summary>
-            排序字段(QuestionTime|*LastTime)
+            排序字段(*QuestionTime|LastTime)
             </summary>
         </member>
         <member name="P:Qincai.Dtos.ListQuestionParam.Descending">
