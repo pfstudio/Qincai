@@ -20,10 +20,10 @@ namespace Qincai.Dtos
         public int PageSize { get; set; } = 10;
 
         /// <summary>
-        /// 排序字段(QuestionTime|*LastTime)
+        /// 排序字段(*QuestionTime|LastTime)
         /// </summary>
         [RegularExpression("^(QuestionTime|LastTime)$", ErrorMessage = "排序字段错误")]
-        public string OrderBy { get; set; } = "LastTime";
+        public string OrderBy { get; set; } = "QuestionTime";
 
         /// <summary>
         /// 是否降序

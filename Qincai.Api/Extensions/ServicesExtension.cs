@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Qincai.Api.Utils;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace Qincai.Api.Extensions
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Qincai API", Version = "v1" });
+
+
                 c.AddSecurityDefinition("Bearer", new ApiKeyScheme
                 {
                     In = "header",
@@ -27,10 +30,9 @@ namespace Qincai.Api.Extensions
                     Name = "Authorization",
                     Type = "apiKey"
                 });
-                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
-                {
-                    { "Bearer", new string[] { } }
-                });
+
+                c.OperationFilter<AuthorizationHeaderOperationFilter>();
+
                 // TODO: 对于文件不存在情况下的异常处理
                 string[] files = new string[]
                 {
@@ -41,6 +43,7 @@ namespace Qincai.Api.Extensions
                     var filePath = Path.Combine(AppContext.BaseDirectory, file);
                     c.IncludeXmlComments(filePath);
                 }
+
             });
             return services;
         }

@@ -78,7 +78,7 @@ namespace Qincai.Models
                 .Property(c => c.Images)
                 .HasConversion(splitStringConverter);
             // 过滤软删除
-            //answer.HasQueryFilter(a => a.IsDelete != true);
+            answer.HasQueryFilter(a => a.IsDelete != true);
 
             // 配置用户表
             user.Property(u => u.Id)
@@ -93,6 +93,8 @@ namespace Qincai.Models
             // 微信OpenId 不能重复
             user.HasIndex(u => u.WxOpenId)
                 .IsUnique();
+            // 过滤软删除
+            user.HasQueryFilter(u => u.IsDelete != true);
         }
     }
 }

@@ -57,7 +57,7 @@ namespace Qincai.Api.Controllers
         [HttpGet]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<PagedResult<QuestionDto>>> List([FromQuery]SearchQuestionParam dto)
+        public async Task<ActionResult<PagedResult<QuestionDto>>> ListQuestions([FromQuery]SearchQuestionParam dto)
         {
             // 创建搜索问题的过滤器
             var filter = CreateQuestionFilter(dto);
@@ -75,7 +75,7 @@ namespace Qincai.Api.Controllers
         /// <param name="dto">分页参数</param>
         [HttpGet("me")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<PagedResult<QuestionDto>>> ListMyQuestion([FromQuery]ListQuestionParam dto)
+        public async Task<ActionResult<PagedResult<QuestionDto>>> ListMyQuestions([FromQuery]ListQuestionParam dto)
         {
             Guid userId = User.GetUserId();
             var questions = _questsionService
@@ -92,11 +92,11 @@ namespace Qincai.Api.Controllers
         /// </summary>
         /// <param name="id">问题Id</param>
         //  此处Name是因为CreateAtRoute需要，Name指路由名称
-        [HttpGet("{id}", Name = "GetQuestion")]
+        [HttpGet("{id}", Name = nameof(GetQuestionById))]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<QuestionDto>> GetById([FromRoute]Guid id)
+        public async Task<ActionResult<QuestionDto>> GetQuestionById([FromRoute]Guid id)
         {
             var question = await _questsionService.GetByIdAsync(id);
             if (question == null)
@@ -138,7 +138,7 @@ namespace Qincai.Api.Controllers
         /// <param name="dto">新问题</param>
         [HttpPost("[Action]")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult<QuestionDto>> Create([FromBody]CreateQuestionParam dto)
+        public async Task<ActionResult<QuestionDto>> CreateQuestion([FromBody]CreateQuestionParam dto)
         {
             User questioner = await _userService.GetByIdAsync(User.GetUserId());
             // 将图片转为绝对路径
@@ -148,7 +148,7 @@ namespace Qincai.Api.Controllers
             // 返回201，以及location uri
             // 不应直接返回任何数据库模型！！！
             // 此处使用AutoMap实现映射
-            return CreatedAtRoute("GetQuestion", new { question.Id }, _mapper.Map<QuestionDto>(question));
+            return CreatedAtRoute(nameof(GetQuestionById), new { question.Id }, _mapper.Map<QuestionDto>(question));
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace Qincai.Api.Controllers
         [HttpPost("{id}/Reply")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AnswerDto>> Reply([FromRoute]Guid id, [FromBody]ReplyQuestionParam dto)
+        public async Task<ActionResult<AnswerDto>> ReplyQuestion([FromRoute]Guid id, [FromBody]ReplyQuestionParam dto)
         {
             // 判断问题是否存在
             if (!await _questsionService.ExistAsync(id))
@@ -170,7 +170,7 @@ namespace Qincai.Api.Controllers
             dto.Images = dto.Images.Select(image => _imageService.ConvertToAbsolute(image)).ToList();
             Answer answer = await _questsionService.ReplyAsync(id, answerer, dto);
 
-            return CreatedAtRoute("GetQuestion", new { id }, _mapper.Map<AnswerDto>(answer));
+            return CreatedAtRoute(nameof(GetQuestionById), new { id }, _mapper.Map<AnswerDto>(answer));
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace Qincai.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> Delete([FromRoute]Guid id)
+        public async Task<ActionResult> DeleteQuestion([FromRoute]Guid id)
         {
             // 获取要删除的问题
             Question question = await _questsionService.GetByIdAsync(id);

@@ -31,7 +31,7 @@ namespace Qincai.Models
         /// <summary>
         /// 问题的回答
         /// </summary>
-        public List<Answer> Answers { get; set; }
+        public List<Answer> Answers { get; set; } = new List<Answer>();
         /// <summary>
         /// 提问者
         /// </summary>
