@@ -4,13 +4,14 @@
   <van-tab title="顺序 2"></van-tab>
   <van-tab title="顺序 3"></van-tab>
 </van-tabs> -->
-<view class="toolLine">
-  <van-icon name="search" size="45rpx"custom-class="searchIcon" bind:click="search"/>
-  <tabs tabs="{{tabs}}" active="0" width="600" bind:change="tabChange"/>
+
+<view class="toolLine"><!--画线/-->
+  <van-icon name="search" size="45rpx"custom-class="searchIcon" bind:click="search"/> <!--搜索按钮/-->
+  <tabs tabs="{{tabs}}" active="0" width="600" bind:change="tabChange"/><!--导航栏组件/-->
 </view>
-<view class="questionList">
-  <block wx:for="{{questions}}" wx:key="id">
-    <questionItem question="{{item}}"/>
+<view class="questionList"> <!--问题列表/-->
+  <block wx:for="{{questions}}" wx:key="id"> <!--循环渲染/-->
+    <questionItem question="{{item}}"/><!--单个问题组件/-->
   </block>
 </view>
 <van-button round custom-class="questionBtn" type="primary" bind:click="ask">提问</van-button>

@@ -15,3 +15,11 @@ active(初始选中标签，默认为0，输入对应的索引号数字) tabsCol
 change(value){
   console.log(value.detail)
 }
+
+### 2018.12.9 16:48 monitor4
+
+index页面增加了下拉加载功能以及刷新功能
+
+为js代码增加了注释
+
+为各个组件增加了readme，可于readme中查看组件用法

@@ -31,7 +31,6 @@
 }
 .questionTitle{
   font-size: 35rpx;
-  font-family: "黑体";
   color: #000000;
 }
 .questionContent{

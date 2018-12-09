@@ -5,7 +5,7 @@ App({
     api: null
   },
   onLaunch: function () {
-    let api = new Qincai()
+    let api = new Qincai("http://wxopen.pfstudio.xyz:5001")
     api.setAuthenticate(function () {
       return new Promise((resolve, reject) => {
         let sessionId = wx.getStorageSync('sessionId')

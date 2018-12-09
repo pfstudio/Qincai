@@ -22,10 +22,9 @@ Component({
    */
   methods: {
     showImage:function(value) {
-      console.log(value)
-      let image = [value.target.dataset.url]
       wx.previewImage({
-        urls: image,
+          current:value.target.dataset.url,
+          urls: this.data.question.images
       })
     }
   }
