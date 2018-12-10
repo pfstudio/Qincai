@@ -239,17 +239,6 @@
             </summary>
             <param name="args">启动参数</param>
         </member>
-        <member name="T:Qincai.Api.SeedData">
-            <summary>
-            初始化数据库
-            </summary>
-        </member>
-        <member name="M:Qincai.Api.SeedData.InitDatabase(System.IServiceProvider)">
-            <summary>
-            初始化数据库
-            </summary>
-            <param name="services">服务集合</param>
-        </member>
         <member name="T:Qincai.Api.Startup">
             <summary>
             配置类
