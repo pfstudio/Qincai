@@ -9,7 +9,7 @@ RUN dotnet restore
 RUN dotnet build -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish -c Release -o /app
+RUN dotnet publish ./Qincai.Api/Qincai.Api.csproj -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
