@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Qincai.Models
 {
@@ -39,20 +40,32 @@ namespace Qincai.Models
         /// <param name="modelBuilder"><see cref="ModelBuilder"/></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var question = modelBuilder.Entity<Question>();
-            var answer = modelBuilder.Entity<Answer>();
-            var user = modelBuilder.Entity<User>();
-
             // 将字符串列表用;拼接存储
             var splitStringConverter = new ValueConverter<List<string>, string>(
                 l => string.Join(";", l),
                 s => s.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList());
 
+            // 为软删除启用全局过滤
+            Expression<Func<ISoftDelete, bool>> softDeleteFilter = e => e.IsDelete != true;
+            foreach (var type in modelBuilder.Model.GetEntityTypes())
+            {
+                if (type.ClrType.GetInterfaces().Any(i => i == typeof(ISoftDelete)))
+                {
+                    // 创建实体类型的参数
+                    var param = Expression.Parameter(type.ClrType, "e");
+                    // 调用softDeleteFilter
+                    var call = Expression.Invoke(softDeleteFilter, param);
+                    // 包装为LambdaExpression
+                    var lambda = Expression.Lambda(call, param);
+                    modelBuilder.Entity(type.ClrType).HasQueryFilter(lambda);
+                }
+            }
+
+            var question = modelBuilder.Entity<Question>();
+            var answer = modelBuilder.Entity<Answer>();
+            var user = modelBuilder.Entity<User>();
+
             // 配置问题表
-            question.Property(q => q.Id)
-                // TODO: 是否需要需由数据库生成
-                .ValueGeneratedOnAdd()
-                .IsRequired();
             // 问题标题最长为100
             question.Property(q => q.Title)
                 .IsRequired()
@@ -61,14 +74,8 @@ namespace Qincai.Models
             question.OwnsOne(q => q.Content)
                 .Property(c => c.Images)
                 .HasConversion(splitStringConverter);
-            // 过滤软删除
-            question.HasQueryFilter(q => q.IsDelete != true);
 
             // 配置回答表
-            answer.Property(a => a.Id)
-                // TODO: 生产环境中是否需由数据库生成
-                .ValueGeneratedOnAdd()
-                .IsRequired();
             answer.HasOne(a => a.Question)
                 .WithMany(q => q.Answers)
                 .IsRequired();
@@ -77,14 +84,8 @@ namespace Qincai.Models
             answer.OwnsOne(a => a.Content)
                 .Property(c => c.Images)
                 .HasConversion(splitStringConverter);
-            // 过滤软删除
-            answer.HasQueryFilter(a => a.IsDelete != true);
 
             // 配置用户表
-            user.Property(u => u.Id)
-                // TODO: 生产环境中需由数据库生成
-                .ValueGeneratedOnAdd()
-                .IsRequired();
             user.Property(u => u.Name)
                 .IsRequired()
                 .HasMaxLength(20);
@@ -93,8 +94,6 @@ namespace Qincai.Models
             // 微信OpenId 不能重复
             user.HasIndex(u => u.WxOpenId)
                 .IsUnique();
-            // 过滤软删除
-            user.HasQueryFilter(u => u.IsDelete != true);
         }
     }
 }

@@ -59,7 +59,7 @@ namespace Qincai.Services
                 .Include(a => a.Answerer)
                 .Include(a => a.RefAnswer)
                 .Include(a => a.Question)
-                .SingleOrDefaultAsync(a => a.Id == answerId);
+                .FirstOrDefaultAsync(a => a.Id == answerId);
         }
 
         /// <summary>

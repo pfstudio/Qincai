@@ -6,12 +6,8 @@ namespace Qincai.Models
     /// <summary>
     /// 问题实体
     /// </summary>
-    public class Question : IHasOwner<User>, ISoftDelete
+    public class Question : SoftDeleteEntity, IHasOwner<User>
     {
-        /// <summary>
-        /// 问题Id
-        /// </summary>
-        public Guid Id { get; set; }
         /// <summary>
         /// 问题标题
         /// </summary>
@@ -44,10 +40,6 @@ namespace Qincai.Models
         /// 最后回答时间
         /// </summary>
         public DateTime LastTime { get; set; } = DateTime.Now;
-        /// <summary>
-        /// 软删除标记
-        /// </summary>
-        public bool IsDelete { get; set; } = false;
 
         /// <summary>
         /// 资源所有者

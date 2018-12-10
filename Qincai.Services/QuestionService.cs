@@ -73,7 +73,6 @@ namespace Qincai.Services
         /// 依赖注入
         /// </summary>
         /// <param name="context">数据库上下文</param>
-        /// <param name="imageService">图片服务</param>
         public QuestionService(ApplicationDbContext context)
         {
             _context = context;

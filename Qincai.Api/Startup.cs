@@ -182,9 +182,6 @@ namespace Qincai.Api
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,
             IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
-            // 初始化数据库
-            SeedData.InitDatabase(app.ApplicationServices.CreateScope().ServiceProvider);
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

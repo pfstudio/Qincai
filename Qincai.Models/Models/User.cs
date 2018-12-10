@@ -1,16 +1,10 @@
-﻿using System;
-
-namespace Qincai.Models
+﻿namespace Qincai.Models
 {
     /// <summary>
     /// 用户实体
     /// </summary>
-    public class User : ISoftDelete
+    public class User : SoftDeleteEntity
     {
-        /// <summary>
-        /// 用户Id
-        /// </summary>
-        public Guid Id { get; set; }
         /// <summary>
         /// 用户昵称
         /// </summary>
@@ -18,7 +12,7 @@ namespace Qincai.Models
         /// <summary>
         /// 角色
         /// </summary>
-        public string Role { get; set; }
+        public string Role { get; set; } = UserRole.User;
         /// <summary>
         /// 头像Url
         /// </summary>
@@ -27,15 +21,20 @@ namespace Qincai.Models
         /// 微信OpenId
         /// </summary>
         public string WxOpenId { get; set; }
-        /// <summary>
-        /// 软删除标志
-        /// </summary>
-        public bool IsDelete { get; set; } = false;
     }
 
+    /// <summary>
+    /// 用户角色
+    /// </summary>
     public static class UserRole
     {
+        /// <summary>
+        /// 用户
+        /// </summary>
         public const string User = "用户";
+        /// <summary>
+        /// 管理员
+        /// </summary>
         public const string Admin = "管理员";
     }
 }
