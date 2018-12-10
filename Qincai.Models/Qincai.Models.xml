@@ -62,11 +62,6 @@
             回答实体
             </summary>
         </member>
-        <member name="P:Qincai.Models.Answer.Id">
-            <summary>
-            回答Id
-            </summary>
-        </member>
         <member name="P:Qincai.Models.Answer.Answerer">
             <summary>
             回答者
@@ -92,14 +87,29 @@
             引用的回答
             </summary>
         </member>
-        <member name="P:Qincai.Models.Answer.IsDelete">
-            <summary>
-            软删除标志
-            </summary>
-        </member>
         <member name="P:Qincai.Models.Answer.Owner">
             <summary>
             资源拥有者
+            </summary>
+        </member>
+        <member name="T:Qincai.Models.BaseEntity">
+            <summary>
+            实体基类
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.BaseEntity.Id">
+            <summary>
+            实体主键Id
+            </summary>
+        </member>
+        <member name="T:Qincai.Models.SoftDeleteEntity">
+            <summary>
+            带有软删除的实体
+            </summary>
+        </member>
+        <member name="P:Qincai.Models.SoftDeleteEntity.IsDelete">
+            <summary>
+            软删除的标识
             </summary>
         </member>
         <member name="T:Qincai.Models.Content">
@@ -120,11 +130,6 @@
         <member name="T:Qincai.Models.Question">
             <summary>
             问题实体
-            </summary>
-        </member>
-        <member name="P:Qincai.Models.Question.Id">
-            <summary>
-            问题Id
             </summary>
         </member>
         <member name="P:Qincai.Models.Question.Title">
@@ -162,11 +167,6 @@
             最后回答时间
             </summary>
         </member>
-        <member name="P:Qincai.Models.Question.IsDelete">
-            <summary>
-            软删除标记
-            </summary>
-        </member>
         <member name="P:Qincai.Models.Question.Owner">
             <summary>
             资源所有者
@@ -175,11 +175,6 @@
         <member name="T:Qincai.Models.User">
             <summary>
             用户实体
-            </summary>
-        </member>
-        <member name="P:Qincai.Models.User.Id">
-            <summary>
-            用户Id
             </summary>
         </member>
         <member name="P:Qincai.Models.User.Name">
@@ -202,9 +197,19 @@
             微信OpenId
             </summary>
         </member>
-        <member name="P:Qincai.Models.User.IsDelete">
+        <member name="T:Qincai.Models.UserRole">
             <summary>
-            软删除标志
+            用户角色
+            </summary>
+        </member>
+        <member name="F:Qincai.Models.UserRole.User">
+            <summary>
+            用户
+            </summary>
+        </member>
+        <member name="F:Qincai.Models.UserRole.Admin">
+            <summary>
+            管理员
             </summary>
         </member>
     </members>

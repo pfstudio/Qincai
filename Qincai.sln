@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qincai.Dtos", "Qincai.Dtos\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{21BC86D4-2E83-4F0D-A8A6-E5326E88ED9B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qincai.Models.Test", "UnitTests\Qincai.Models.Test\Qincai.Models.Test.csproj", "{A9F097E4-D2F7-4CF3-919E-AAF9E95603FA}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qincai.Services.Test", "UnitTests\Qincai.Services.Test\Qincai.Services.Test.csproj", "{7F18D206-869A-4C01-84EE-E4558B92C758}"
 EndProject
 Global
@@ -39,10 +37,6 @@ Global
 		{2F91BEFB-24A5-480C-B533-B001BBA35680}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F91BEFB-24A5-480C-B533-B001BBA35680}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F91BEFB-24A5-480C-B533-B001BBA35680}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9F097E4-D2F7-4CF3-919E-AAF9E95603FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9F097E4-D2F7-4CF3-919E-AAF9E95603FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9F097E4-D2F7-4CF3-919E-AAF9E95603FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9F097E4-D2F7-4CF3-919E-AAF9E95603FA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7F18D206-869A-4C01-84EE-E4558B92C758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7F18D206-869A-4C01-84EE-E4558B92C758}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F18D206-869A-4C01-84EE-E4558B92C758}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -52,7 +46,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{A9F097E4-D2F7-4CF3-919E-AAF9E95603FA} = {21BC86D4-2E83-4F0D-A8A6-E5326E88ED9B}
 		{7F18D206-869A-4C01-84EE-E4558B92C758} = {21BC86D4-2E83-4F0D-A8A6-E5326E88ED9B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

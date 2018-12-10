@@ -164,7 +164,6 @@
             依赖注入
             </summary>
             <param name="context">数据库上下文</param>
-            <param name="imageService">图片服务</param>
         </member>
         <member name="M:Qincai.Services.QuestionService.GetByIdAsync(System.Guid)">
             <summary>
