@@ -24,6 +24,7 @@ namespace Qincai.Api.Controllers
         private readonly IMapper _mapper;
         private readonly IAuthorizationService _authorizationService;
         private readonly IUserService _userService;
+        private readonly IImageService _imageService;
 
         /// <summary>
         /// 依赖注入
@@ -31,11 +32,13 @@ namespace Qincai.Api.Controllers
         /// <param name="mapper">对象映射</param>
         /// <param name="authorizationService">认证服务</param>
         /// <param name="userService">用户服务</param>
-        public UserController(IMapper mapper, IAuthorizationService authorizationService, IUserService userService)
+        /// <param name="imageService">图片服务</param>
+        public UserController(IMapper mapper, IAuthorizationService authorizationService, IUserService userService, IImageService imageService)
         {
             _mapper = mapper;
             _authorizationService = authorizationService;
             _userService = userService;
+            _imageService = imageService;
         }
 
         /// <summary>
@@ -93,6 +96,11 @@ namespace Qincai.Api.Controllers
                 }
             }
 
+            if (!string.IsNullOrWhiteSpace(dto.AvatarUrl))
+            {
+                dto.AvatarUrl = _imageService.ConvertToAbsolute(dto.AvatarUrl);
+            }
+            
             await _userService.UpdateAsync(id ,dto);
 
             return NoContent();
