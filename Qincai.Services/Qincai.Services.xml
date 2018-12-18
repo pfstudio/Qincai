@@ -288,5 +288,15 @@
             <see cref="M:Qincai.Services.IUserService.UpdateAsync(System.Guid,Qincai.Dtos.UpdateUserParam)"/>
             </summary>
         </member>
+        <member name="T:Qincai.Services.IWxOpenService">
+            <summary>
+            微信小程序服务接口
+            </summary>
+        </member>
+        <member name="T:Qincai.Services.WxOpenService">
+            <summary>
+            微信小程序服务
+            </summary>
+        </member>
     </members>
 </doc>
