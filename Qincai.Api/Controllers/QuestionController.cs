@@ -156,10 +156,12 @@ namespace Qincai.Api.Controllers
         /// </summary>
         /// <param name="id">问题Id</param>
         /// <param name="dto">新回答</param>
+        /// <param name="messageService">模板消息服务</param>
         [HttpPost("{id}/Reply")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AnswerDto>> ReplyQuestion([FromRoute]Guid id, [FromBody]ReplyQuestionParam dto)
+        public async Task<ActionResult<AnswerDto>> ReplyQuestion([FromRoute]Guid id, [FromBody]ReplyQuestionParam dto,
+            [FromServices]ITemplateMessageService messageService)
         {
             // 判断问题是否存在
             if (!await _questsionService.ExistAsync(id))
@@ -169,6 +171,19 @@ namespace Qincai.Api.Controllers
             User answerer = await _userService.GetByIdAsync(User.GetUserId());
             dto.Images = dto.Images.Select(image => _imageService.ConvertToAbsolute(image)).ToList();
             Answer answer = await _questsionService.ReplyAsync(id, answerer, dto);
+
+            // 发送模板消息
+            if (dto.FormId != null && answer.Question.Questioner.WxOpenId != null)
+            {
+                try
+                {
+                    await messageService.SendMessageAsync_ReplyQuestion(dto.FormId, answer);
+                }
+                catch (Senparc.Weixin.Exceptions.WeixinException)
+                {
+                    // TODO: 记录日志
+                }
+            }
 
             return CreatedAtRoute(nameof(GetQuestionById), new { id }, _mapper.Map<AnswerDto>(answer));
         }

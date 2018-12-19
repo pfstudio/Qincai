@@ -390,6 +390,11 @@
             引用的回答
             </summary>
         </member>
+        <member name="P:Qincai.Dtos.ReplyQuestionParam.FormId">
+            <summary>
+            表单Id
+            </summary>
+        </member>
         <member name="T:Qincai.Dtos.SearchQuestionParam">
             <summary>
             搜索问题参数

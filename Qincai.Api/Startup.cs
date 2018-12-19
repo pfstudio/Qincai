@@ -18,6 +18,7 @@ using Senparc.CO2NET;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.RegisterServices;
 using System;
 using System.Linq;
@@ -71,6 +72,7 @@ namespace Qincai.Api
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<IAnswerService, AnswerService>();
+            services.AddScoped<ITemplateMessageService, TemplateMessageService>();
             #endregion
 
             #region 配置AutoMapper映射关系
@@ -179,8 +181,10 @@ namespace Qincai.Api
         /// <param name="env">环境参数</param>
         /// <param name="senparcSetting">senparc 设置</param>
         /// <param name="senparcWeixinSetting">senparc 微信设置</param>
+        /// <param name="wxOpenConfig">小程序配置</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
+            IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting,
+            IOptions<WxOpenConfig> wxOpenConfig)
         {
             if (env.IsDevelopment())
             {
@@ -208,8 +212,10 @@ namespace Qincai.Api
             // 启动 CO2NET 全局注册，必须！
             IRegisterService register = RegisterService.Start(env, senparcSetting.Value)
                 .UseSenparcGlobal();
-            //微信全局注册，必须！
+            // 微信全局注册，必须！
             register.UseSenparcWeixin(senparcWeixinSetting.Value, senparcSetting.Value);
+            // 注册小程序ID
+            AccessTokenContainer.Register(wxOpenConfig.Value.AppId, wxOpenConfig.Value.Secret);
         }
     }
 }

@@ -93,12 +93,13 @@
             </summary>
             <param name="dto">新问题</param>
         </member>
-        <member name="M:Qincai.Api.Controllers.QuestionController.ReplyQuestion(System.Guid,Qincai.Dtos.ReplyQuestionParam)">
+        <member name="M:Qincai.Api.Controllers.QuestionController.ReplyQuestion(System.Guid,Qincai.Dtos.ReplyQuestionParam,Qincai.Services.ITemplateMessageService)">
             <summary>
             回答问题
             </summary>
             <param name="id">问题Id</param>
             <param name="dto">新回答</param>
+            <param name="messageService">模板消息服务</param>
         </member>
         <member name="M:Qincai.Api.Controllers.QuestionController.DeleteQuestion(System.Guid)">
             <summary>
@@ -262,7 +263,7 @@
             </summary>
             <param name="services">服务集合</param>
         </member>
-        <member name="M:Qincai.Api.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.Extensions.Options.IOptions{Senparc.CO2NET.SenparcSetting},Microsoft.Extensions.Options.IOptions{Senparc.Weixin.Entities.SenparcWeixinSetting})">
+        <member name="M:Qincai.Api.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.Extensions.Options.IOptions{Senparc.CO2NET.SenparcSetting},Microsoft.Extensions.Options.IOptions{Senparc.Weixin.Entities.SenparcWeixinSetting},Microsoft.Extensions.Options.IOptions{Qincai.Dtos.WxOpenConfig})">
             <summary>
             配置App Pipelines
             </summary>
@@ -270,6 +271,7 @@
             <param name="env">环境参数</param>
             <param name="senparcSetting">senparc 设置</param>
             <param name="senparcWeixinSetting">senparc 微信设置</param>
+            <param name="wxOpenConfig">小程序配置</param>
         </member>
         <member name="T:Qincai.Api.Utils.AuthorizationHeaderOperationFilter">
             <summary>

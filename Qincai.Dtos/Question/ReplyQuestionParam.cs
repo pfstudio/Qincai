@@ -23,5 +23,9 @@ namespace Qincai.Dtos
         /// 引用的回答
         /// </summary>
         public Guid? RefAnswerId { get; set; }
+        /// <summary>
+        /// 表单Id
+        /// </summary>
+        public string FormId { get; set; }
     }
 }

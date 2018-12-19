@@ -200,6 +200,36 @@
             <see cref="M:Qincai.Services.IQuestionService.DeleteAsync(System.Guid)"/>
             </summary>
         </member>
+        <member name="T:Qincai.Services.ITemplateMessageService">
+            <summary>
+            模板消息服务接口
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.ITemplateMessageService.SendMessageAsync_ReplyQuestion(System.String,Qincai.Models.Answer,System.String,System.String)">
+            <summary>
+            问题回复通知
+            </summary>
+            <param name="formId">表单Id</param>
+            <param name="answer">回答</param>
+            <param name="remark">备注</param>
+            <param name="templateId">模板Id</param>
+        </member>
+        <member name="T:Qincai.Services.TemplateMessageService">
+            <summary>
+            模板消息服务
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.TemplateMessageService.#ctor(Microsoft.Extensions.Options.IOptions{Qincai.Dtos.WxOpenConfig})">
+            <summary>
+            依赖注入
+            </summary>
+            <param name="wxOpenConfig">微信配置</param>
+        </member>
+        <member name="M:Qincai.Services.TemplateMessageService.SendMessageAsync_ReplyQuestion(System.String,Qincai.Models.Answer,System.String,System.String)">
+            <summary>
+            <see cref="M:Qincai.Services.ITemplateMessageService.SendMessageAsync_ReplyQuestion(System.String,Qincai.Models.Answer,System.String,System.String)"/>
+            </summary>
+        </member>
         <member name="T:Qincai.Services.IUserService">
             <summary>
             用户相关服务接口
@@ -286,16 +316,6 @@
         <member name="M:Qincai.Services.UserService.UpdateAsync(System.Guid,Qincai.Dtos.UpdateUserParam)">
             <summary>
             <see cref="M:Qincai.Services.IUserService.UpdateAsync(System.Guid,Qincai.Dtos.UpdateUserParam)"/>
-            </summary>
-        </member>
-        <member name="T:Qincai.Services.IWxOpenService">
-            <summary>
-            微信小程序服务接口
-            </summary>
-        </member>
-        <member name="T:Qincai.Services.WxOpenService">
-            <summary>
-            微信小程序服务
             </summary>
         </member>
     </members>

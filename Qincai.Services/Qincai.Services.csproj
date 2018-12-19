@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Qiniu.Shared" Version="7.2.15" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.3.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.9" />
   </ItemGroup>
 
