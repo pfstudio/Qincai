@@ -14,4 +14,6 @@ RUN dotnet publish ./Qincai.Api/Qincai.Api.csproj -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ENTRYPOINT ["dotnet", "Qincai.Api.dll"]
