@@ -200,6 +200,104 @@
             <see cref="M:Qincai.Services.IQuestionService.DeleteAsync(System.Guid)"/>
             </summary>
         </member>
+        <member name="T:Qincai.Services.IRedisService">
+            <summary>
+            Redis存储服务相关接口
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.IRedisService.CodeIsAvaliable(System.String)">
+            <summary>
+            检查手机号是否可以更新验证码
+            </summary>
+            <param name="phone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qincai.Services.IRedisService.VerifyCode(System.String,System.String)">
+            <summary>
+            检验验证码
+            </summary>
+            <param name="phone">手机</param>
+            <param name="code">验证码</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qincai.Services.IRedisService.UpdateCode(System.String,System.String)">
+            <summary>
+            更新验证码
+            </summary>
+            <param name="phone">手机</param>
+            <param name="code">验证码</param>
+        </member>
+        <member name="T:Qincai.Services.RedisService">
+            <summary>
+            Redis存储服务
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.RedisService.#ctor(Microsoft.Extensions.Options.IOptions{Qincai.Dtos.SmsConfig})">
+            <summary>
+            依赖注入
+            </summary>
+            <param name="Config"></param>
+        </member>
+        <member name="M:Qincai.Services.RedisService.CodeIsAvaliable(System.String)">
+            <summary>
+            <see cref="M:Qincai.Services.IRedisService.CodeIsAvaliable(System.String)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.RedisService.UpdateCode(System.String,System.String)">
+            <summary>
+            <see cref="M:Qincai.Services.IRedisService.UpdateCode(System.String,System.String)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.RedisService.VerifyCode(System.String,System.String)">
+            <summary>
+            <see cref="M:Qincai.Services.IRedisService.VerifyCode(System.String,System.String)"/>
+            </summary>
+        </member>
+        <member name="T:Qincai.Services.ISmsService">
+            <summary>
+            短信相关服务接口
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.ISmsService.PhoneIsAvailable(System.String)">
+            <summary>
+            验证用户手机是否可用
+            </summary>
+            <param name="phone">待验证手机号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qincai.Services.ISmsService.SendCode(System.String)">
+            <summary>
+            发送6位随机验证码
+            </summary>
+            <param name="phone">用户手机号</param>
+        </member>
+        <member name="T:Qincai.Services.SmsService">
+            <summary>
+            短信服务
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.SmsService.#ctor(Microsoft.Extensions.Options.IOptions{Qincai.Dtos.SmsConfig})">
+            <summary>
+            依赖注入
+            </summary>
+            <param name="Config"></param>
+        </member>
+        <member name="M:Qincai.Services.SmsService.PhoneIsAvailable(System.String)">
+            <summary>
+            <see cref="M:Qincai.Services.ISmsService.PhoneIsAvailable(System.String)"/>
+            </summary>
+        </member>
+        <member name="M:Qincai.Services.SmsService.SendCode(System.String)">
+            <summary>
+            <see cref="M:Qincai.Services.ISmsService.SendCode(System.String)"/>
+            </summary>
+            <param name="phone"></param>
+        </member>
+        <member name="M:Qincai.Services.SmsService.Send(System.String)">
+            <summary>
+            发送短信
+            </summary>
+        </member>
         <member name="T:Qincai.Services.IUserService">
             <summary>
             用户相关服务接口

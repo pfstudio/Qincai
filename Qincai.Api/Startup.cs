@@ -63,6 +63,8 @@ namespace Qincai.Api
             services.Configure<WxOpenConfig>(Configuration.GetSection("WxOpen"));
             // 配置七牛云参数
             services.Configure<QiniuConfig>(Configuration.GetSection("QiniuConfig"));
+            //配置短信相关参数
+            services.Configure<SmsConfig>(Configuration.GetSection("SmsConfig"));
             #endregion
 
             #region 注入依赖的服务
@@ -71,6 +73,8 @@ namespace Qincai.Api
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<IAnswerService, AnswerService>();
+            services.AddScoped<ISmsService, SmsService>();
+            services.AddScoped<IRedisService, RedisService>();
             #endregion
 
             #region 配置AutoMapper映射关系

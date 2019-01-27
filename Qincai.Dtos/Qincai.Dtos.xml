@@ -89,6 +89,71 @@
             下载域名
             </summary>
         </member>
+        <member name="T:Qincai.Dtos.SmsConfig">
+            <summary>
+            短信相关配置
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.SmsConfig.SMS">
+            <summary>
+            短信SDK配置
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.SmsConfig.Redis">
+            <summary>
+            Redis配置
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.SmsConfig.ExpireTime">
+            <summary>
+            过期时间/秒
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.SMS">
+            <summary>
+            短信SDK配置
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.SMS.sdkappid">
+            <summary>
+            skdappid
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.SMS.appkey">
+            <summary>
+            appkey
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.SMS.nationCode">
+            <summary>
+            nationCode
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.SMS.templateId">
+            <summary>
+            templateId
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.SMS.smsSign">
+            <summary>
+            smsSign
+            </summary>
+        </member>
+        <member name="T:Qincai.Dtos.Redis">
+            <summary>
+            Redis配置
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.Redis.connectingString">
+            <summary>
+            连接字符串
+            </summary>
+        </member>
+        <member name="P:Qincai.Dtos.Redis.defaultDB">
+            <summary>
+            默认的数据库
+            </summary>
+        </member>
         <member name="T:Qincai.Dtos.WxOpenConfig">
             <summary>
             微信小程序配置参数
